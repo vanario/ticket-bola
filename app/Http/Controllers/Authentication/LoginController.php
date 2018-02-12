@@ -4,50 +4,49 @@ namespace App\Http\Controllers\Authentication;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use JWTAuth;
+use JWTAuthException;
+use App\User;
 
 class LoginController extends Controller
 {
-	function __construct()
-	{
-		$this->port = "8089";
-	}
+	// function __construct()
+	// {
+	// 	$this->port = "8089";
+	// }
 
-    public function login(Request $request)
+    public function __construct()
     {
-        $this->getService($port, $url)->post();
-
+        $this->user = new User;
+    }
+    
+    public function login(Request $request){
         $credentials = $request->only('email', 'password');
         $token = null;
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
-                $result = [
-                    'status' => 400,
-                    'result' => [],
-                    'message' => 'Invalid email or password',
-                    'error' => true,
-                ];
-                return response()->json($result, 400);
+                return response()->json([
+                    'response' => 'error',
+                    'message' => 'invalid_email_or_password',
+                ]);
             }
         } catch (JWTAuthException $e) {
-            $result = [
-                'status' => 400,
-                'result' => [],
-                'message' => 'Failed to create token',
-                'error' => true,
-            ];
-            return response()->json($result, 400);
+            return response()->json([
+                'response' => 'error',
+                'message' => 'failed_to_create_token',
+            ]);
         }
-
-        $user = Auth::user();
-        $user->last_login = date('Y-m-d H:i:s');
-        $user->save();
-        $result = [
-            'status' => 200,
-            'result' => ['token' => $token],
-            'message' => 'Login success',
-            'error' => false,
-        ];
-        return response()->json($result, 200);
+        return response()->json([
+            'response' => 'success',
+            'result' => [
+                'token' => $token,
+            ],
+        ]);
     }
-    
+
+    public function getAuthUser(Request $request){
+        $user = JWTAuth::toUser($request->token);        
+        return response()->json(['result' => $user]);
+    }
 }
