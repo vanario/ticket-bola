@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' =>'auth'], function () {
+    Route::post('login', 'Authentication\LoginController@login');
+    Route::get('home', 'Authentication\LoginController@home')->name('auth.home');
+    Route::post('index', 'Authentication\LoginController@index');
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::get('user', 'Authentication\LoginController@getAuthUser');
+    });
+});
+
+

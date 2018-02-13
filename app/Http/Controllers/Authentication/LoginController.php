@@ -5,22 +5,38 @@ namespace App\Http\Controllers\Authentication;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use Ixudra\Curl\Facades\Curl;
 use JWTAuth;
 use JWTAuthException;
 use App\User;
 
 class LoginController extends Controller
 {
-	// function __construct()
-	// {
-	// 	$this->port = "8089";
-	// }
-
-    public function __construct()
+	public function __construct()
     {
         $this->user = new User;
     }
-    
+
+    public function index(Request $request)
+    {
+    	$username = $request->input('email');
+    	$password = $request->input('password');
+
+    	$response = Curl::to('128.199.161.172:8089/create')
+			    	->withData(['username'=>$username, 'password'=>$password])
+			    	->asJson(true)
+			    	->post();
+    	
+    	return redirect()->route('auth.home');
+
+    }
+
+    public function home()
+    {
+    	return view('home');
+    }
+
+     
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
         $token = null;

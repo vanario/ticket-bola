@@ -12,5 +12,8 @@ class ServiceController extends Controller
     public function getService($port, $url)
     {
     	$response = Curl::to('128.199.161.172:$port/$url');
+
+    	return $response;
     }
+
 }

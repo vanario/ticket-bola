@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('template')
+
+@section('title', 'Dashboard')
+{{-- @section('page-title', 'Universitas Ahmad Dahlan Yogyakarta') --}}
 
 @section('content')
 <div class="container">
