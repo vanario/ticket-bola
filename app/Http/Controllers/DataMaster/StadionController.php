@@ -12,7 +12,7 @@ class StadionController extends Controller
 {
     public function index()
     {
-        $response = Curl::to('128.199.161.172:8103/getliststadion/10')
+        $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
                     ->get(); 
 
@@ -36,12 +36,11 @@ class StadionController extends Controller
 
     public function store(Request $request)
     {
-    	$gttop = $request->input('gttop');
         $gtcode = $request->input('gtcode');
         $name = $request->input('name');
 
         $response = Curl::to('128.199.161.172:8103/addstadion')
-                    ->withData(['gttop'=>$gttop, 'gtcode'=>$gtcode, 'name'=>$name])
+                    ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
                     ->asJson(true)
                     ->post(); 
 
@@ -63,12 +62,11 @@ class StadionController extends Controller
 
     public function update(Request $request)
     {
-        $gttop  = $request->input('gttop');
         $gtcode = $request->input('gtcode');
         $name   = $request->input('name');
 
         $response = Curl::to('128.199.161.172:8103/editstadion')
-                    ->withData(['gttop'=>$gttop, 'gtcode'=>$gtcode, 'name'=>$name])
+                    ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
                     ->asJson(true)
                     ->put();
                      

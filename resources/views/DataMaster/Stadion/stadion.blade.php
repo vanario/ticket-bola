@@ -43,18 +43,14 @@
                         <div class="modal-header">
                             <h4>Tambah Stadion</h4>
                         </div>
-                        <div class="modal-body">                                       
+                        <div class="modal-body">       
                             <div class="form-group">
-                                <label for="">Gt Top</label>
-                                <input type="text" name="gttop" id="gttop" class="form-control input-sm" required>
-                            </div>                              
-                            <div class="form-group">
-                                <label for="">Gt Code</label>
+                                <label for="">Code</label>
                                 <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
                             </div>
                             <div class="form-group">
                                 <label for="">Nama</label>
-                                <input type="text" name="nama" id="nama" class="form-control input-sm" required>
+                                <input type="text" name="name" id="name" class="form-control input-sm" required>
                             </div>                            
                         </div>
                         <div class="modal-footer">
@@ -73,16 +69,13 @@
                 <div class="modal-content">
                     <form method="POST" action="{{ route('stadion.update')}}" >
                     {{ csrf_field() }}
+                    <input name="_method" type="hidden" value="PATCH">
                         <div class="modal-header">
                             <h4>Edit Kelas</h4>
                         </div>
-                        <div class="modal-body">                                         
+                        <div class="modal-body">         
                             <div class="form-group">
-                                <label for="">Gt Top</label>
-                                <input type="text" name="gttop" value="{{$val['gttop']}}" id="gttop" class="form-control input-sm" required>
-                            </div>                                
-                            <div class="form-group">
-                                <label for="">Gt Code</label>
+                                <label for="">Code</label>
                                 <input type="text" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" required>
                             </div>
                             <div class="form-group">

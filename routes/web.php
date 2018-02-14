@@ -33,7 +33,7 @@ Route::group(['prefix'=>'stadion'], function() {
 	Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
 	Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
 	Route::get('edit','DataMaster\StadionController@edit');
-	Route::post('update','DataMaster\StadionController@update')->name('stadion.update');
+	Route::patch('update','DataMaster\StadionController@update')->name('stadion.update');
 	Route::get('destroy/{id}','DataMaster\StadionController@destroy');
 
 });
