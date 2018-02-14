@@ -26,6 +26,14 @@ class LoginController extends Controller
 			    	->withData(['username'=>$username, 'password'=>$password])
 			    	->asJson(true)
 			    	->post();
+        
+        foreach ($response  as $key) {
+            $data = $key;    
+        }          
+
+        $data = $response['value'];
+
+        return $data['token'];
     	
     	return redirect()->route('auth.home');
 

@@ -26,7 +26,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="header">Menu</li>
+        <li class="header"></li>
 
             <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Pemesanan Tiket </a></li>  
             <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Confirm Pemesanan Tiket </a></li>  
@@ -42,7 +42,7 @@
                 </span>
                 </a>
                 <ul class="treeview-menu">                 
-                    <li><a href="{{-- {{ url('wali-nilai/index') }} --}}"><i class="fa fa-circle-o"></i>Stadion</a></li>
+                    <li><a href="{{ url('stadion/') }}"><i class="fa fa-circle-o"></i>Stadion</a></li>
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Tribun </a></li>  
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Kursi </a></li>  
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Mitra </a></li>  

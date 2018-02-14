@@ -23,9 +23,21 @@ Route::group(['prefix' =>'auth'], function () {
     Route::post('login', 'Authentication\LoginController@login');
     Route::get('home', 'Authentication\LoginController@home')->name('auth.home');
     Route::post('index', 'Authentication\LoginController@index');
+    
     Route::group(['middleware' => 'jwt.auth'], function () {
-        Route::get('user', 'Authentication\LoginController@getAuthUser');
-    });
+	    Route::get('user', 'Authentication\LoginController@getAuthUser');
+	    });
 });
+
+Route::group(['prefix'=>'stadion'], function() {
+	Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
+	Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
+	Route::get('edit','DataMaster\StadionController@edit');
+	Route::post('update','DataMaster\StadionController@update')->name('stadion.update');
+	Route::get('destroy/{id}','DataMaster\StadionController@destroy');
+
+});
+
+
 
 
