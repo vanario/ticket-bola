@@ -32,9 +32,16 @@ Route::group(['prefix' =>'auth'], function () {
 Route::group(['prefix'=>'stadion'], function() {
 	Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
 	Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
-	Route::get('edit','DataMaster\StadionController@edit');
 	Route::patch('update','DataMaster\StadionController@update')->name('stadion.update');
 	Route::get('destroy/{id}','DataMaster\StadionController@destroy');
+
+});
+
+Route::group(['prefix'=>'tribun'], function() {
+	Route::get('/','DataMaster\TribunController@index')->name('tribun.index');
+	Route::post('store','DataMaster\TribunController@store')->name('tribun.store');
+	Route::patch('update','DataMaster\TribunController@update')->name('tribun.update');
+	Route::get('destroy/{id}','DataMaster\TribunController@destroy');
 
 });
 

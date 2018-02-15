@@ -5,48 +5,34 @@ namespace App\Http\Controllers\DataMaster;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Alert;
-use Cookie;
 
-class StadionController extends Controller
+class TribunController extends Controller
 {
     public function index()
-    {   
-        $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
+    {
+        $response = Curl::to('128.199.161.172:8102/add')
                     ->asJson(true)
                     ->get(); 
 
         $data     = $response['result'];
 
 
-        //make pagination
-        $result = collect($data);
-
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
-        $currentResults = $result->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        $results = new LengthAwarePaginator($currentResults, $result->count(), $perPage);
-        
-
-        
-        return view('DataMaster/Stadion.stadion',compact('data','response'));
+        return view('DataMaster/Tribun.tribun',compact('data'));
     }
 
     public function store(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name = $request->input('name');
-        $token = $_COOKIE["Token"];
-
+        $gttop 		= $request->input('gttop');
+        $gtcode 	= $request->input('gtcode');
+        $tribun 	= $request->input('tribun');
+        $kapasitas 	= $request->input('kapasitas');
+        $descriction= $request->input('descriction');
 
         $response = Curl::to('128.199.161.172:8103/addstadion')
                     ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
-                    ->withHeader('Authorization', $token)
                     ->asJson(true)
                     ->post(); 
-
-        return $response;
 
         if ($response['result'] == "OK") {
             
@@ -61,13 +47,16 @@ class StadionController extends Controller
             Alert::message($message)->autoclose(4000);
         }
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('tribun.index');
     }
 
     public function update(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name   = $request->input('name');
+        $gttop 		= $request->input('gttop');
+        $gtcode 	= $request->input('gtcode');
+        $tribun 	= $request->input('tribun');
+        $kapasitas 	= $request->input('kapasitas');
+        $descriction= $request->input('descriction');
 
         $response = Curl::to('128.199.161.172:8103/editstadion/')
                     ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
@@ -88,7 +77,7 @@ class StadionController extends Controller
         }
 
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('tribun.index');
     }
 
     public function destroy($id)
@@ -96,6 +85,6 @@ class StadionController extends Controller
         $response = Curl::to('128.199.161.172:8103/deletestadion/'.$id)
                     ->delete();
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('tribun.index');
     }
 }

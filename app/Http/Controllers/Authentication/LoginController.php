@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Ixudra\Curl\Facades\Curl;
-use JWTAuth;
-use JWTAuthException;
 use App\User;
 
 class LoginController extends Controller
@@ -31,42 +29,22 @@ class LoginController extends Controller
             $data = $key;    
         }          
 
-        $data = $response['value'];
+        $data  = $response['value'];
 
-        return $data['token'];
-    	
-    	return redirect()->route('auth.home');
+        $token = $data['token'];
+
+        setcookie('Token', $token);
+        setcookie('Token', $token, strtotime( '+30 days' ));
+
+        $val_token = $_COOKIE["Token"];
+
+        return redirect()->route('auth.home');
 
     }
 
     public function home()
     {
     	return view('home');
-    }
-
-     
-    public function login(Request $request){
-        $credentials = $request->only('email', 'password');
-        $token = null;
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json([
-                    'response' => 'error',
-                    'message' => 'invalid_email_or_password',
-                ]);
-            }
-        } catch (JWTAuthException $e) {
-            return response()->json([
-                'response' => 'error',
-                'message' => 'failed_to_create_token',
-            ]);
-        }
-        return response()->json([
-            'response' => 'success',
-            'result' => [
-                'token' => $token,
-            ],
-        ]);
     }
 
     public function getAuthUser(Request $request){

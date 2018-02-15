@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'List Stadion')
+@section('title', 'List Tribun')
 @section('content')
 
 <div class="row">
@@ -14,8 +14,10 @@
 
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Action</th>
+                                <th>Tribun</th>
+                                <th>Kapasitas</th>
+                                <th>Deskripsi</th>
+                                <th>Layout</th>
                             </tr>
                         </thead>
 
@@ -25,7 +27,7 @@
                                 <td>{{ $val['name'] or "-"}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
-                                    <a href="{{action('DataMaster\StadionController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                    <a href="{{action('DataMaster\TribunController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -49,8 +51,20 @@
                                 <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Nama</label>
-                                <input type="text" name="name" id="name" class="form-control input-sm" required>
+                                <label for="">Tribun</label>
+                                <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Kapasitas</label>
+                                <input type="text" name="kapasitas" id="kapasitas" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Deskripsi</label>
+                                <input type="text" name="deskripsi" id="deskripsi" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Layout</label>
+                                <input type="text" name="layout" id="layout" class="form-control input-sm" required>
                             </div>                            
                         </div>
                         <div class="modal-footer">
@@ -79,8 +93,20 @@
                                 <input type="text" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" name="name" value="{{$val['name']}}" id="name" class="form-control input-sm" required>
+                                <label for="">Tribun</label>
+                                <input type="text" name="tribun" value="{{$val['tribun']}}" id="tribun" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Kapasitas</label>
+                                <input type="text" name="kapasitas" value="{{$val['kapasitas']}}" id="kapasitas" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Deskripsi</label>
+                                <input type="text" name="deskripsi" value="{{$val['deskripsi']}}" id="deskripsi" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Layout</label>
+                                <input type="text" name="layout" id="layout" value="{{$val['layout']}}" class="form-control input-sm" required>
                             </div>
                         </div>
                         <div class="modal-footer">

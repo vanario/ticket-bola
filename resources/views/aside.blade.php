@@ -43,7 +43,7 @@
                 </a>
                 <ul class="treeview-menu">                 
                     <li><a href="{{ url('stadion/') }}"><i class="fa fa-circle-o"></i>Stadion</a></li>
-                    <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Tribun </a></li>  
+                    <li><a href="{{ url('tribun/') }}"><i class="fa fa-circle-o"></i>Tribun </a></li>  
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Kursi </a></li>  
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Mitra </a></li>  
                     <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Member </a></li>  
