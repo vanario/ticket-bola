@@ -8,32 +8,63 @@ use Ixudra\Curl\Facades\Curl;
 use Alert;
 
 class TribunController extends Controller
-{
-    public function index()
+{   
+    public function index(Request $request)
     {
-        $response = Curl::to('128.199.161.172:8102/add')
+        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkwOTA2OTAsImlhdCI6MTUxOTAwNDI5MH0.ucm8yQdYF5UiTbNAZ-Ms0FmptHCOZugEjQMkl15Hh8U';
+
+        $gtcode     = $request->input('gtcode');
+
+
+        $response = Curl::to('128.199.161.172:8102/bycode/$gtcode')
+                    ->asJson(true)
+                    ->withHeader('Authorization:'.$token)
+                    ->get(); 
+
+        $data     = $response['value'];
+
+        $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
                     ->get(); 
 
-        $data     = $response['result'];
+        $stadion     = $response['result'];
 
+        $list_stadion = collect($stadion)->pluck('name','gtcode');
 
-        return view('DataMaster/Tribun.tribun',compact('data'));
+        return view('DataMaster/Tribun.tribun',compact('data','tribun', 'list_stadion'));
     }
 
     public function store(Request $request)
-    {
+    {   
+        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkwOTA2OTAsImlhdCI6MTUxOTAwNDI5MH0.ucm8yQdYF5UiTbNAZ-Ms0FmptHCOZugEjQMkl15Hh8U';
+
         $gttop 		= $request->input('gttop');
         $gtcode 	= $request->input('gtcode');
         $tribun 	= $request->input('tribun');
         $kapasitas 	= $request->input('kapasitas');
-        $descriction= $request->input('descriction');
+        $descriction= $request->input('description');
 
-        $response = Curl::to('128.199.161.172:8103/addstadion')
-                    ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
+        $prefix     = "A";
+
+        $kursi = '';
+
+        for ($x = 1; $x <=$kapasitas; $x++) {
+          $kursi .= "{Kursi: $prefix$x }";
+        }
+
+        $value = ['gttop'=>$gttop, 'gtcode'=>'16', 'tribun'=>$tribun, $kapasitas => $kapasitas, 'descriction'=>$descriction, 'layout' => [$kursi]];
+
+        $response = Curl::to('128.199.161.172:8102/add')
+                    ->withData([
+                    "kind"=> "add#denah",
+                    "version"=> "1.0",
+                    "value"=> $value ])
+                    ->withHeader('Authorization:'.$token)
                     ->asJson(true)
-                    ->post(); 
+                    ->post();
 
+        return $response;
+       
         if ($response['result'] == "OK") {
             
             $message = "Data Berhasil Ditambahkan";

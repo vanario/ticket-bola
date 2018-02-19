@@ -71,7 +71,7 @@
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                         <div class="modal-header">
-                            <h4>Edit Kelas</h4>
+                            <h4>Edit Stadion</h4>
                         </div>
                         <div class="modal-body">         
                             <div class="form-group">

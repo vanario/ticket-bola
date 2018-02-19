@@ -37,12 +37,12 @@ class StadionController extends Controller
     {
         $gtcode = $request->input('gtcode');
         $name = $request->input('name');
-        $token = $_COOKIE["Token"];
+        //$token = $_COOKIE["Token"];
 
 
         $response = Curl::to('128.199.161.172:8103/addstadion')
                     ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
-                    ->withHeader('Authorization', $token)
+                    // ->withHeader('Authorization', $token)
                     ->asJson(true)
                     ->post(); 
 
