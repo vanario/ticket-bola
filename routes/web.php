@@ -38,12 +38,37 @@ Route::group(['prefix'=>'stadion'], function() {
 });
 
 Route::group(['prefix'=>'tribun'], function() {
-	Route::get('/','DataMaster\TribunController@index')->name('tribun.index');
+	Route::match(['get', 'post'],'index','DataMaster\TribunController@index')->name('tribun.index');
 	Route::post('store','DataMaster\TribunController@store')->name('tribun.store');
 	Route::patch('update','DataMaster\TribunController@update')->name('tribun.update');
 	Route::get('destroy/{id}','DataMaster\TribunController@destroy');
 
 });
+
+Route::group(['prefix'=>'mitra'], function() {
+	Route::get('index','DataMaster\MitraController@index')->name('mitra.index');
+	Route::post('store','DataMaster\MitraController@store')->name('mitra.store');
+	Route::patch('update','DataMaster\MitraController@update')->name('mitra.update');
+	Route::get('destroy/{id}','DataMaster\MitraController@destroy');
+
+});
+
+Route::group(['prefix'=>'club'], function() {
+	Route::get('/','DataMaster\ClubController@index')->name('club.index');
+	Route::post('store','DataMaster\ClubController@store')->name('club.store');
+	Route::patch('update','DataMaster\ClubController@update')->name('club.update');
+	Route::get('destroy/{id}','DataMaster\ClubController@destroy');
+
+});
+
+Route::group(['prefix'=>'jadwal'], function() {
+	Route::get('/','DataMaster\JadwalController@index')->name('jadwal.index');
+	Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
+	Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
+	Route::get('destroy/{id}','DataMaster\JadwalController@destroy');
+
+});
+
 
 
 

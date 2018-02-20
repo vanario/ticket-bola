@@ -1,1 +1,6 @@
-add filter di tribun
+add filter di tribun (sudah)
+paginate disemua halaman (belum)
+save token di cookies (belum)
+make item
+
+$image = base64_encode(file_get_contents($request->file('image')->pat‌​h()));(how to convert image to base 64)

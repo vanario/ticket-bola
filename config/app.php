@@ -166,6 +166,7 @@ return [
         Ixudra\Curl\CurlServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -231,6 +232,7 @@ return [
         'Curl' => Ixudra\Curl\Facades\Curl::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFActory' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
     ],
 
 ];

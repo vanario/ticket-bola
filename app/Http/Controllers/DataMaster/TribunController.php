@@ -11,15 +11,17 @@ class TribunController extends Controller
 {   
     public function index(Request $request)
     {
-        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkwOTA2OTAsImlhdCI6MTUxOTAwNDI5MH0.ucm8yQdYF5UiTbNAZ-Ms0FmptHCOZugEjQMkl15Hh8U';
+        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
 
-        $gtcode     = $request->input('gtcode');
+        $gtcode   = $request->input('gttopstadion');
 
+        // return $gtcode;
 
-        $response = Curl::to('128.199.161.172:8102/bycode/$gtcode')
+        $response = Curl::to('128.199.161.172:8102/bycode/'.$gtcode)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
+
 
         $data     = $response['value'];
 
@@ -36,7 +38,7 @@ class TribunController extends Controller
 
     public function store(Request $request)
     {   
-        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkwOTA2OTAsImlhdCI6MTUxOTAwNDI5MH0.ucm8yQdYF5UiTbNAZ-Ms0FmptHCOZugEjQMkl15Hh8U';
+        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';        
 
         $gttop 		= $request->input('gttop');
         $gtcode 	= $request->input('gtcode');
@@ -49,10 +51,10 @@ class TribunController extends Controller
         $kursi = '';
 
         for ($x = 1; $x <=$kapasitas; $x++) {
-          $kursi .= "{Kursi: $prefix$x }";
+          $kursi .= "{Kursi: $prefix$x},";
         }
 
-        $value = ['gttop'=>$gttop, 'gtcode'=>'16', 'tribun'=>$tribun, $kapasitas => $kapasitas, 'descriction'=>$descriction, 'layout' => [$kursi]];
+        $value = ['gttop'=>$gttop, 'gtcode'=>'16', 'tribun'=>$tribun, 'kapasitas' => $kapasitas, 'descriction'=>$descriction, 'layout' => [$kursi]];
 
         $response = Curl::to('128.199.161.172:8102/add')
                     ->withData([
@@ -62,10 +64,8 @@ class TribunController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-
-        return $response;
-       
-        if ($response['result'] == "OK") {
+            
+        if ($response['status'] == "OK") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
@@ -74,7 +74,7 @@ class TribunController extends Controller
 
         else {
             
-            $message = "Kode stadion sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan tribun dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
