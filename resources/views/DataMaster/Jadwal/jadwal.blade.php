@@ -55,24 +55,91 @@
                         </div>
                         <div class="modal-body">       
                             <div class="form-group">
-                                <select  name="gttopstadion" class="form-control" required>
-                                    <option value=""> Filter Berdasarkan Stadion</option>
-                                    @foreach($list_club as $gtcode => $name)
-                                    <option value="{{$gtcode}}">{{$name}}</option>
-                                    @endforeach
-                                </select>
+                                <div class="col-md-4">
+                                    <label for="">Club</label>
+                                    <select  name="gttopstadion" class="form-control" required>
+                                        <option value="">Club</option>
+                                        @foreach($list_club as $gtcode => $name)
+                                        <option value="{{$gtcode}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
+                                <div class="col-md-4">
+                                    <label for="">Kode</label>
+                                    <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Nama</label>
-                                <input type="text" name="name" id="gtcode" class="form-control input-sm" required>
+                                <div class="col-md-4">
+                                    <label for="">Nama</label>
+                                    <input type="text" name="name" id="name" class="form-control input-sm" required>
+                                </div>
                             </div>                            
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label for="">Nama 1</label>
+                                    <input type="text" name="name1" id="name1" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Date</label>
+                                    <input type="text" name="date" id="date" class="form-control input-sm" required>
+                                </div>                                                        
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Jam</label>
+                                    <input type="text" name="jam" id="jam" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Deskripsi</label>
+                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Kode Tribun</label>
+                                    <input type="text" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Tribun</label>
+                                    <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-4">
+                                    <label for="">Harga</label>
+                                    <input type="text" name="price" id="price" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <label for="">Gambar </label>
+                                    <div class="col-md-4">                          
+                                        <input type="file" id="inputimage" name="gambar" class="validate">
+                                    </div>
+
+                                    <div class="col-md-4">                          
+                                        <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                    </div>
+                                <label for="">Gambar 1</label>
+                                    <div class="col-md-4">                          
+                                        <input type="file" id="inputimage1" name="gambar1" class="validate">
+                                    </div>
+
+                                    <div class="col-md-4">                          
+                                        <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
+                                    </div>
+                            </div>                     
                         </div>
                         <div class="modal-footer">
-                            <div>
+                            <div class="col-md-12">
                                  <input type="submit" value="Simpan" class="btn btn-subscribe" >
                             </div>
                         </div>
@@ -115,5 +182,46 @@
 @include('sweet::alert')
 @endsection
 
+@section('script')
+<script type="text/javascript">
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimage").change(function(){
+        readURL(this);
+    });
+    
+</script>
+
+<script type="text/javascript">
+
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-preview1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimage1").change(function(){
+        readURL(this);
+    });
+    
+</script>
+
+
+@endsection
 
 
