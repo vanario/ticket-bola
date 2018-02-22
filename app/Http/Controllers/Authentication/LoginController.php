@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Ixudra\Curl\Facades\Curl;
 use App\User;
+use Session;
+use Alert;
 
 class LoginController extends Controller
 {
+    var $newToken; 
+
 	public function __construct()
     {
         $this->user = new User;
@@ -30,25 +34,23 @@ class LoginController extends Controller
         }          
 
         $data  = $response['value'];
-
         $token = $data['token'];
+        Session::put('token', $token);
 
-        setcookie('Token', $token);
-        setcookie('Token', $token, strtotime( '+30 days' ));
+        if ($response['resocde'] == 201){
+            return redirect()->route('auth.home');
+        }
+        else{
+            return redirect()->route('login');
+            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan tribun dengan kode yang sama";
+            Alert::message($message)->autoclose(4000);
+        }
 
-        $val_token = $_COOKIE["Token"];
-
-        return redirect()->route('auth.home');
 
     }
 
     public function home()
     {
     	return view('home');
-    }
-
-    public function getAuthUser(Request $request){
-        $user = JWTAuth::toUser($request->token);        
-        return response()->json(['result' => $user]);
     }
 }

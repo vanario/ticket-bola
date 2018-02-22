@@ -4,32 +4,34 @@ namespace App\Http\Controllers\DataMaster;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Authentication\LoginController;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Intervention\Image\ImageManagerStatic as Image;
 use Alert;
+use Session;
+use Storage;
 
 
 class JadwalController extends Controller
-{
-	public function index()
+{   
+    public function index()
     {   
-    	$token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+        $token = Session::get('token'); 
 
-    	$response = Curl::to('128.199.161.172:9099/getlist')
+        $response = Curl::to('128.199.161.172:9099/getlist')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
         $data 	  = $response['result'];
 
-        
         //list data club for dropdown
         $list	  = Curl::to('128.199.161.172:8091/all')
                     ->asJson(true)
                     ->get();
+        $list_data     = $list['value'];
 
-        $list_data     = $response['result'];
-
-        $list_club = collect($response)->pluck('name','gtcode');
+        $list_club = collect($list_data)->pluck('name','gtcode');
 		
 		//pagination        
 		$currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -46,32 +48,70 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name = $request->input('name');
-        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+        $token = Session::get('token'); 
 
-        $value = [	'gttoptrib'	=> $request->input('gttoptrib'), 
-        			'gtcodetrib'=> $request->input('gtcodetrib'), 
-        			'tribun' 	=> $request->input('tribun'), 
-        			'price'		=> $request->input('price')];
+        if ($request->hasFile('gambar')) {
+            if($request->file('gambar')->isValid()) {
+                try {
+                    $file         = $request->file('gambar');
+                    $filename     = $file->getClientOriginalName();
+
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+                    $image_resize->save(public_path('image/' .$filename));
+
+                    $resize_image = (public_path('image/' .$filename)); 
+
+                    $image = base64_encode(file_get_contents($resize_image));
+
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+
+                }
+            }
+
+        if ($request->hasFile('gambar1')) {
+            if($request->file('gambar1')->isValid()) {
+                try {
+                    $file         = $request->file('gambar1');
+                    $filename     = $file->getClientOriginalName();
+
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+                    $image_resize->save(public_path('image/' .$filename));
+
+                    $resize_image = (public_path('image/' .$filename)); 
+
+                    $image1 = base64_encode(file_get_contents($resize_image));
+
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+
+                }
+            }
+
 
         $response = Curl::to('128.199.161.172:9099/additem')
                     ->withData([
-                    "gttop"	=> $request->input('gttop'), 
+                    "gttop"	=> $request->input('gttopstadion'), 
                     "gtcode"=> $request->input('gtcode'), 
                     "name"	=> $request->input('name'),
                     "name1" => $request->input('name1'),
                     "jam"	=> $request->input('jam'),
                     "date"	=> $request->input('date'),
                     "desc"	=> $request->input('desc'),
-                    "image"	=> $request->input('image'),
-                    "image1"=> $request->input('image1'),
-                    "value"	=> $value ])
+                    "image"	=> $image,
+                    "image1"=> $image1,
+                    "value"	=>  [['gttoptrib' => $request->input('gtcode'),
+                                'gtcodetrib'=> $request->input('gtcodetrib'),
+                                'tribun'    => $request->input('tribun'),
+                                'price'     => $request->input('price')]] 
+                                ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
-                    ->post();      
+                    ->post();
 
-        if ($response['status'] == "OK") {
+        if ($response['result'] == "OK") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
@@ -80,56 +120,92 @@ class JadwalController extends Controller
 
         else {
             
-            $message = "Kode stadion sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+            $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
-        return redirect()->route('club.index');
+        return redirect()->route('jadwal.index');
+        }
     }
+}
 
     public function update(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name   = $request->input('name');
+        // $token = Session::get('token'); 
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkzNTg5NDcsImlhdCI6MTUxOTI3MjU0N30.7izB-HiMwgyDfPbEEedKGErKUo3ZmlTjnLB7nzicbOA';
+        // return $token;
+        if ($request->hasFile('gambar')) {
+            if($request->file('gambar')->isValid()) {
+                try {
+                    $file  = $request->file('gambar');
+                    $image = base64_encode(file_get_contents($request->file('gambar')->path()));
 
-        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
 
-        $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
+                }
+            }
 
-        $response = Curl::to('128.199.161.172:8091/edit')
-                    ->withData([
-                    "kind"=> "edit#groupping",
-                    "version"=> "1.0",
-                    "value"=> $value ])
-                    ->withHeader('Authorization:'.$token)
-                    ->asJson(true)
-                    ->put();
-                     
-        if ($response['status'] == "OK") {
-            
-            $message = "Data Berhasil Di Update";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
+        if ($request->hasFile('gambar1')) {
+            if($request->file('gambar1')->isValid()) {
+                try {
+                    $file   = $request->file('gambar1');
+                    $image1 = base64_encode(file_get_contents($request->file('gambar1')->path()));
+
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+
+                }
+            }
+
+
+            $response = Curl::to('128.199.161.172:9099/edititem/')
+                        ->withData([
+                        "gttop" => $request->input('gttopstadion'), 
+                        "gtcode"=> $request->input('gtcode'), 
+                        "name"  => $request->input('name'),
+                        "name1" => $request->input('name1'),
+                        "jam"   => $request->input('jam'),
+                        "date"  => $request->input('date'),
+                        "desc"  => $request->input('desc'),
+                        "image" => $image,
+                        "image1"=> $image1,
+                        "value" =>  [['gttoptrib' => $request->input('gtcode'),
+                                    'gtcodetrib'=> $request->input('gtcodetrib'),
+                                    'tribun'    => $request->input('tribun'),
+                                    'price'     => $request->input('price')]] 
+                                    ])
+                        ->withHeader('Authorization:'.$token)
+                        ->asJson(true)
+                        ->post();
+
+
+            if ($response['result'] == "UPDATED!") {
+                
+                $message = "Data Berhasil Ditambahkan";
+                alert()->success('');
+                Alert::success($message,'Sukses')->autoclose(4000);
+            }
+
+            else {
+                
+                $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+                Alert::message($message)->autoclose(4000);
+            }
+
+            return redirect()->route('jadwal.index');
+            }
         }
-
-        else {
-            
-            $message = "Kode stadion sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
-            Alert::message($message)->autoclose(4000);
-        }
-
-
-        return redirect()->route('club.index');
     }
 
     public function destroy($id)
     {  
-    	$token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+    	$token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8091/delete/'.$id)       				
+        $response = Curl::to('128.199.161.172:9099/deleteitem/'.$id)       				
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 
-        return redirect()->route('club.index');
+        return redirect()->route('jadwal.index');
     }
 }

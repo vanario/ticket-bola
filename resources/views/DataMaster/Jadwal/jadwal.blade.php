@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'List Club')
+@section('title', 'List Jadwal')
 @section('content')
 
 <div class="row">
@@ -31,10 +31,9 @@
                                 <td>{{ $val['jam'] or "-"}}</td>
                                 <td>{{ $val['price'] or "-"}}</td>
                                 <td>{{ $val['desc'] or "-"}}</td>
-                                <td>{{ $val['gtcode'] or "-"}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
-                                    <a href="{{action('DataMaster\ClubController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                    <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -48,14 +47,14 @@
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form method="POST" action="{{ route('club.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('jadwal.store') }}"  enctype="multipart/form-data">
                            {{ csrf_field() }}
                         <div class="modal-header">
-                            <h4>Tambah Stadion</h4>
+                            <h4>Tambah Jadwal</h4>
                         </div>
                         <div class="modal-body">       
                             <div class="form-group">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Club</label>
                                     <select  name="gttopstadion" class="form-control" required>
                                         <option value="">Club</option>
@@ -66,79 +65,79 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Kode</label>
                                     <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Nama</label>
                                     <input type="text" name="name" id="name" class="form-control input-sm" required>
                                 </div>
                             </div>                            
                             <div class="form-group">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Nama 1</label>
                                     <input type="text" name="name1" id="name1" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Date</label>
                                     <input type="text" name="date" id="date" class="form-control input-sm" required>
                                 </div>                                                        
                             </div>
                             <div class="form-group">                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Jam</label>
                                     <input type="text" name="jam" id="jam" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
-                                <div class="col-md-4">
-                                    <label for="">Deskripsi</label>
-                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Kode Tribun</label>
                                     <input type="text" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                    <label for="">Deskripsi</label>
+                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
                                     <label for="">Tribun</label>
                                     <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label for="">Harga</label>
                                     <input type="text" name="price" id="price" class="form-control input-sm" required>
                                 </div>
                             </div>
-                            <div class="form-group">                                
-                                <label for="">Gambar </label>
-                                    <div class="col-md-4">                          
-                                        <input type="file" id="inputimage" name="gambar" class="validate">
-                                    </div>
-
-                                    <div class="col-md-4">                          
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Gambar </label>
+                                    <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
+                                    <div class="input-field col s6">                          
                                         <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
-                                    </div>
-                                <label for="">Gambar 1</label>
-                                    <div class="col-md-4">                          
-                                        <input type="file" id="inputimage1" name="gambar1" class="validate">
-                                    </div>
-
-                                    <div class="col-md-4">                          
+                                    </div>                                    
+                                </div>
+                            </div>                     
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Gambar 1</label>
+                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
+                                    <div class="input-field col s6">                          
                                         <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
                                     </div>
-                            </div>                     
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
+                         <div class="modal-footer">
                             <div class="col-md-12">
                                  <input type="submit" value="Simpan" class="btn btn-subscribe" >
                             </div>
@@ -146,26 +145,103 @@
                     </form> 
                 </div>
             </div>
-        </div>      
+        </div>
+              
         @foreach ($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="POST" action="{{ route('club.update')}}" >
+                    <form method="POST" action="{{ route('jadwal.update')}}" >
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                         <div class="modal-header">
-                            <h4>Edit Club</h4>
+                            <h4>Edit Jadwal
+                            </h4>
                         </div>
-                        <div class="modal-body">         
+                        <div class="modal-body">       
                             <div class="form-group">
-                                <label for="">Code</label>
-                                <input type="text" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" readonly>
+                                <div class="col-md-6">
+                                    <label for="">Club</label>
+                                    <select  name="gttopstadion" class="form-control" required>
+                                        <option value="">Club</option>
+                                        @foreach($list_club as $gtcode => $name)
+                                        <option value="{{$gtcode}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" name="name" value="{{$val['name']}}" id="name" class="form-control input-sm" required>
+                                <div class="col-md-6">
+                                    <label for="">Kode</label>
+                                    <input type="text" value="{{ $val['gtcode'] or "-"}}" name="gtcode" id="gtcode" class="form-control input-sm" required>
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Nama</label>
+                                    <input type="text" name="name" value="{{ $val['name'] or "-"}}" id="name" class="form-control input-sm" required>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Nama 1</label>
+                                    <input type="text" name="name1" value="{{ $val['name1'] or "-"}}" id="name1" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Date</label>
+                                    <input type="text" name="date" value="{{ $val['date'] or "-"}}" id="date" class="form-control input-sm" required>
+                                </div>                                                        
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Jam</label>
+                                    <input type="text" name="jam" value="{{ $val['jam'] or "-"}}" id="jam" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Kode Tribun</label>
+                                    <input type="text" name="gtcodetrib" value="{{ $val['gtcodetrib'] or "-"}}"id="gtcodetrib" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Deskripsi</label>
+                                    <input type="text" name="desc" id="desc" value="{{ $val['desc'] or "-"}}"class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Tribun</label>
+                                    <input type="text" name="tribun" id="tribun" value="{{ $val['tribun'] or "-"}}" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Harga</label>
+                                    <input type="text" name="price" id="price" value="{{ $val['price'] or "-"}}" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Gambar </label>
+                                    <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
+                                    <div class="input-field col s6">                          
+                                        <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                    </div>                                    
+                                </div>
+                            </div>                     
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Gambar 1</label>
+                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
+                                    <div class="input-field col s6">                          
+                                        <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
+                                    </div>
+                                </div>
+                            </div>           
                         </div>
                         <div class="modal-footer">
                             <div>
@@ -183,8 +259,8 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('adminlte/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
 <script type="text/javascript">
-
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -199,12 +275,8 @@
     $("#inputimage").change(function(){
         readURL(this);
     });
-    
-</script>
 
-<script type="text/javascript">
-
-    function readURL(input) {
+    function readURL1(input) {
 
         if (input.files && input.files[0]) {
             var reader = new FileReader();           
@@ -216,11 +288,12 @@
         }
     }
     $("#inputimage1").change(function(){
-        readURL(this);
+        readURL1(this);
     });
-    
+
 </script>
 
+</script>
 
 @endsection
 

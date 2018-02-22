@@ -68,10 +68,6 @@
                         </div>
                         <div class="modal-body">       
                             <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
                                 <label for="">Tribun</label>
                                 <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
                             </div>
@@ -92,10 +88,6 @@
                                 <label for="">Deskripsi</label>
                                 <input type="text" name="description" id="description" class="form-control input-sm" required>
                             </div>
-                            <div class="form-group">
-                                <label for="">Layout</label>
-                                <input type="text" name="layout[]" id="layout[]" multiple="multiple" class="form-control input-sm" required>
-                            </div>                            
                         </div>
                         <div class="modal-footer">
                             <div>
@@ -116,11 +108,7 @@
                         <div class="modal-header">
                             <h4>Edit Layout Tribun</h4>
                         </div>
-                        <div class="modal-body">         
-                            <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" value="{{$data['gtcode']}}" id="gtcode" class="form-control input-sm" readonly>
-                            </div>
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="">Stadion</label>
                                 <select  name="shift" class="form-control" required>

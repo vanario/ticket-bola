@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Ixudra\Curl\CurlServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
 
         /*
@@ -233,6 +234,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFActory' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Input' => Illuminate\Support\Facades\Input::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

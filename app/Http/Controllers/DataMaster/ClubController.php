@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Controllers\Authentication\LoginController;
 use Alert;
 
 class ClubController extends Controller
@@ -17,7 +18,6 @@ class ClubController extends Controller
                     ->get(); 
 
         $data     = $response['value'];
-
         
 		$currentPage = LengthAwarePaginator::resolveCurrentPage();
 		$col = collect($data);
@@ -35,7 +35,7 @@ class ClubController extends Controller
     {
         $gtcode = $request->input('gtcode');
         $name = $request->input('name');
-        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+        $token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkyODQ1MTIsImlhdCI6MTUxOTE5ODExMn0.sYsLXuGscSQ1t5vII0ulqTUCM_4Cg2CGOfHbnnhyfRw';
 
         $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
 

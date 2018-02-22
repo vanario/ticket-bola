@@ -627,3 +627,25 @@ footer{
     text-transform: none;
     padding-bottom: 10px;
 }
+/*
+input[type=file]{
+
+  display: inline;
+
+}
+
+#image_preview{
+
+  border: 1px solid black;
+
+  padding: 10px;
+
+}
+
+#image_preview img{
+
+  width: 100%;
+
+  padding: 5px;
+
+}*/
