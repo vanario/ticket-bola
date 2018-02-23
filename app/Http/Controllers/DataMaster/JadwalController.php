@@ -80,6 +80,8 @@ class JadwalController extends Controller
                     $image_resize->resize(150, 150);
                     $image_resize->save(public_path('image/' .$filename));
 
+                    return public_path();
+
                     $resize_image = (public_path('image/' .$filename)); 
 
                     $image1 = base64_encode(file_get_contents($resize_image));
