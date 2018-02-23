@@ -48,7 +48,7 @@
                                 <td>{{ $data['kapasitas'] or "-"}}</td>
                                 <td>{{ $data['description'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$data['gttop']}}"><span class="fa fa-pencil"></span></a>      
+                                    {{-- <a data-toggle="modal" data-target="#edit{{$data['gttop']}}"><span class="fa fa-pencil"></span></a>  --}}     
                                     {{-- <a href="{{action('DataMaster\TribunController@destroy',$data['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td> --}}
                             </tr>

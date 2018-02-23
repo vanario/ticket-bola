@@ -18,7 +18,7 @@ class TribunController extends Controller
 
         // return $gtcode;
 
-        $response = Curl::to('128.199.161.172:8102/bycode/06'.$gtcode)
+        $response = Curl::to('128.199.161.172:8102/bycode/'.$gtcode)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
@@ -55,7 +55,7 @@ class TribunController extends Controller
           $kursi .= "{Kursi: $prefix$x},";
         }
 
-        $value = ['gttop'=>'16', 'gtcode'=>$gttop, 'tribun'=>$tribun, 'kapasitas' => $kapasitas, 'descriction'=>$descriction, 'layout' => [$kursi]];
+        $value = ['gttop'=>$gttop, 'gtcode'=>'16', 'tribun'=>$tribun, 'kapasitas' => $kapasitas, 'descriction'=>$descriction, 'layout' => [$kursi]];
 
         $response = Curl::to('128.199.161.172:8102/add')
                     ->withData([
@@ -65,6 +65,7 @@ class TribunController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
+        // return $response;
             
         if ($response['status'] == "OK") {
             

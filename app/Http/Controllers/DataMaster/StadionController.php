@@ -46,7 +46,7 @@ class StadionController extends Controller
                     ->asJson(true)
                     ->post(); 
 
-        return $response;
+        // return $response;
 
         if ($response['result'] == "OK") {
             

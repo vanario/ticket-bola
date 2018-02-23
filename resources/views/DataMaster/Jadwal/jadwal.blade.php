@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-              
+
         @foreach ($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -221,22 +221,24 @@
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Harga</label>
-                                    <input type="text" name="price" id="price" value="{{ $val['price'] or "-"}}" class="form-control input-sm" required>
+                                    <input type="text" name="price" id="price" value="{{ $val['price'] or "-"}}" class="form-control input-sm" >
                                 </div>
                             </div>
+                            <input type="hidden" name="price" id="price" value="{{ $val['image'] or "-"}}" class="form-control input-sm" >
+                            @php($image = base64_decode($val['image']))
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Gambar </label>
-                                    <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
-                                    <div class="input-field col s6">                          
-                                        <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                    <input type="file" value="{{ $val['image'] }}" id="inputimage" name="gambar" class="validate" multiple >
+                                    <div class="input-field col s6">
+                                        <img src="{{ $image }}" id="image-preview" style="max-width:200px;max-height:200px;" />
                                     </div>                                    
                                 </div>
                             </div>                     
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Gambar 1</label>
-                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
+                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple >
                                     <div class="input-field col s6">                          
                                         <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
                                     </div>

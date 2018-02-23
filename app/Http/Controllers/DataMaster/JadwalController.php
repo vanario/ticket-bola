@@ -24,7 +24,7 @@ class JadwalController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
         $data 	  = $response['result'];
-
+        // return $data;
         //list data club for dropdown
         $list	  = Curl::to('128.199.161.172:8091/all')
                     ->asJson(true)
@@ -131,8 +131,7 @@ class JadwalController extends Controller
 
     public function update(Request $request)
     {
-        // $token = Session::get('token'); 
-        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkzNTg5NDcsImlhdCI6MTUxOTI3MjU0N30.7izB-HiMwgyDfPbEEedKGErKUo3ZmlTjnLB7nzicbOA';
+        $token = Session::get('token');        
         // return $token;
         if ($request->hasFile('gambar')) {
             if($request->file('gambar')->isValid()) {
