@@ -17,29 +17,30 @@ class JadwalController extends Controller
 {   
     public function index()
     {   
+                    return public_path();
         $token = Session::get('token'); 
 
         $response = Curl::to('128.199.161.172:9099/getlist')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
-        $data 	  = $response['result'];
+        $data     = $response['result'];
         // return $data;
         //list data club for dropdown
-        $list	  = Curl::to('128.199.161.172:8091/all')
+        $list     = Curl::to('128.199.161.172:8091/all')
                     ->asJson(true)
                     ->get();
         $list_data     = $list['value'];
 
         $list_club = collect($list_data)->pluck('name','gtcode');
-		
-		//pagination        
-		$currentPage = LengthAwarePaginator::resolveCurrentPage();
-		$col = collect($data);
-		$perPage = 5;
-		$currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
-		// $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage);
-		$data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
+        
+        //pagination        
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $col = collect($data);
+        $perPage = 5;
+        $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        // $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage);
+        $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
         // return $data;
 
@@ -80,7 +81,6 @@ class JadwalController extends Controller
                     $image_resize->resize(150, 150);
                     $image_resize->save(public_path('image/' .$filename));
 
-                    return public_path();
 
                     $resize_image = (public_path('image/' .$filename)); 
 
