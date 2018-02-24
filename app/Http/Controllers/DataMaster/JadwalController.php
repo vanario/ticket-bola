@@ -17,7 +17,8 @@ class JadwalController extends Controller
 {   
     public function index()
     {   
-                    return public_path();
+        return public_path();
+        
         $token = Session::get('token'); 
 
         $response = Curl::to('128.199.161.172:9099/getlist')
@@ -59,9 +60,9 @@ class JadwalController extends Controller
 
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
-                    $image_resize->save(public_path('image/' .$filename));
+                    $image_resize->save('/home/rahmat/Documents/' .$filename);
 
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = ('/home/rahmat/Documents/' .$filename); 
 
                     $image = base64_encode(file_get_contents($resize_image));
 
