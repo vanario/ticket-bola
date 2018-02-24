@@ -61,7 +61,7 @@ class JadwalController extends Controller
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
 
-                    $image_resize->save('/var/www/image' .$filename);
+                    $image_resize->save('/var/www/image/' .$filename);
                     $resize_image = ('/var/www/image/' .$filename); 
                     
                     // $image_resize->save(public_path('image/' .$filename));
