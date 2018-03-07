@@ -5,6 +5,7 @@ namespace App\Http\Controllers\DataMaster;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Alert;
 use Session;
 
@@ -33,6 +34,12 @@ class TribunController extends Controller
         $stadion     = $response['result'];
 
         $list_stadion = collect($stadion)->pluck('name','gtcode');
+
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $col = collect($data);
+        $perPage = 10;
+        $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
         return view('DataMaster/Tribun.tribun',compact('data','tribun', 'list_stadion'));
     }

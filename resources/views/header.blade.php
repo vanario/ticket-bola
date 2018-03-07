@@ -1,8 +1,8 @@
-<header class="main-header">
+<header class="main-header" >
   <!-- Logo -->
-  <a href="../../index2.html" class="logo">
+  <a {{-- href="../../index2.html" --}} class="logo">
     <!-- logo for regular state and mobile devices -->
-    <!-- <span class="logo-lg">WNB</span> -->
+    <span class="logo-lg">Tiket PAD</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -33,7 +33,7 @@
                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Logout</a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ url('auth/logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                     </form>
                 </div>

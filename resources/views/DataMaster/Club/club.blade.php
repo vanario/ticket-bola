@@ -8,14 +8,14 @@
         <div class="content-list">
             <div class="box-list">
 
-                <a data-toggle="modal" data-target="#add" class="btn bg-purple " font-16" style="margin-bottom:30px;">Tambah</a>
+                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
 
                     <table class="table table-striped" style="width: 100%;">
 
                         <thead>
                             <tr>
                                 <th>Nama</th>
-                                <th>Action</th>
+                                <th style="width:15%";>Action</th>
                             </tr>
                         </thead>
 
@@ -24,7 +24,7 @@
                             <tr>
                                 <td>{{ $val['name'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
+                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
                                     <a href="{{action('DataMaster\ClubController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -42,7 +42,7 @@
                     <form method="POST" action="{{ route('club.store') }}" enctype="multipart/form-data">
                            {{ csrf_field() }}
                         <div class="modal-header">
-                            <h4>Tambah Stadion</h4>
+                            <h4>Tambah Club</h4>
                         </div>
                         <div class="modal-body">       
                             <div class="form-group">
@@ -56,7 +56,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                 <input type="submit" value="Simpan" class="btn btn-subscribe" >
+                                 <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 
@@ -85,7 +85,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <input type="submit"  value="Simpan" class="btn btn-subscribe" >
+                                <input type="submit"  value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 

@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\DataMaster;
+namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Ixudra\Curl\Facades\Curl;
-use Illuminate\Pagination\LengthAwarePaginator;
-use App\Http\Controllers\Authentication\LoginController;
-use Session;
-use Alert;
+use Illuminate\pagination\LengthAwarePaginator;
 
-class ClubController extends Controller
+class MemberController extends Controller
 {
     public function index()
     {   
         $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8091/all')
+        $response = Curl::to('128.199.161.172:8106/all')
                     ->asJson(true)
                     ->get(); 
 
@@ -31,23 +27,27 @@ class ClubController extends Controller
 
         // return $data;
 
-        return view('DataMaster/Club.club',['data' => $data,]);
+        return view('Member.member',['data' => $data,]);
     }
 
     public function store(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name = $request->input('name');
-        
         $token = Session::get('token'); 
 
-        $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
+        $value = [	'gttop'			=>'TB', 
+        			'gtcode'		=> $request->input('gtcode'), 
+        			'idmember' 		=> $request->input('idmember'),
+        			'name' 			=> $request->input('name'),
+        			'tipemember'	=> $request->input('tipemember'),
+        			'periodemember'	=> [
+        								'start'		=> $request->input('start'),
+        								'end'		=> $request->input('end')
+        								],
+        			'status'		=> $request->input('status'),
+        		 ]
 
-        $response = Curl::to('128.199.161.172:8091/add')
-                    ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+        $response = Curl::to('128.199.161.172:8106/add')
+                    ->withData(["value"=> $value])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();      
@@ -61,30 +61,34 @@ class ClubController extends Controller
 
         else {
             
-            $message = "Kode club sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            $message = "Kode member sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
-        return redirect()->route('club.index');
+        return redirect()->route('member.index');
     }
 
     public function update(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name   = $request->input('name');
-
         $token = Session::get('token'); 
 
-        $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
+       $value = [	'gttop'			=>'TB', 
+        			'gtcode'		=> $request->input('gtcode'), 
+        			'idmember' 		=> $request->input('idmember'),
+        			'name' 			=> $request->input('name'),
+        			'tipemember'	=> $request->input('tipemember'),
+        			'periodemember'	=> [
+        								'start'		=> $request->input('start'),
+        								'end'		=> $request->input('end')
+        								],
+        			'status'		=> $request->input('status'),
+        		 ]
 
-        $response = Curl::to('128.199.161.172:8091/edit')
-                    ->withData([
-                    "kind"=> "edit#groupping",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+        $response = Curl::to('128.199.161.172:8106/edit')
+                    ->withData(["value"=> $value])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
-                    ->put();
+                    ->post();
                      
         if ($response['status'] == "OK") {
             
@@ -95,7 +99,7 @@ class ClubController extends Controller
 
         else {
             
-            $message = "Kode club sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            $message = "Kode member sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
@@ -104,10 +108,10 @@ class ClubController extends Controller
     }
 
     public function destroy($id)
-    {     	
-        $token = Session::get('token'); 
-       
-        $response = Curl::to('128.199.161.172:8091/delete/'.$id)       				
+    {  
+    	$token = Session::get('token'); 
+
+        $response = Curl::to('128.199.161.172:8106/delete/'.$id)       				
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 

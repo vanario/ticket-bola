@@ -28,7 +28,7 @@ class LoginController extends Controller
 			    	->withData(['username'=>$username, 'password'=>$password])
 			    	->asJson(true)
 			    	->post();
-        
+                    
         foreach ($response  as $key) {
             $data = $key;    
         }          
@@ -47,6 +47,13 @@ class LoginController extends Controller
         }
 
 
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+
+        return redirect()->route('login');
     }
 
     public function home()

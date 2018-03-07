@@ -17,16 +17,22 @@ class JadwalController extends Controller
 {   
     public function index()
     {   
-        // return public_path();
-        
         $token = Session::get('token'); 
 
         $response = Curl::to('128.199.161.172:9099/getlist')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
+
         $data     = $response['result'];
-        // return $data;
+
+        // $value = array();
+        // foreach ($data as $key) {
+        //     $value[] = $key['value'][0];
+        // }
+
+       
+
         //list data club for dropdown
         $list     = Curl::to('128.199.161.172:8091/all')
                     ->asJson(true)
@@ -40,62 +46,14 @@ class JadwalController extends Controller
         $col = collect($data);
         $perPage = 5;
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        // $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage);
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
-        // return $data;
-
-        return view('DataMaster/Jadwal.jadwal',['data' => $data, 'list_club'=>$list_club]);
+        return view('DataMaster/Jadwal.jadwal', compact('data', 'list_club', 'value'));
     }
 
     public function store(Request $request)
     {
         $token = Session::get('token'); 
-
-        if ($request->hasFile('gambar')) {
-            if($request->file('gambar')->isValid()) {
-                try {
-                    $file         = $request->file('gambar');
-                    $filename     = $file->getClientOriginalName();
-
-                    $image_resize = Image::make($file->getRealPath());  
-                    $image_resize->resize(150, 150);
-
-                    $image_resize->save('/var/www/image/' .$filename);
-                    $resize_image = ('/var/www/image/' .$filename); 
-                    
-                    // $image_resize->save(public_path('image/' .$filename));
-                    // $resize_image = (public_path('image/' .$filename)); 
-
-                    $image = base64_encode(file_get_contents($resize_image));
-
-                } catch (FileNotFoundException $e) {
-                    echo "catch";
-
-                }
-            }
-
-        if ($request->hasFile('gambar1')) {
-            if($request->file('gambar1')->isValid()) {
-                try {
-                    $file         = $request->file('gambar1');
-                    $filename     = $file->getClientOriginalName();
-
-                    $image_resize = Image::make($file->getRealPath());  
-                    $image_resize->resize(150, 150);
-                    $image_resize->save(public_path('image/' .$filename));
-
-
-                    $resize_image = (public_path('image/' .$filename)); 
-
-                    $image1 = base64_encode(file_get_contents($resize_image));
-
-                } catch (FileNotFoundException $e) {
-                    echo "catch";
-
-                }
-            }
-
 
         $response = Curl::to('128.199.161.172:9099/additem')
                     ->withData([
@@ -106,8 +64,8 @@ class JadwalController extends Controller
                     "jam"	=> $request->input('jam'),
                     "date"	=> $request->input('date'),
                     "desc"	=> $request->input('desc'),
-                    "image"	=> $image,
-                    "image1"=> $image1,
+                    "image"	=> "-",
+                    "image1"=> "-",
                     "value"	=>  [['gttoptrib' => $request->input('gtcode'),
                                 'gtcodetrib'=> $request->input('gtcodetrib'),
                                 'tribun'    => $request->input('tribun'),
@@ -126,44 +84,18 @@ class JadwalController extends Controller
 
         else {
             
-            $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+            $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
         return redirect()->route('jadwal.index');
         }
-    }
-}
 
     public function update(Request $request)
     {
         $token = Session::get('token');        
         // return $token;
-        if ($request->hasFile('gambar')) {
-            if($request->file('gambar')->isValid()) {
-                try {
-                    $file  = $request->file('gambar');
-                    $image = base64_encode(file_get_contents($request->file('gambar')->path()));
-
-                } catch (FileNotFoundException $e) {
-                    echo "catch";
-
-                }
-            }
-
-        if ($request->hasFile('gambar1')) {
-            if($request->file('gambar1')->isValid()) {
-                try {
-                    $file   = $request->file('gambar1');
-                    $image1 = base64_encode(file_get_contents($request->file('gambar1')->path()));
-
-                } catch (FileNotFoundException $e) {
-                    echo "catch";
-
-                }
-            }
-
-
+        
             $response = Curl::to('128.199.161.172:9099/edititem/')
                         ->withData([
                         "gttop" => $request->input('gttopstadion'), 
@@ -173,8 +105,8 @@ class JadwalController extends Controller
                         "jam"   => $request->input('jam'),
                         "date"  => $request->input('date'),
                         "desc"  => $request->input('desc'),
-                        "image" => $image,
-                        "image1"=> $image1,
+                        "image" => "-",
+                        "image1"=> "-",
                         "value" =>  [['gttoptrib' => $request->input('gtcode'),
                                     'gtcodetrib'=> $request->input('gtcodetrib'),
                                     'tribun'    => $request->input('tribun'),
@@ -194,14 +126,13 @@ class JadwalController extends Controller
 
             else {
                 
-                $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+                $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
                 Alert::message($message)->autoclose(4000);
             }
 
             return redirect()->route('jadwal.index');
             }
-        }
-    }
+        
 
     public function destroy($id)
     {  

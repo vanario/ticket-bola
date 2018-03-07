@@ -8,7 +8,8 @@
         <div class="content-list">
             <div class="box-list">
 
-                <a data-toggle="modal" data-target="#add" class="btn bg-purple " font-16" style="margin-bottom:30px;">Tambah</a>
+                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:20px;">Tambah</a>
+
 
                     <table class="table table-striped" style="width: 100%;">
 
@@ -17,7 +18,6 @@
                                 <th>Nama</th>
                                 <th>Tanggal</th>
                                 <th>Pukul</th>
-                                <th>Harga</th>
                                 <th>Deskripsi</th>
                                 <th>Action</th>
                             </tr>
@@ -26,13 +26,12 @@
                         <tbody>
                             @foreach ($data as $val)
                             <tr>
-                                <td>{{ $val['name'] or "-"}}</td>
+                                <td>{{ $val['name']." vs " .$val['name'] }}</td>
                                 <td>{{ $val['date'] or "-"}}</td>
                                 <td>{{ $val['jam'] or "-"}}</td>
-                                <td>{{ $val['price'] or "-"}}</td>
                                 <td>{{ $val['desc'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
+                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
                                     <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -118,28 +117,10 @@
                                     <input type="text" name="price" id="price" class="form-control input-sm" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Gambar </label>
-                                    <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
-                                    <div class="input-field col s6">                          
-                                        <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
-                                    </div>                                    
-                                </div>
-                            </div>                     
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Gambar 1</label>
-                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
-                                    <div class="input-field col s6">                          
-                                        <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                         <div class="modal-footer">
+                        <div class="modal-footer">
                             <div class="col-md-12">
-                                 <input type="submit" value="Simpan" class="btn btn-subscribe" >
+                                 <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 
@@ -203,7 +184,7 @@
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Kode Tribun</label>
-                                    <input type="text" name="gtcodetrib" value="{{ $val['gtcodetrib'] or "-"}}"id="gtcodetrib" class="form-control input-sm" required>
+                                    <input type="text" name="gtcodetrib" value="{{ $value['gtcodetrib'] or "-"}}"id="gtcodetrib" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
@@ -215,39 +196,19 @@
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Tribun</label>
-                                    <input type="text" name="tribun" id="tribun" value="{{ $val['tribun'] or "-"}}" class="form-control input-sm" required>
+                                    <input type="text" name="tribun" id="tribun" value="{{ $value['tribun'] or "-"}}" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Harga</label>
-                                    <input type="text" name="price" id="price" value="{{ $val['price'] or "-"}}" class="form-control input-sm" >
+                                    <input type="text" name="price" id="price" value="{{ $value['harga'] or "-"}}" class="form-control input-sm" >
                                 </div>
-                            </div>
-                            <input type="hidden" name="price" id="price" value="{{ $val['image'] or "-"}}" class="form-control input-sm" >
-                            @php($image = base64_decode($val['image']))
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Gambar </label>
-                                    <input type="file" value="{{ $val['image'] }}" id="inputimage" name="gambar" class="validate" multiple >
-                                    <div class="input-field col s6">
-                                        <img src="{{ $image }}" id="image-preview" style="max-width:200px;max-height:200px;" />
-                                    </div>                                    
-                                </div>
-                            </div>                     
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Gambar 1</label>
-                                    <input type="file" id="inputimage1" name="gambar1" class="validate" multiple >
-                                    <div class="input-field col s6">                          
-                                        <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
-                                    </div>
-                                </div>
-                            </div>           
+                            </div>                                     
                         </div>
                         <div class="modal-footer">
-                            <div>
-                                <input type="submit"  value="Simpan" class="btn btn-subscribe" >
+                            <div class="col-md-12">
+                                 <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 
@@ -261,8 +222,7 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('adminlte/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     function readURL(input) {
 
         if (input.files && input.files[0]) {
@@ -293,7 +253,7 @@
         readURL1(this);
     });
 
-</script>
+</script> --}}
 
 </script>
 

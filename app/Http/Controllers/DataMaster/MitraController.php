@@ -6,94 +6,146 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Controllers\Authentication\LoginController;
+use Session;
 use Alert;
 
 class MitraController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
-        $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
-                    ->asJson(true)
-                    ->get(); 
+        $token = Session::get('token');
 
-        $data     = $response['result'];
+        $response = Curl::to('128.199.161.172:8092/partial/0/10')
+        ->withHeader('Authorization:'.$token)
+        ->asJson(true)
+        ->get();
 
+        $data           = $response['value'];
+        $total          = $response['totvalue'];
+        $val_page       = ($total/10);
+        $total_page     = ceil($val_page);
+       
+        return view('DataMaster/Mitra.mitra',compact('data','total','total_page'));
+    }
 
-        //make pagination
-        $result = collect($data);
+    public function page(Request $request)
+    {
+        $token = Session::get('token');
 
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
-        $currentResults = $result->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        $results = new LengthAwarePaginator($currentResults, $result->count(), $perPage);
+        $id = $request->keys();
+        $obj_id = implode($id);
         
+        $limit  = 10;
 
+        $offset = $obj_id*10-10;
+        $page   = $offset."/".$limit;
+
+
+        $response = Curl::to('128.199.161.172:8092/partial/'.$page)
+        ->withHeader('Authorization:'.$token)
+        ->asJson(true)
+        ->get();
+
+        // return $currentPage;
+
+        $data           = $response['value'];
+        $total          = $response['totvalue'];
+        $val_page       = ($total/10);
+        $total_page     = ceil($val_page);
         
-        return view('DataMaster/Stadion.stadion',compact('data','response'));
+        return view('DataMaster/Mitra.mitra',compact('data','total','total_page'));
     }
 
     public function store(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name = $request->input('name');
-		$token    ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTkxNzgxNjEsImlhdCI6MTUxOTA5MTc2MX0.Mlwgwhfsw-rgmi9KVe0YwvkP4ChZMbSb3h25zj8SnuI';
+        $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8099/add')
-                    ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
-                    ->withHeader('Authorization', $token)
+        $value    = ['gttop'    =>'TB', 
+                     'gtcode'   => $request->input('gtcode'), 
+                     'custcode' => $request->input('custcode'), 
+                     'name'     => $request->input('name'), 
+                     'address'  => $request->input('address'), 
+                     'email'    => $request->input('address'), 
+                     'telp'     => $request->input('telp') ];
+
+        $response = Curl::to('128.199.161.172:8092/add')
+                    ->withData([
+                    "kind"=> "add#denah",
+                    "version"=> "1.0",
+                    "value"=> $value ])
+                    ->withHeader('Authorization:'.$token)
                     ->asJson(true)
-                    ->post(); 
+                    ->post();
 
-        return $response;
 
-        if ($response['result'] == "OK") {
+        if ($response['status'] == "OK") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
+            return redirect()->back();
         }
 
         else {
             
-            $message = "Kode stadion sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
+            return redirect()->back();
         }
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('mitra.index');
     }
 
     public function update(Request $request)
     {
-        $gtcode = $request->input('gtcode');
-        $name   = $request->input('name');
+        $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8103/editstadion/')
-                    ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
+        $value    = ['gttop'    =>'TB', 
+                     'gtcode'   => $request->input('gtcode'), 
+                     'custcode' => $request->input('custcode'), 
+                     'name'     => $request->input('name'), 
+                     'address'  => $request->input('address'), 
+                     'email'    => $request->input('address'), 
+                     'telp'     => $request->input('telp') ];
+
+        $response = Curl::to('128.199.161.172:8092/edit')
+                    ->withData([
+                    "kind"=> "add#denah",
+                    "version"=> "1.0",
+                    "value"=> $value ])
+                    ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->put();
-                     
-        if ($response['result'] == "UPDATED!") {
+
+
+        if ($response['status'] == "OK") {
             
-            $message = "Data Berhasil Ditambahkan";
+            $message = "Data Berhasil Di Update";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
+            return redirect()->back();
         }
 
         else {
             
-            $message = "Kode stadion sudah tersedia, Anda tidak bisa menambahkan stadion dengan kode yang sama";
+            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
+            return redirect()->back();
         }
 
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('mitra.index');
     }
 
     public function destroy($id)
-    { 
-        $response = Curl::to('128.199.161.172:8103/deletestadion/'.$id)
+    {  
+        $token = Session::get('token');
+
+        $response = Curl::to('128.199.161.172:8092/delete/'.$id)                    
+                    ->withHeader('Authorization:'.$token)
                     ->delete();
 
-        return redirect()->route('stadion.index');
+        return redirect()->route('mitra.index');
     }
 }

@@ -10,12 +10,12 @@
 
                 <div class="row">
                     <div class="col-sm-2">
-                        <a data-toggle="modal" data-target="#add" class="btn bg-purple " font-16" style="margin-bottom:30px;">Tambah</a>
+                        <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
                     </div>
                     <form method="POST" action="{{ url('tribun/index') }}" enctype="multipart/form-data">
                            {{ csrf_field() }}
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" style="margin-top: 20px;">
                             <div class="form-group">
                                 <select  name="gttopstadion" class="form-control" required>
                                     <option value=""> Filter Berdasarkan Stadion</option>
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="col-sm-7">
-                            <input type="submit" value="Filter" class="btn bg-purple " >
+                            <input type="submit" value="Filter" class="btn btn-green" >
                         </div>
                     </form>
                 </div>
@@ -47,14 +47,11 @@
                                 <td>{{ $data['tribun'] or "-"}}</td>
                                 <td>{{ $data['kapasitas'] or "-"}}</td>
                                 <td>{{ $data['description'] or "-"}}</td>
-                                <td>
-                                    {{-- <a data-toggle="modal" data-target="#edit{{$data['gttop']}}"><span class="fa fa-pencil"></span></a>  --}}     
-                                    {{-- <a href="{{action('DataMaster\TribunController@destroy',$data['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                </td> --}}
                             </tr>
                                 
                         </tbody>
                     </table>
+                    {{-- {!! $data->appends(Input::except('page'))->render() !!} --}}
             </div>
         </div>
 
@@ -91,7 +88,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                 <input type="submit" value="Simpan" class="btn btn-subscribe" >
+                                 <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 
@@ -133,7 +130,7 @@
                         </div>
                         <div class="modal-footer">
                             <div>
-                                <input type="submit"  value="Simpan" class="btn btn-subscribe" >
+                                <input type="submit"  value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
                     </form> 

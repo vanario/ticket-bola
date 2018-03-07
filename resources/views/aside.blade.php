@@ -8,7 +8,6 @@
             </div>
             {{-- <input type="hidden" value="{{ Auth::user()->type->division->name }}" id="division-name"> --}}
 
-            <h4 class="text-center font-green">Tiket Bola</h4>
         </div>
 
       <!-- search form (Optional) -->
@@ -26,17 +25,15 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="header"></li>
-
-            <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Pemesanan Tiket </a></li>  
-            <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Confirm Pemesanan Tiket </a></li>  
-            <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Laporan Penjualan Tiket </a></li>  
-            <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Print Tiket </a></li>  
-            <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Validation Barcode Tiket </a></li>
+            <li><a href="{{ url('auth/home') }}"><i class="fa fa-tv" style="color:white"></i>Dashboard</a></li>  
+            <li><a href=""><i class="fa fa-shopping-cart" style="color:white"></i>Pemesanan Tiket </a></li>  
+            <li><a href=""><i class="glyphicon glyphicon-check" style="color:white; margin-right:9px"></i>Confirm Pemesanan Tiket </a></li>  
+            <li><a href=""><i class="fa fa-file-text-o" style="color:white"></i>Laporan Penjualan Tiket </a></li>  
+            <li><a href=""><i class="glyphicon glyphicon-qrcode" style="color:white; margin-right:9px"></i>Validation Barcode Tiket </a></li>
               
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-circle-o"></i> <span>Data Master</span>
+                    <i class="fa fa-database" style="color:white"></i> <span>Data Master</span>
                         <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -46,9 +43,13 @@
                     <li><a href="{{ url('tribun/index') }}"><i class="fa fa-circle-o"></i>Tribun </a></li>  
                     <li><a href="{{ url('club/') }}"><i class="fa fa-circle-o"></i>Club </a></li>  
                     <li><a href="{{ url('jadwal/') }}"><i class="fa fa-circle-o"></i>Jadwal </a></li>  
-                    <li><a href="{{-- {{ url('wali-nilai/print') }} --}}"><i class="fa fa-circle-o"></i>Member </a></li>  
+                    <li><a href="{{ url('mitra/') }}"><i class="fa fa-circle-o"></i>Mitra </a></li>  
                 </ul>
             </li>
+
+            <li><a href="{{ url('register/index') }}"><i class="fa fa-address-card-o" style="color:white"></i>Register </a></li>
+            <li><a href="{{-- {{ url('register/index') }} --}}"><i class="fa fa-newspaper-o" style="color:white"></i>News</a></li>
+            <li><a href="{{-- {{ url('register/index') }} --}}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
         </ul>
       <!-- /.sidebar-menu -->
     </section>

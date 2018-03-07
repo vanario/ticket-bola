@@ -28,7 +28,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   {{-- sweet alert --}}
   <script src="{{ asset('adminlte/bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
-  <link rel="stylesheet" href="{{ asset('bower_components/sweetalert/dist/sweetalert.css') }}">
 
 
   {{-- image preview --}}
@@ -81,7 +80,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-purple-light sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->

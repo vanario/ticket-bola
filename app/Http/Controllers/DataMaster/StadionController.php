@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Alert;
-use Cookie;
+use Session;
 
 class StadionController extends Controller
 {
     public function index()
     {   
+        $token = Session::get('token'); 
+
         $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
                     ->get(); 
@@ -21,14 +23,12 @@ class StadionController extends Controller
 
 
         //make pagination
-        $result = collect($data);
 
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10;
-        $currentResults = $result->slice(($currentPage - 1) * $perPage, $perPage)->all();
-        $results = new LengthAwarePaginator($currentResults, $result->count(), $perPage);
-        
-
+        $col = collect($data);
+        $perPage = 5;
+        $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );    
         
         return view('DataMaster/Stadion.stadion',compact('data','response'));
     }
@@ -37,7 +37,7 @@ class StadionController extends Controller
     {
         $gtcode = $request->input('gtcode');
         $name = $request->input('name');
-        //$token = $_COOKIE["Token"];
+        $token = Session::get('token'); 
 
 
         $response = Curl::to('128.199.161.172:8103/addstadion')
@@ -66,6 +66,7 @@ class StadionController extends Controller
 
     public function update(Request $request)
     {
+        $token = Session::get('token'); 
         $gtcode = $request->input('gtcode');
         $name   = $request->input('name');
 
@@ -92,7 +93,8 @@ class StadionController extends Controller
     }
 
     public function destroy($id)
-    { 
+    {   
+        $token = Session::get('token'); 
         $response = Curl::to('128.199.161.172:8103/deletestadion/'.$id)
                     ->delete();
 
