@@ -2,26 +2,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-        <div class="user-panel">
-            <div class="image text-center">
-                {{-- <img src="{{ asset('img/logo.png') }}" class="img-circle" alt="User Image"> --}}
-            </div>
-            {{-- <input type="hidden" value="{{ Auth::user()->type->division->name }}" id="division-name"> --}}
-
-        </div>
-
-      <!-- search form (Optional) -->
-     {{--  <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
-      </form> --}}
-      <!-- /.search form -->
-
+        
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
 
@@ -49,7 +30,7 @@
 
             <li><a href="{{ url('register/index') }}"><i class="fa fa-address-card-o" style="color:white"></i>Register </a></li>
             <li><a href="{{-- {{ url('register/index') }} --}}"><i class="fa fa-newspaper-o" style="color:white"></i>News</a></li>
-            <li><a href="{{-- {{ url('register/index') }} --}}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
+            <li><a href="{{ url('merchandise') }}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
         </ul>
       <!-- /.sidebar-menu -->
     </section>

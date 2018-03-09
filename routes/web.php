@@ -74,6 +74,13 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('destroy/{id}','Register\RegisterController@destroy');
 	});
 
+	Route::group(['prefix'=>'merchandise'], function() {
+		Route::get('/','Merchandise\MerchandiseController@index')->name('merchandise.index');
+		Route::post('store','Merchandise\MerchandiseController@store')->name('merchandise.store');
+		Route::patch('update','Merchandise\MerchandiseController@update')->name('merchandise.update');
+		Route::get('destroy/{id}','Merchandise\MerchandiseController@destroy');
+	});
+
 });
 
 

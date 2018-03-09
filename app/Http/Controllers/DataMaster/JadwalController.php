@@ -26,18 +26,11 @@ class JadwalController extends Controller
 
         $data     = $response['result'];
 
-        // $value = array();
-        // foreach ($data as $key) {
-        //     $value[] = $key['value'][0];
-        // }
-
-       
-
         //list data club for dropdown
         $list     = Curl::to('128.199.161.172:8091/all')
                     ->asJson(true)
                     ->get();
-        $list_data     = $list['value'];
+        $list_data  = $list['value'];
 
         $list_club = collect($list_data)->pluck('name','gtcode');
         

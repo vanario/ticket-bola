@@ -2,7 +2,7 @@
   <!-- Logo -->
   <a {{-- href="../../index2.html" --}} class="logo">
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg">Tiket PAD</span>
+    <span class="logo-lg" style="font-family: Roboto|bi; font-style: italic; font-size: 28px;" >Tiket PAD</span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
   <nav class="navbar navbar-static-top">
@@ -15,33 +15,11 @@
     </a>
 
     <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
           <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              {{-- <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image"> --}}
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{-- {{ Auth::user()->name }} --}}
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-                        
-              <!-- Menu Footer-->
-              <li class="user-footer">                
-                <div class="pull-right">
-                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            Logout</a>
-
-                    <form id="logout-form" action="{{ url('auth/logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-      </ul>
+        <a href="{{ route('logout') }}" style="background-color: transparent; border: 0px; margin-right: 20px;" class="btn btn-default" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+          <form id="logout-form" action="{{ url('auth/logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}</form>
+                    <!-- Control Sidebar Toggle Button -->
     </div>
   </nav>
 </header>
