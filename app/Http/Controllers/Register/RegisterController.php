@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $data     = $response['value'];
         $total    = $response['totvalue'];
        
-        return view('DataMaster/Mitra.mitra',compact('data','total'));
+        return view('Register/register',compact('data','total'));
     }
 
     public function page(Request $request)

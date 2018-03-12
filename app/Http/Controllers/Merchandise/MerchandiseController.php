@@ -15,13 +15,14 @@ class MerchandiseController extends Controller
     {   
         $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8107/10')
+        $response = Curl::to('128.199.161.172:8107/gettopmerch/10/')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
 
-        $data     = $response['value'];
-        return dd($response);
+        $data     = $response;
+
+        // return dd($data);
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);

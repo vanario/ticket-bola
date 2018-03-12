@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach ($data as $val)
                             <tr>
-                                <td>{{ $val['name'] or "-"}}</td>
+                                <td>{{ $val['title'] or "-"}}</td>
                                 <td>{{ $val['desc'] or "-"}}</td>
                                 <td>{{ $val['price'] or "-"}}</td>
                                 <td>

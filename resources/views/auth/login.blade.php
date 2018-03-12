@@ -7,8 +7,17 @@
     <div class="row">
         <div class="modal-dialog">
             <div class="modal-content" style="background-color:#f0f0f0">
-                <div class="modal-header" style="color:MediumSeaGreen;"><h4>TiX Pad</h4></div>
-
+                <div class="modal-header" style="color:MediumSeaGreen;">
+                    <div class="col-md-6">
+                        <h4>TiX Pad</h4>
+                    </div>
+                    {{-- <div class="col-md-6">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Login" aria-controls="Login" role="tab" data-toggle="tab">Login</a></li>
+                            <li role="presentation"><a href="#Registration" aria-controls="Registration" role="tab" data-toggle="tab">Registration</a></li>
+                        </ul><!-- end: header nav tabs-->
+                    </div> --}}
+                </div>
                 <h3 style="text-align: center; ">Welcome TixPad</h3> 
                 <div class="modal-body" style="margin-top: 40px; background-color:#f0f0f0">
                     <form class="form-horizontal" method="POST" action="{{ url('auth/index') }}">
