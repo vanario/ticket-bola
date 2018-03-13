@@ -61,14 +61,20 @@
                         <div class="modal-body"> 
                             <div class="form-group">
                                 <div class="col-md-6">
+                                    <label for="">Kode</label>
+                                    <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
                                     <label for="">Email</label>
-                                    <input type="text" name="user_id" id="user_id" class="form-control input-sm" required>
+                                    <input type="text" name="userid" id="userid" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Nama</label>
-                                    <input type="text" name="user" id="user" class="form-control input-sm" required>
+                                    <input type="text" name="username" id="username" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -92,7 +98,7 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Tanggal Lahir</label>
-                                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control input-sm" required>
+                                    <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -119,12 +125,15 @@
                                     <input type="text" name="typeuser" id="typeuser" class="form-control input-sm" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Club</label>
-                                    <input type="text" name="clubcode" id="clubcode" class="form-control input-sm" required>
-                                </div>
-                            </div>                               
+                            <div class="col-md-6">
+                                <label for="">Club</label>
+                                <select  name="clubcode" class="form-control" required>
+                                    <option value="">Club</option>
+                                    @foreach($list_club as $gtcode => $name)
+                                    <option value="{{$gtcode}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>                              
                         </div>
                         <div class="modal-footer">
                             <div class="col-md-12">
@@ -145,23 +154,29 @@
                         <div class="modal-header">
                             <h4>Edit User</h4>
                         </div>
-                        <div class="modal-body">       
+                        <div class="modal-body"> 
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="">Kode</label>
+                                    <input type="text" name="gtcode"  value="{{ $val['gtcode'] }}" id="gtcode" class="form-control input-sm" readonly>
+                                </div>
+                            </div>     
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Email</label>
-                                    <input type="text" name="user_id" value="{{$val['user_id']}}" id="user_id" class="form-control input-sm" required>
+                                    <input type="text" name="user_id" value="{{$val['userid']}}" id="user_id" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Nama</label>
-                                    <input type="text" name="user" value="{{$val['user']}}" id="user" class="form-control input-sm" required>
+                                    <input type="text" name="user" value="{{$val['username']}}" id="user" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Password</label>
-                                    <input type="text" name="pass" value="{{$val['pass']}}" id="pass" class="form-control input-sm" required>
+                                    <input type="hidden" name="pass" value="{{$val['pass'] or "-"}}" id="pass" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -179,7 +194,7 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Tanggal Lahir</label>
-                                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" value="{{$val['tanggal_lahir']}}" class="form-control input-sm" required>
+                                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" value="{{$val['tanggal_lahir'] or "-"}}" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -191,26 +206,29 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">ID Kartu</label>
-                                    <input type="text" name="idcard" value="{{$val['idcard']}}" id="idcard" class="form-control input-sm" required>
+                                    <input type="text" name="idcard" value="{{$val['idcard'] or "-"}}" id="idcard" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Status</label>
-                                    <input type="text" name="status" value="{{$val['status']}}" id="status" class="form-control input-sm" required>
+                                    <input type="text" name="status" value="{{$val['status'] or "-"}}" id="status" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Tipe User</label>
-                                    <input type="text" name="typeuser" value="{{$val['typeuser']}}" id="typeuser" class="form-control input-sm" required>
+                                    <input type="text" name="typeuser" value="{{$val['typeuser'] or "-"}}" id="typeuser" class="form-control input-sm" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label for="">Club</label>
-                                    <input type="text" name="clubcode" value="{{$val['clubcode']}}" id="clubcode" class="form-control input-sm" required>
-                                </div>
+                            <div class="col-md-6">
+                                <label for="">Club</label>
+                                <select  name="clubcode" class="form-control" required>
+                                    <option value="">Club</option>
+                                    @foreach($list_club as $gtcode => $name)
+                                    <option value="{{$gtcode}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>                               
                         </div>
                         <div class="modal-footer">
@@ -228,5 +246,26 @@
 @include('sweet::alert')
 @endsection
 
+@section('script')
 
+<script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+<script type="text/javascript">
+
+    $(function() {
+
+        init_datepicker();
+            
+        function init_datepicker() {
+            $('#tgl_lahir').datepicker({
+             format: 'yyyy-m-d',
+             autoclose: true
+           });
+        };
+   
+    });
+
+</script>
+
+@endsection
 

@@ -28,11 +28,19 @@ class RegisterController extends Controller
         ->asJson(true)
         ->post();
 
+         //list data club for dropdown
+        $list     = Curl::to('128.199.161.172:8091/getbygttop/TB')
+                    ->asJson(true)
+                    ->get();
+        $list_data  = $list['value'];
+
+        $list_club = collect($list_data)->pluck('name','gtcode');
+
         $data     = $response['value'];
         // $total    = $response['totvalue'];
         // return $data;
        
-        return view('Register.register',compact('data'));
+        return view('Register.register',compact('data','list_club'));
     }
 
     public function page(Request $request)
@@ -82,18 +90,18 @@ class RegisterController extends Controller
                     ->post(); 
      
 
-        if ($response['status'] == "OK") {
+        // if ($response['status'] == "OK") {
             
-            $message = "Data Berhasil Di Tambah";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
-        }
+        //     $message = "Data Berhasil Di Tambah";
+        //     alert()->success('');
+        //     Alert::success($message,'Sukses')->autoclose(4000);
+        // }
 
-        else {
+        // else {
             
-            $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
-            Alert::message($message)->autoclose(4000);
-        }
+        //     $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+        //     Alert::message($message)->autoclose(4000);
+        // }
 
         return redirect()->route('register.index');
     }
@@ -122,18 +130,18 @@ class RegisterController extends Controller
                     ->post(); 
      
 
-        if ($response['status'] == "OK") {
+        // if ($response['status'] == "OK") {
             
-            $message = "Data Berhasil Di update";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
-        }
+        //     $message = "Data Berhasil Di update";
+        //     alert()->success('');
+        //     Alert::success($message,'Sukses')->autoclose(4000);
+        // }
 
-        else {
+        // else {
             
-            $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
-            Alert::message($message)->autoclose(4000);
-        }
+        //     $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+        //     Alert::message($message)->autoclose(4000);
+        // }
 
         return redirect()->route('register.index');
     }

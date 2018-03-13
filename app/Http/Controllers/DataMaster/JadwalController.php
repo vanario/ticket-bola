@@ -27,7 +27,7 @@ class JadwalController extends Controller
         $data     = $response['result'];
 
         //list data club for dropdown
-        $list     = Curl::to('128.199.161.172:8091/all')
+        $list     = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get();
         $list_data  = $list['value'];
