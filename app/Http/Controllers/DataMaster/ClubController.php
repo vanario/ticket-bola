@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Authentication\LoginController;
+use Intervention\Image\ImageManagerStatic as Image;
 use Session;
 use Alert;
 
@@ -16,7 +17,7 @@ class ClubController extends Controller
     {   
         $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8091/all')
+        $response = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get(); 
 
@@ -38,19 +39,59 @@ class ClubController extends Controller
     {
         $gtcode = $request->input('gtcode');
         $name = $request->input('name');
+                
+        $token = Session::get('token');
+
+        if ($request->hasFile('gambar')) {
+            if($request->file('gambar')->isValid()) {
+                try {
+                    $file         = $request->file('gambar');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
+                    
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+                    $imglg = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            }
+        }
+        if ($request->hasFile('gambar1')) {
+            if($request->file('gambar1')->isValid()) {
+                try {
+                    $file         = $request->file('gambar1');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(300, 200);
+
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
+
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+                    $imgbg1 = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            } 
+        }
         
-        $token = Session::get('token'); 
-
-        $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
-
-        $response = Curl::to('128.199.161.172:8091/add')
-                    ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+        $response = Curl::to('128.199.161.172:8091/groupadd')
+                    ->withData(['gttop' =>'TB', 
+                                'gtcode'=> $request->input('gtcode'), 
+                                'name'  => $request->input('name'),
+                                'imglg' => $imglg,
+                                'imgbg1'=> $imgbg1,
+                                'imgbg2'=> '-',
+                                'img4'  => '-',])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
-                    ->post();      
+                    ->post();
+
 
         if ($response['status'] == "OK") {
             
@@ -75,13 +116,56 @@ class ClubController extends Controller
 
         $token = Session::get('token'); 
 
-        $value = ['gttop'=>'TB', 'gtcode'=>$gtcode, 'name' => $name];
+        if ($request->hasFile('gambar')) {
+            if($request->file('gambar')->isValid()) {
+                try {
+                    $file         = $request->file('gambar');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+                    //inserver
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
+                    
+                    //local
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename));
+
+                    $imglg = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            }
+        }
+        if ($request->hasFile('gambar1')) {
+            if($request->file('gambar1')->isValid()) {
+                try {
+                    $file         = $request->file('gambar1');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(300, 200);
+
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
+
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+                    $imgbg1 = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            } 
+        }
 
         $response = Curl::to('128.199.161.172:8091/edit')
-                    ->withData([
-                    "kind"=> "edit#groupping",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+                    ->withData(['gttop' =>'TB', 
+                                'gtcode'=> $request->input('gtcode'), 
+                                'name'  => $request->input('name'),
+                                'imglg' => $imglg,
+                                'imgbg1'=> $imgbg1,
+                                'imgbg2'=> '-',
+                                'img4'  => '-',
+                            ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->put();

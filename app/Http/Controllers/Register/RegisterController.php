@@ -14,19 +14,25 @@ class RegisterController extends Controller
 {
     public function index(Request $request)
     {   
-        $token = Session::get('token');
+       $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8083/searchpartial/0/10')
+        $response = Curl::to('128.199.161.172:8083/searchpartial')
         ->withHeader('Authorization:'.$token)
+        ->withData([
+                    "kind"      => "",
+                    "version"   => "",
+                    "value"     => [ 'offset'    => 0, 
+                                     'limit'     => 10, 
+                                ]
+                     ])
         ->asJson(true)
-        ->get();
-
-        return $response;
+        ->post();
 
         $data     = $response['value'];
-        $total    = $response['totvalue'];
+        // $total    = $response['totvalue'];
+        // return $data;
        
-        return view('Register/register',compact('data','total'));
+        return view('Register.register',compact('data'));
     }
 
     public function page(Request $request)
@@ -65,9 +71,52 @@ class RegisterController extends Controller
         			'jenis_kelamin'	=> $request->input('jenis_kelamin'),
         			'tgl_lahir'		=> $request->input('tgl_lahir'),
         			'alamat'		=> $request->input('alamat'),
+                    'idcard'        => $request->input('idcard'),
+                    'status'        => $request->input('status'),
+                    'clubcode'      => $request->input('clubcode'), 
         		];
 
         $response = Curl::to('128.199.161.172:8083/add')
+                    ->asJson(true)
+                    ->withData($value)
+                    ->post(); 
+     
+
+        if ($response['status'] == "OK") {
+            
+            $message = "Data Berhasil Di Tambah";
+            alert()->success('');
+            Alert::success($message,'Sukses')->autoclose(4000);
+        }
+
+        else {
+            
+            $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            Alert::message($message)->autoclose(4000);
+        }
+
+        return redirect()->route('register.index');
+    }
+
+    public function update(Request $request)
+    {
+        $token = Session::get('token'); 
+
+        $value = [  'gttop'         => 'TB', 
+                    'gtcode'        => $request->input('gtcode'),
+                    'userid'        => $request->input('userid'),
+                    'username'      => $request->input('username'),
+                    'pass'          => $request->input('pass'),
+                    'telp'          => $request->input('telp'),
+                    'jenis_kelamin' => $request->input('jenis_kelamin'),
+                    'tgl_lahir'     => $request->input('tgl_lahir'),
+                    'alamat'        => $request->input('alamat'),
+                    'idcard'        => $request->input('idcard'),
+                    'status'        => $request->input('status'),
+                    'clubcode'      => $request->input('clubcode'), 
+                ];
+
+        $response = Curl::to('128.199.161.172:8083/edit')
                     ->asJson(true)
                     ->withData($value)
                     ->post(); 
@@ -86,7 +135,20 @@ class RegisterController extends Controller
             Alert::message($message)->autoclose(4000);
         }
 
-        return redirect()->route('club.index');
+        return redirect()->route('register.index');
+    }
+
+ 
+
+    public function destroy($id)
+    {  
+        $token = Session::get('token');
+
+        $response = Curl::to('128.199.161.172:8083/delete/'.$id)                    
+                    ->withHeader('Authorization:'.$token)
+                    ->delete();
+
+        return redirect()->route('register.index');
     }
 
 }
