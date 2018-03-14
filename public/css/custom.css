@@ -757,4 +757,75 @@ table td.c, table th.c {
 }
 table td.r, table th.r {
   text-align: center;
+<<<<<<< HEAD
+=======
+}
+.gallery {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  padding: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+.gallery > div {
+  position: relative;
+  float: left;
+  padding: 5px;
+}
+
+div.gallery {
+    border: 1px solid #ccc;
+    margin-top: 10%;
+    margin-left: -20px;
+}
+
+div.gallery:hover {
+    border: 1px solid #777;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 1px;
+    text-align: center;
+    margin-left: -20px;
+    padding: 2px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+>>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 }

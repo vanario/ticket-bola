@@ -52,6 +52,20 @@
                             <div class="form-group">
                                 <label for="">Nama</label>
                                 <input type="text" name="name" id="name" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Logo</label>
+                                <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
+                                <div class="input-field col s6">                          
+                                    <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                </div>                                    
+                            </div>                     
+                            <div class="form-group">
+                                <label for="">Background</label>
+                                <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
+                                <div class="input-field col s6">                          
+                                    <img src="" id="image-preview1" style="max-width:300px;max-height:200px;" />
+                                </div>
                             </div>                            
                         </div>
                         <div class="modal-footer">
@@ -82,6 +96,21 @@
                                 <label for="">Name</label>
                                 <input type="text" name="name" value="{{$val['name']}}" id="name" class="form-control input-sm" required>
                             </div>
+                            <div class="form-group">
+                                <label for="">Logo </label>
+                                <input type="file" id="inputimage" value="{{ $val['imglg'] }}" name="gambar" class="validate" multiple >
+                                <div class="input-field col s6">                          
+                                    <img src="data:image/jpeg/png;base64,{{ $val['imglg'] }}" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                </div>                                    
+                            </div>                     
+                            <div class="form-group">
+                                <label for="">Background</label>
+                                <input type="file" id="inputimage1" value="{{ $val['imgbg1'] }}" name="gambar1" class="validate" multiple >
+                                <div class="input-field col s6">                          
+                                    <img src="data:image/jpeg/png;base64,{{ $val['imgbg1'] }}" id="image-preview1" style="max-width:300px;max-height:200px;" />
+                                </div>
+                            </div>
+                            {{-- <div><img src='data:image/jpeg/png;base64,{{ $image }}'></div> --}}
                         </div>
                         <div class="modal-footer">
                             <div>
@@ -98,5 +127,41 @@
 @include('sweet::alert')
 @endsection
 
+<<<<<<< HEAD
+=======
+@section('script')
+<script type="text/javascript">
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimage").change(function(){
+        readURL(this);
+    });
+
+    function readURL1(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-preview1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputimage1").change(function(){
+        readURL1(this);
+    });
+
+</script>
+@endsection
 
 

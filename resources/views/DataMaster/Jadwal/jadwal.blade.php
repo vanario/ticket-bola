@@ -83,7 +83,8 @@
                             </div>
                             <div class="form-group">                                
                                 <div class="col-md-6">
-                                    <label for="">Date</label>
+
+                                    <label for="">Tanggal</label>
                                     <input type="text" name="date" id="date" class="form-control input-sm" required>
                                 </div>                                                        
                             </div>
@@ -222,41 +223,33 @@
 @endsection
 
 @section('script')
-{{-- <script type="text/javascript">
-    function readURL(input) {
+<script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('adminlte/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
 
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();           
+<script type="text/javascript">
 
-            reader.onload = function (e) {
-                $('#image-preview').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#inputimage").change(function(){
-        readURL(this);
+    $(function() {
+
+        init_datepicker();
+        init_timepicker();
+            
+        function init_datepicker() {
+            $('#date').datepicker({
+             format: 'yyyy-m-d',
+             autoclose: true
+           });
+        };
+
+        function init_timepicker() {
+            $('#jam').timepicker({
+             format: 'H:i:s',
+             autoclose: true
+           });
+        };
+   
     });
-
-    function readURL1(input) {
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();           
-
-            reader.onload = function (e) {
-                $('#image-preview1').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#inputimage1").change(function(){
-        readURL1(this);
-    });
-
-</script> --}}
 
 </script>
 
 @endsection
-
 
