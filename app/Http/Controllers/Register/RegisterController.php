@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Http\Controllers\Authentication\LoginController;
 use Session;
 use Alert;
 
@@ -16,17 +15,24 @@ class RegisterController extends Controller
     {   
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8083/searchpartial/0/10')
+        $response = Curl::to('128.199.161.172:8083/searchpartial')
         ->withHeader('Authorization:'.$token)
+        ->withData([
+                    "kind"      => "",
+                    "version"   => "",
+                    "value"     => [ 'offset'    => 0, 
+                                     'limit'     => 10, 
+                                ]
+                     ])
         ->asJson(true)
-        ->get();
+        ->post();
 
-        return $response;
+        return 'test';
 
         $data     = $response['value'];
         $total    = $response['totvalue'];
        
-        return view('Register/register',compact('data','total'));
+        return view('Register.register',compact('data','total'));
     }
 
     public function page(Request $request)
