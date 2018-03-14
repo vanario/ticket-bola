@@ -117,7 +117,7 @@ class RegisterController extends Controller
                     'pass'          => $request->input('pass'),
                     'telp'          => $request->input('telp'),
                     'jenis_kelamin' => $request->input('jenis_kelamin'),
-                    'tgl_lahir'     => $request->input('tgl_lahir'),
+                    'tgl_lahir'     => $request->input('tgl_lahir1'),
                     'alamat'        => $request->input('alamat'),
                     'idcard'        => $request->input('idcard'),
                     'status'        => $request->input('status'),

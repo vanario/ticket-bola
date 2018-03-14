@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
 use Alert;
+use Intervention\Image\ImageManagerStatic as Image;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -15,18 +16,18 @@ class MerchandiseController extends Controller
     {   
         $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:8107/gettopmerch/10/')
+        $response = Curl::to('128.199.161.172:8107/gettopmerch/TB')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
 
-        $data     = $response;
+        $data     = $response['value'];
 
         // return dd($data);
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
-        $perPage = 5;
+        $perPage = 20;
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
@@ -44,11 +45,11 @@ class MerchandiseController extends Controller
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
-                    $image_resize->save('/var/www/image/' .$filename);
-                    $resize_image = ('/var/www/image/' .$filename); 
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
                     
-                    // $image_resize->save(public_path('image/' .$filename));
-                    // $resize_image = (public_path('image/' .$filename)); 
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
                     $image = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
                     echo "catch";

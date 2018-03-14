@@ -194,7 +194,7 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Tanggal Lahir</label>
-                                    <input type="text" name="tanggal_lahir" id="tanggal_lahir" value="{{$val['tanggal_lahir'] or "-"}}" class="form-control input-sm" required>
+                                    <input type="text" name="tgl_lahir1" id="tgl_lahir1" value="{{$val['tgl_lahir'] or "-"}}" class="form-control input-sm" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -255,9 +255,17 @@
     $(function() {
 
         init_datepicker();
+        init_datepicker1();
             
         function init_datepicker() {
             $('#tgl_lahir').datepicker({
+             format: 'yyyy-m-d',
+             autoclose: true
+           });
+        };
+
+        function init_datepicker1() {
+            $('#tgl_lahir1').datepicker({
              format: 'yyyy-m-d',
              autoclose: true
            });
