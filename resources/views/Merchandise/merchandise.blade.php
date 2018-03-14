@@ -7,40 +7,6 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-<<<<<<< HEAD
-
-                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
-
-                    <table class="table table-striped" style="width: 100%;">
-
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th>Deskripsi</th>
-                                <th>Harga</th>
-                                <th style="width:15%";>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($data as $val)
-                            <tr>
-                                <td>{{ $val['title'] or "-"}}</td>
-                                <td>{{ $val['desc'] or "-"}}</td>
-                                <td>{{ $val['price'] or "-"}}</td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
-                                    <a href="{{action('DataMaster\MerchandiseController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                                
-                        </tbody>
-                    </table>
-                    {!! $data->appends(Input::except('page'))->render() !!}
-            </div>
-        </div>
-=======
                 <div class="col-md-1">
                     <i class="fa fa-shopping-bag" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
@@ -69,8 +35,6 @@
     </section>
 </div>
 
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
-
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -96,8 +60,6 @@
                                 <label for="">Harga</label>
                                 <input type="text" name="price" id="price" class="form-control input-sm" required>
                             </div>                            
-<<<<<<< HEAD
-=======
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
@@ -105,7 +67,6 @@
                                     <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>   
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
                         </div>
                         <div class="modal-footer">
                             <div>
@@ -143,8 +104,6 @@
                                 <label for="">Harga</label>
                                 <input type="text" name="price" id="price" value="{{$val['price']}}"class="form-control input-sm" required>
                             </div>
-<<<<<<< HEAD
-=======
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
@@ -152,7 +111,6 @@
                                     <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
                         </div>
                         <div class="modal-footer">
                             <div>
@@ -163,12 +121,6 @@
                 </div>
             </div>
         </div>  
-<<<<<<< HEAD
-    </section>
-    @endforeach
-</div>
-@include('sweet::alert')
-=======
     @endforeach
     
 @include('sweet::alert')
@@ -192,5 +144,4 @@
     });
 
 </script>
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 @endsection

@@ -1,10 +1,7 @@
 @extends('template')
 
-<<<<<<< HEAD
-@section('title', 'List Club')
-=======
 @section('title', 'List User')
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
 @section('content')
 
 <div class="row">
@@ -12,26 +9,22 @@
         <div class="content-list">
             <div class="box-list">
 
-<<<<<<< HEAD
-                <a data-toggle="modal" data-target="#add" class="btn bg-purple " font-16" style="margin-bottom:30px;">Tambah</a>
-=======
+
                 <a data-toggle="modal" data-target="#add" class="btn btn-green " font-16" style="margin-bottom:30px;">Tambah</a>
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
 
                     <table class="table table-striped" style="width: 100%;">
 
                         <thead>
                             <tr>
-<<<<<<< HEAD
-                                <th>Nama</th>
-=======
+
                                 <th>Email</th>
                                 <th>Nama</th>
                                 <th>Telepon</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Alamat</th>
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -39,12 +32,6 @@
                         <tbody>
                             @foreach ($data as $val)
                             <tr>
-<<<<<<< HEAD
-                                <td>{{ $val['name'] or "-"}}</td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
-                                    <a href="{{action('DataMaster\ClubController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-=======
                                 <td>{{ $val['userid'] or "-"}}</td>
                                 <td>{{ $val['username'] or "-"}}</td>
                                 <td>{{ $val['telp'] or "-"}}</td>
@@ -54,76 +41,25 @@
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
                                     {{-- <a href="{{action('RegisterController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a> --}}
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
                                 </td>
                             </tr>
                             @endforeach
                                 
                         </tbody>
                     </table>
-<<<<<<< HEAD
-                    @for ($i = 1; $i <= $total; $i++)
-                        <ul class="pagination">
-                            <li><a href="{{action('DataMaster\MitraController@page', $i )}}" id="paging">{{$i}}</a></li>
-                        </ul> 
-                    @endfor
-=======
+
                    {{--  @for ($i = 1; $i <= $total; $i++)
                         <ul class="pagination">
                             <li><a href="{{action('DataMaster\MitraController@page', $i )}}" id="paging">{{$i}}</a></li>
                         </ul> 
                     @endfor --}}
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
             </div>
         </div>
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<<<<<<< HEAD
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="POST" action="{{ route('club.store') }}" enctype="multipart/form-data">
-                           {{ csrf_field() }}
-                        <div class="modal-header">
-                            <h4>Tambah Club</h4>
-                        </div>
-                        <div class="modal-body">       
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" name="user_id" id="user_id" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nama</label>
-                                <input type="text" name="user" id="user" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="text" name="pass" id="pass" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Telepon</label>
-                                <input type="text" name="user_id" id="user_id" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Alamat</label>
-                                <input type="text" name="alamat" id="alamat" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Jenis Kelamin</label>
-                                <input type="text" name="jenis_kelamin" id="jenis_kelamin" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Lahir</label>
-                                <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>                            
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                 <input type="submit" value="Simpan" class="btn btn-subscribe" >
-=======
+
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('register.store') }}" enctype="multipart/form-data">
@@ -211,7 +147,6 @@
                         <div class="modal-footer">
                             <div class="col-md-12">
                                  <input type="submit" value="Simpan" class="btn btn-green" >
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
                             </div>
                         </div>
                     </form> 
@@ -220,53 +155,6 @@
         </div>      
         @foreach ($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-<<<<<<< HEAD
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="POST" action="{{ route('club.update')}}" >
-                    {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
-                        <div class="modal-header">
-                            <h4>Edit Club</h4>
-                        </div>
-                        <div class="modal-body">         
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" name="user_id" id="user_id" value="{{ $val['user_id'] }}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nama</label>
-                                <input type="text" name="user" id="user" value="{{ $val['user'] }}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="text" name="pass" id="pass" value="{{ $val['pass'] }}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Telepon</label>
-                                <input type="text" name="telp" id="telp" value="{{ $val['telp'] }}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Alamat</label>
-                                <input type="text" name="alamat" id="alamat" value="{{ $val['almaat'] }}"class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Jenis Kelamin</label>
-                                <input type="text" name="jenis_kelamin" id="jenis_kelamin" value="{{ $val['jenis_kelamin'] }}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal Lahir</label>
-                                <input type="text" name="tanggal_lahir" value="{{ $val['tanggal_lahir'] }}" id="tanggal_lahir" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" readonly>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <input type="submit"  value="Simpan" class="btn btn-subscribe" >
-=======
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('register.update')}}" >
@@ -355,7 +243,6 @@
                         <div class="modal-footer">
                             <div class="col-md-12">
                                  <input type="submit" value="Simpan" class="btn btn-green" >
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
                             </div>
                         </div>
                     </form> 
@@ -368,9 +255,6 @@
 @include('sweet::alert')
 @endsection
 
-<<<<<<< HEAD
-
-=======
 @section('script')
 
 <script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
@@ -401,5 +285,4 @@
 </script>
 
 @endsection
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 

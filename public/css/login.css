@@ -3,11 +3,9 @@
 html { width: 100%; height:100%; overflow:hidden; }
 
 body { 
-<<<<<<< HEAD
+
     background-image:url("http://128.199.161.172/ticket-bola/public/image/Bg-11.png");
-=======
-    background-image:url("http://128.199.161.172/web-ticket-bola/public/image/Bg-11.png");
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
     background-size: 100% 100%;
     margin-top: 120px;
     width: 100%;

@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\Authentication\LoginController;
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 use Session;
 use Alert;
 
@@ -17,11 +13,7 @@ class RegisterController extends Controller
 {
     public function index(Request $request)
     {   
-<<<<<<< HEAD
-        $token = Session::get('token');
-=======
        $token = Session::get('token');
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 
         $response = Curl::to('128.199.161.172:8083/searchpartial')
         ->withHeader('Authorization:'.$token)
@@ -35,14 +27,6 @@ class RegisterController extends Controller
         ->asJson(true)
         ->post();
 
-<<<<<<< HEAD
-        return 'test';
-
-        $data     = $response['value'];
-        $total    = $response['totvalue'];
-       
-        return view('Register.register',compact('data','total'));
-=======
          //list data club for dropdown
         $list     = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
@@ -53,10 +37,9 @@ class RegisterController extends Controller
 
         $data     = $response['value'];
         // $total    = $response['totvalue'];
-        // return $data;
        
         return view('Register.register',compact('data','list_club'));
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
     }
 
     public function page(Request $request)
@@ -95,12 +78,10 @@ class RegisterController extends Controller
         			'jenis_kelamin'	=> $request->input('jenis_kelamin'),
         			'tgl_lahir'		=> $request->input('tgl_lahir'),
         			'alamat'		=> $request->input('alamat'),
-<<<<<<< HEAD
-=======
                     'idcard'        => $request->input('idcard'),
                     'status'        => $request->input('status'),
                     'clubcode'      => $request->input('clubcode'), 
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
         		];
 
         $response = Curl::to('128.199.161.172:8083/add')
@@ -109,7 +90,6 @@ class RegisterController extends Controller
                     ->post(); 
      
 
-<<<<<<< HEAD
         if ($response['status'] == "OK") {
             
             $message = "Data Berhasil Di update";
@@ -122,21 +102,6 @@ class RegisterController extends Controller
             $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
-
-        return redirect()->route('club.index');
-=======
-        // if ($response['status'] == "OK") {
-            
-        //     $message = "Data Berhasil Di Tambah";
-        //     alert()->success('');
-        //     Alert::success($message,'Sukses')->autoclose(4000);
-        // }
-
-        // else {
-            
-        //     $message = "Kode User sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
-        //     Alert::message($message)->autoclose(4000);
-        // }
 
         return redirect()->route('register.index');
     }
@@ -192,7 +157,7 @@ class RegisterController extends Controller
                     ->delete();
 
         return redirect()->route('register.index');
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
+
     }
 
 }
