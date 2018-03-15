@@ -49,10 +49,7 @@ class ClubController extends Controller
                     $file         = $request->file('gambar');
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
-                    $image_resize->resize(150, 150);
-                    // $image_resize->save('/var/www/image/' .$filename);
-                    // $resize_image = ('/var/www/image/' .$filename); 
-                    
+                    $image_resize->resize(150, 150);                                     
                     $image_resize->save(public_path('image/' .$filename));
                     $resize_image = (public_path('image/' .$filename)); 
                     $imglg = base64_encode(file_get_contents($resize_image));
@@ -68,10 +65,6 @@ class ClubController extends Controller
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(300, 200);
-
-                    // $image_resize->save('/var/www/image/' .$filename);
-                    // $resize_image = ('/var/www/image/' .$filename); 
-
                     $image_resize->save(public_path('image/' .$filename));
                     $resize_image = (public_path('image/' .$filename)); 
                     $imgbg1 = base64_encode(file_get_contents($resize_image));
@@ -92,8 +85,6 @@ class ClubController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-
->>>>>>> ee5d429958815d3b7a5e3515ccccc6889cd66b5a
 
         if ($response['status'] == "OK") {
             
@@ -126,11 +117,6 @@ class ClubController extends Controller
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
-                    //inserver
-                    // $image_resize->save('/var/www/image/' .$filename);
-                    // $resize_image = ('/var/www/image/' .$filename); 
-                    
-                    //local
                     $image_resize->save(public_path('image/' .$filename));
                     $resize_image = (public_path('image/' .$filename));
 
@@ -140,6 +126,10 @@ class ClubController extends Controller
                 }
             }
         }
+        else{
+            $imglg = $request->input('gambar');
+        }
+        
         if ($request->hasFile('gambar1')) {
             if($request->file('gambar1')->isValid()) {
                 try {
@@ -147,10 +137,6 @@ class ClubController extends Controller
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(300, 200);
-
-                    // $image_resize->save('/var/www/image/' .$filename);
-                    // $resize_image = ('/var/www/image/' .$filename); 
-
                     $image_resize->save(public_path('image/' .$filename));
                     $resize_image = (public_path('image/' .$filename)); 
                     $imgbg1 = base64_encode(file_get_contents($resize_image));
@@ -158,6 +144,9 @@ class ClubController extends Controller
                     echo "catch";
                 }
             } 
+        }
+        else{
+            $imgbg1 = $request->input('gambar1');
         }
 
         $response = Curl::to('128.199.161.172:8091/edit')
@@ -173,20 +162,6 @@ class ClubController extends Controller
                     ->asJson(true)
                     ->put();
                      
-        if ($response['status'] == "OK") {
-            
-            $message = "Data Berhasil Di Update";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
-        }
-
-        else {
-            
-            $message = "Kode club sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
-            Alert::message($message)->autoclose(4000);
-        }
-
-
         return redirect()->route('club.index');
     }
 

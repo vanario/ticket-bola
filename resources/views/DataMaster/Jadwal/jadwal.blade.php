@@ -26,7 +26,7 @@
                         <tbody>
                             @foreach ($data as $val)
                             <tr>
-                                <td>{{ $val['name']." vs " .$val['name'] }}</td>
+                                <td>{{ $val['name']." vs " .$val['name1'] }}</td>
                                 <td>{{ $val['date'] or "-"}}</td>
                                 <td>{{ $val['jam'] or "-"}}</td>
                                 <td>{{ $val['desc'] or "-"}}</td>

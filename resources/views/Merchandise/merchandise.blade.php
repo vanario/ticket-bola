@@ -11,9 +11,9 @@
                     <i class="fa fa-shopping-bag" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
                 <div class="col-md-5">
-                    <h4 style="margin-left:-20px; font-size:24px;">Merchandise</h4>                    
+                    <h4 style="font-size:24px;">Merchandise</h4>                    
                 </div>
-                <div class="col-md-6" style="margin-top:-15px; padding-left: 30%;">
+                <div class="col-md-6" style="margin-top:-15px; text-align: right;">
                     <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
                 </div>
             </div>
@@ -22,11 +22,14 @@
                     @foreach ($data as $val)
                     <div class="responsive">
                       <div class="gallery">
-                        <a target="_blank" href="img_lights.jpg">
                           <img src="data:image/jpeg/png;base64,{{ $val['img'] or "-" }}" width="150" height="150">
-                        </a>
                       </div>
-                        <div class="desc">Harga :{{ $val['price'] }}</div>
+                        <div class="desc" style="font-size: 15px;">{{ $val['title'] }}</div>
+                        <div class="desc">{{ $val['desc'] }}</div>
+                        <div class="desc" style="font-size: 20px;">Harga : Rp.{{ $val['price'] }}</div>
+                        <div class="desc" style="text-align: right; padding-right:20px; ">
+                            <a data-toggle="modal" data-target="#edit" class="btn btn-green" font-16" style="margin-bottom:5px;">Edit</a>
+                        </div>
                     </div>
                     @endforeach
                 </div>            

@@ -147,7 +147,37 @@ class RegisterController extends Controller
     }
 
  
+    public function approve(Request $request)
+    {
+        $token = Session::get('token');
+        
+        $id = $request->keys();
 
+        if ($id !=null){
+            $gtcode = implode($id);
+            $response = Curl::to('128.199.161.172:8083/approval')                    
+                        ->withHeader('Authorization:'.$token)
+                        ->withData([ "gtcode" => $gtcode,
+                                     "status" => 'Aktif',
+                                    ])
+                        ->asJson(true)
+                        ->put();
+            if ($response['status'] == "Aktif") {
+            
+            $message = "Data Berhasil Di update";
+            alert()->success('');
+            Alert::success($message,'Sukses')->autoclose(4000);
+            }
+        }
+        else
+        {
+            $message = "Kode user tidak tersedia, data gagal diupdate ";
+            Alert::message($message)->autoclose(4000);
+        }
+
+
+        return redirect()->route('register.index');
+    }
     public function destroy($id)
     {  
         $token = Session::get('token');

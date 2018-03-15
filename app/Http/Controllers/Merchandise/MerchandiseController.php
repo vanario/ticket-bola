@@ -48,15 +48,6 @@ class MerchandiseController extends Controller
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
 
-                    $image_resize->save('/var/www/image/' .$filename);
-                    $resize_image = ('/var/www/image/' .$filename); 
-                    
-                    // $image_resize->save(public_path('image/' .$filename));
-                    // $resize_image = (public_path('image/' .$filename)); 
-
-                    // $image_resize->save('/var/www/image/' .$filename);
-                    // $resize_image = ('/var/www/image/' .$filename); 
-                    
                     $image_resize->save(public_path('image/' .$filename));
                     $resize_image = (public_path('image/' .$filename)); 
 
@@ -108,11 +99,11 @@ class MerchandiseController extends Controller
                     $filename     = $file->getClientOriginalName();
                     $image_resize = Image::make($file->getRealPath());  
                     $image_resize->resize(150, 150);
-                    $image_resize->save('/var/www/image/' .$filename);
-                    $resize_image = ('/var/www/image/' .$filename); 
+                    // $image_resize->save('/var/www/image/' .$filename);
+                    // $resize_image = ('/var/www/image/' .$filename); 
                     
-                    // $image_resize->save(public_path('image/' .$filename));
-                    // $resize_image = (public_path('image/' .$filename)); 
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
                     $image = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
                     echo "catch";

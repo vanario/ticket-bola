@@ -66,8 +66,9 @@
                         <div class="modal-body">       
                             <div class="form-group">
                                 <label for="">Tribun</label>
-                                <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
-                            </div>
+                                <input type="text" name="tribun" id="tribun" class="form-control" data-provide="typeahead" required>
+                                <input type="text" name="tribun" id="gtcode" class="form-control input-sm" required>
+                            </div>                                     
                             <div class="form-group">
                                 <label for="">Stadion</label>
                                 <select  name="gttop" class="form-control" required>
@@ -139,11 +140,43 @@
         </div>  
     </section>
 </div>
-@include('sweet::alert')
 @endsection
 
 @section('script')
-    <script src="{{ asset('adminlte/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
-@endsection
+@include('sweet::alert')
+<script src="{{ asset('adminlte/bower_components/bootstrap-typeahead.js') }}"></script>
+<script src="{{ asset('adminlte/bower_components/jquery.mockjax.js') }}"></script> 
 
+<script type="text/javascript">
+    $(function() {
+        function displayResult(item) {            
+            $("#tribun").val(item.value);
+        }
+        var colors = ["red", "blue", "green", "yellow", "brown", "black"];
+        $('#gtcode').typeahead({source: colors});
+
+</script>
+
+{{-- <script type="text/javascript">
+    $(function() {
+        function displayResult(item) {            
+            $("#tribun").val(item.value);
+        }
+        var colors = ["red", "blue", "green", "yellow", "brown", "black"];
+        $('#gtcode').typeahead({
+            source: [
+                { id: 1 , name: 'Vvip' },
+                { id: 2 , name: 'vip1' },
+                { id: 3 , name: 'vip2' },
+                { id: 4 , name: 'timur' },
+                { id: 5 , name: 'utara' },
+                { id: 6 , name: 'selatan' },
+            ],
+            onSelect: displayResult
+        });
+    });
+
+</script> --}}
+
+@endsection
 

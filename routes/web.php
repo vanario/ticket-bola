@@ -71,6 +71,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('index','Register\RegisterController@index')->name('register.index');
 		Route::post('store','Register\RegisterController@store')->name('register.store');
 		Route::patch('update','Register\RegisterController@update')->name('register.update');
+		Route::get('approve','Register\RegisterController@approve')->name('register.approve');
 		Route::get('destroy/{id}','Register\RegisterController@destroy');
 	});
 

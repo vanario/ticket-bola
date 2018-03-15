@@ -127,8 +127,6 @@
 @include('sweet::alert')
 @endsection
 
-<<<<<<< HEAD
-=======
 @section('script')
 <script type="text/javascript">
     function readURL(input) {

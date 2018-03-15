@@ -24,6 +24,7 @@
                                 <th>Jenis Kelamin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Alamat</th>
+                                <th>Status</th>
 
                                 <th>Action</th>
                             </tr>
@@ -38,9 +39,10 @@
                                 <td>{{ $val['jenis_kelamin'] or "-"}}</td>
                                 <td>{{ $val['tgl_lahir'] or "-"}}</td>
                                 <td>{{ $val['alamat'] or "-"}}</td>
+                                <td>{{ $val['status'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>      
-                                    {{-- <a href="{{action('RegisterController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a> --}}
+                                    {{-- <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>  --}}     
+                                    <a style="margin-top:-0px;" href="{{action('Register\RegisterController@approve',$val['gtcode'])}}" id="hapus" class="btn btn-green" >Aprrove</a>
 
                                 </td>
                             </tr>
