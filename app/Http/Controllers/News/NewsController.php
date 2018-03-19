@@ -93,6 +93,7 @@ class NewsController extends Controller
     {
         $token = Session::get('token');        
         // return $token;
+        return $image = $request->file('gambar1');
 
         if ($request->hasFile('gambar')) {
             if($request->file('gambar')->isValid()) {
@@ -111,6 +112,9 @@ class NewsController extends Controller
                     echo "catch";
                 }
             }
+        }
+        else{
+            $image = $request->input('gambar_');
         }
         
             $response = Curl::to('128.199.161.172:8108/editnews')
