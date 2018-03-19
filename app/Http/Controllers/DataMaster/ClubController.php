@@ -107,8 +107,9 @@ class ClubController extends Controller
         $gtcode = $request->input('gtcode');
         $name   = $request->input('name');
 
+        return $request->file('gambar2');
+        
         $token = Session::get('token'); 
-
 
         if ($request->hasFile('gambar')) {
             if($request->file('gambar')->isValid()) {
@@ -127,7 +128,7 @@ class ClubController extends Controller
             }
         }
         else{
-            $imglg = $request->input('gambar');
+            $imglg = $request->input('gambar_');
         }
         
         if ($request->hasFile('gambar1')) {
@@ -146,7 +147,7 @@ class ClubController extends Controller
             } 
         }
         else{
-            $imgbg1 = $request->input('gambar1');
+            $imgbg1 = $request->input('gambar1_');
         }
 
         $response = Curl::to('128.199.161.172:8091/edit')
