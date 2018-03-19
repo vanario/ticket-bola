@@ -82,6 +82,13 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('destroy/{id}','Merchandise\MerchandiseController@destroy');
 	});
 
+	Route::group(['prefix'=>'news'], function() {
+		Route::get('/','News\NewsController@index')->name('news.index');
+		Route::post('store','News\NewsController@store')->name('news.store');
+		Route::patch('update','News\NewsController@update')->name('news.update');
+		Route::get('destroy/{id}','News\NewsController@destroy');
+	});
+
 });
 
 
