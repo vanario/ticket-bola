@@ -98,14 +98,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Logo </label>
-                                <input type="file" id="inputimage" value="{{ $val['imglg'] }}" name="gambar" class="validate" multiple >
+                                <input type="file" id="inputimage" name="gambar" class="validate" multiple >
+                                <input type="hidden" value="{{ $val['imglg'] }}" name="gambar_" class="validate" multiple >
                                 <div class="input-field col s6">                          
                                     <img src="data:image/jpeg/png;base64,{{ $val['imglg'] }}" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>                     
                             <div class="form-group">
                                 <label for="">Background</label>
-                                <input type="file" id="inputimage1" value="{{ $val['imgbg1'] }}" name="gambar1" class="validate" multiple >
+                                <input type="file" id="inputimage1" name="gambar1" class="validate" multiple >
+                                <input type="hidden" value="{{ $val['imgbg1'] }}" name="gambar1_" class="validate" multiple >
                                 <div class="input-field col s6">                          
                                     <img src="data:image/jpeg/png;base64,{{ $val['imgbg1'] }}" id="image-preview1" style="max-width:300px;max-height:200px;" />
                                 </div>
