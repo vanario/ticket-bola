@@ -32,6 +32,8 @@
             <li><a href="{{ url('news/') }}"><i class="fa fa-newspaper-o" style="color:white"></i>News</a></li>
 
             <li><a href="{{ url('merchandise') }}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
+
+            <li><a href="{{ url('report') }}"><i class="fa fa-newspaper-o" style="color:white"></i>Report</a></li>
         </ul>
       <!-- /.sidebar-menu -->
     </section>
