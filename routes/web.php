@@ -89,6 +89,10 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('destroy/{id}','News\NewsController@destroy');
 	});
 
+	Route::group(['prefix' => 'report'], function(){
+		Route::get('/','Report\ReportController@index')->name('report.index');
+	});
+
 });
 
 
