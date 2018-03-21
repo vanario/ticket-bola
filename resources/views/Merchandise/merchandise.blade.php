@@ -17,8 +17,33 @@
                     <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
                 </div>
             </div>
+                <table class="table table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>Harga</th>
+                        <th>Deskripsi</th>
+                        <th style="width:15%";>Action</th>
+                    </tr>
+                </thead>
 
-                <div class="col-md-12">
+                <tbody>
+                    @foreach ($data as $val)
+                    <tr>
+                        <td>{{ $val['title'] or "-"}}</td>
+                        <td>{{ $val['price'] or "-"}}</td>
+                        <td>{{ $val['desc'] or "-"}}</td>
+                        <td>
+                            <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
+                            <a href="{{action('News\NewsController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                        
+                </tbody>
+            </table>
+
+                {{-- <div class="col-md-12">
                     @foreach ($data as $val)
                     <div class="responsive">
                       <div class="gallery">
@@ -32,7 +57,7 @@
                         </div>
                     </div>
                     @endforeach
-                </div>            
+                </div> --}}            
         </div>
         {!! $data->appends(Input::except('page'))->render() !!}
     </section>
@@ -109,7 +134,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Gambar</label>
-                                <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
+                                <input type="file" id="inputimage" name="gambar" class="validate">
                                 <div class="input-field col s6">                          
                                     <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    

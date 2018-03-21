@@ -38,11 +38,10 @@ class LoginController extends Controller
         Session::put('token', $token);
 
         if ($response['resocde'] == 201){
-            return redirect()->route('auth.home');
+            return redirect()->route('dashboard.home');
         }
         else{
             return redirect()->route('login');
-            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan tribun dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
@@ -58,6 +57,6 @@ class LoginController extends Controller
 
     public function home()
     {
-    	return view('home');
+    	
     }
 }

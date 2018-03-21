@@ -17,7 +17,7 @@
                     <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
                 </div>
             </div>
-            {{-- <table class="table table-striped" style="width: 100%;">
+            <table class="table table-striped" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>Judul</th>
@@ -41,22 +41,7 @@
                     @endforeach
                         
                 </tbody>
-            </table>
- --}}
-                <div class="col-md-12">
-                    @foreach ($data as $val)
-                    <div class="responsive">
-                      <div class="gallery">
-                          <img src="data:image/jpeg/png;base64,{{ $val['img'] or "-" }}" width="150" height="150">
-                      </div>
-                        <div class="desc" style="font-size: 15px;">{{ $val['title'] }}</div>
-                        <div class="desc" style="font-size: 20px;">{{ $val['date'] }}</div>
-                        <div class="desc" style="text-align: right; padding-right:20px; ">
-                            <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}" class="btn btn-green" font-16" style="margin-bottom:5px;">Edit</a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>            
+            </table>                            
         </div>
         {!! $data->appends(Input::except('page'))->render() !!}
     </section>
@@ -107,7 +92,8 @@
                     </form> 
                 </div>
             </div>
-        </div>      
+        </div>
+
         @foreach ($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -157,8 +143,7 @@
                 </div>
             </div>
         </div>  
-    @endforeach
-    
+        @endforeach
 @include('sweet::alert')
 @endsection
 

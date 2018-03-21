@@ -14,18 +14,15 @@
 Auth::routes();
 
 	Route::group(['prefix' =>'auth'], function () {
-	    Route::get('home', 'Authentication\LoginController@home')->name('auth.home');
+	    // Route::get('home', 'Authentication\LoginController@home')->name('auth.home');
 	    Route::post('index', 'Authentication\LoginController@index');
 	    Route::post('logout', 'Authentication\LoginController@logout');
 	    
 	});	
 
+	Route::get('home', 'Dashboard\DashboardController@index')->name('dashboard.home');
+
 Route::group(['middleware' => 'admin'], function() {
-
-	
-	Route::get('/home', 'HomeController@index')->name('home');
-
-
 	Route::group(['prefix'=>'stadion'], function() {
 		Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
 		Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
