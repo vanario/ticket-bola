@@ -31,17 +31,89 @@
                                 <td>{{ $val['jam'] or "-"}}</td>
                                 <td>{{ $val['desc'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
+                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>
                                     <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                </td>
+                                    <i data-toggle="modal" data-target="#addtribun{{$val['gtcode']}}" class="fa fa-plus" font-16" style="margin-bottom:20px;"></i>
+                                </td>                                
+
                             </tr>
                             @endforeach
-                                
-                        </tbody>
+                        </tbody>                        
                     </table>
                     {!! $data->appends(Input::except('page'))->render() !!}
             </div>
         </div>
+        @foreach ($data as $val)
+            <div id="addtribun{{$val['gtcode']}}" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="POST" action="{{ route('jadwal.update')}}" >
+                        {{ csrf_field() }}
+
+                        <input name="_method" type="hidden" value="PATCH">
+                            <div class="modal-header">
+                                <h4>Tambah Tribun
+                                </h4>
+                            </div>
+                            <div class="modal-body">       
+                                
+                                <table class="table table-striped" style="width: 100%;">
+                                   <thead>
+                                        <tr>
+                                            <th>Deskrpsi</th>
+                                            <th>Tribun</th>
+                                            <th>Harga</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach ($data as $val)
+                                        <tr>
+                                            <td>{{ $val['desc'] or "-"}}</td>
+                                            <td>{{ $val['tribun'] or "-"}}</td>
+                                            <td>{{ $val['harga'] or "-"}}</td>
+                                            <td>
+                                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
+                                                <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                            
+                                    </tbody>
+                                </table>
+                                {!! $data->appends(Input::except('page'))->render() !!}
+                                
+                                <div class="form-group">                                
+                                    <div class="col-md-6">
+                                        <label for="">Kode Tribun</label>
+                                        <input type="text" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
+                                    </div>                  
+                                    <div class="col-md-6">
+                                        <label for="">Deskripsi</label>
+                                        <input type="text" name="desc" id="desc" class="form-control input-sm" required>
+                                    </div>                  
+                                    <div class="col-md-6">
+                                        <label for="">Tribun</label>
+                                        <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
+                                    </div>                    
+                                    <div class="col-md-6">
+                                        <label for="">Harga</label>
+                                        <input type="text" name="price" id="price" class="form-control input-sm" required>
+                                    </div>
+                                </div>
+                            <div class="modal-footer">
+                                <div class="col-md-12">
+                                     <input type="submit" value="Simpan" class="btn btn-green" >
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
@@ -93,31 +165,7 @@
                                     <label for="">Jam</label>
                                     <input type="text" name="jam" id="jam" class="form-control input-sm" required>
                                 </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Kode Tribun</label>
-                                    <input type="text" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Deskripsi</label>
-                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Tribun</label>
-                                    <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Harga</label>
-                                    <input type="text" name="price" id="price" class="form-control input-sm" required>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="modal-footer">
                             <div class="col-md-12">
@@ -181,31 +229,7 @@
                                     <label for="">Jam</label>
                                     <input type="text" name="jam" value="{{ $val['jam'] or "-"}}" id="jam" class="form-control input-sm" required>
                                 </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Kode Tribun</label>
-                                    <input type="text" name="gtcodetrib" value="{{ $value['gtcodetrib'] or "-"}}"id="gtcodetrib" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Deskripsi</label>
-                                    <input type="text" name="desc" id="desc" value="{{ $val['desc'] or "-"}}"class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Tribun</label>
-                                    <input type="text" name="tribun" id="tribun" value="{{ $value['tribun'] or "-"}}" class="form-control input-sm" required>
-                                </div>
-                            </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Harga</label>
-                                    <input type="text" name="price" id="price" value="{{ $value['harga'] or "-"}}" class="form-control input-sm" >
-                                </div>
-                            </div>                                     
+                            </div>                               
                         </div>
                         <div class="modal-footer">
                             <div class="col-md-12">
