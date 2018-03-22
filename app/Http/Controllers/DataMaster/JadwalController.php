@@ -15,7 +15,7 @@ use Storage;
 
 class JadwalController extends Controller
 {   
-    public function index()
+    public function index(Request $request)
     {   
         $token = Session::get('token'); 
 
@@ -26,14 +26,37 @@ class JadwalController extends Controller
 
         $data     = $response['result'];
 
+        $data_tribun = ""; 
+
+        $token = Session::get('token');
+                
+        $id = $request->keys();
+
+        if ($id !=null){
+            $gtcode = implode($id);
+            $response = Curl::to('128.199.161.172:9099/getcodeitem/'.$gtcode)
+                        ->withHeader('Authorization:'.$token)                        
+                        ->asJson(true)
+                        ->get();
+
+            $data_tribun= $response['value']['value'];
+            if ($response['value'] == "OK") {
+            
+            $message = "Data Berhasil Di update";
+            alert()->success('');
+            Alert::success($message,'Sukses')->autoclose(4000);
+            }
+        }
         //list data club for dropdown
 
-        $list     = Curl::to('128.199.161.172:8091/getbygttop/TB')
+        $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get();
+                    
         $list_data  = $list['value'];
 
-        $list_club = collect($list_data)->pluck('name','gtcode');
+
+        $list_club  = collect($list_data)->pluck('name','gtcode');
         
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -42,7 +65,7 @@ class JadwalController extends Controller
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
-        return view('DataMaster/Jadwal.jadwal', compact('data', 'list_club', 'value'));
+        return view('DataMaster/Jadwal.jadwal', compact('data', 'list_club', 'value','listtribun','id'));
     }
 
     public function store(Request $request)
@@ -137,5 +160,36 @@ class JadwalController extends Controller
                     ->delete();
 
         return redirect()->route('jadwal.index');
+    }
+
+    public function listtribun(Request $request)
+    {
+        $token = Session::get('token');
+                
+        $id = $request->keys();
+
+        if ($id !=null){
+            $gtcode = implode($id);
+            $response = Curl::to('128.199.161.172:9099/getcodeitem/'.$gtcode)
+                        ->withHeader('Authorization:'.$token)                        
+                        ->asJson(true)
+                        ->get();
+
+            $data_tribun= $response['value']['value'];
+            if ($response['value'] == "OK") {
+            
+            $message = "Data Berhasil Di update";
+            alert()->success('');
+            Alert::success($message,'Sukses')->autoclose(4000);
+            }
+        }
+        else
+        {
+            $message = "Kode user tidak tersedia, data gagal diupdate ";
+            Alert::message($message)->autoclose(4000);
+        }
+
+
+        return view('DataMaster/Jadwal.jadwal', compact('$data_tribun'));
     }
 }

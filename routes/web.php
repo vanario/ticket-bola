@@ -61,6 +61,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
 		Route::get('destroy/{id}','DataMaster\JadwalController@destroy');
+		Route::get('listtribun','DataMaster\JadwalController@listtribun');
 
 	});
 

@@ -33,7 +33,7 @@
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>
                                     <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                    <i data-toggle="modal" data-target="#addtribun{{$val['gtcode']}}" class="fa fa-plus" font-16" style="margin-bottom:20px;"></i>
+                                    <a data-toggle="modal" data-target="#addtribun{{$val['gtcode']}}" {{-- href="{{action('DataMaster\JadwalController@index',$val['gtcode'])}}" --}} class="fa fa-plus" font-16" style="margin-bottom:20px;"></a>
                                 </td>                                
 
                             </tr>
@@ -43,8 +43,8 @@
                     {!! $data->appends(Input::except('page'))->render() !!}
             </div>
         </div>
-        @foreach ($data as $val)
-            <div id="addtribun{{$val['gtcode']}}" class="modal fade">
+        @foreach ($data as $value)
+            <div id="addtribun{{$value['gtcode']}}" class="modal fade">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form method="POST" action="{{ route('jadwal.update')}}" >
@@ -55,12 +55,13 @@
                                 <h4>Tambah Tribun
                                 </h4>
                             </div>
-                            <div class="modal-body">       
+                            <div class="modal-body">
+
                                 
                                 <table class="table table-striped" style="width: 100%;">
                                    <thead>
                                         <tr>
-                                            <th>Deskrpsi</th>
+                                            <th>Jumlah</th>
                                             <th>Tribun</th>
                                             <th>Harga</th>
                                             <th>Action</th>
@@ -68,18 +69,17 @@
                                     </thead>
 
                                     <tbody>
-                                        @foreach ($data as $val)
-                                        <tr>
-                                            <td>{{ $val['desc'] or "-"}}</td>
-                                            <td>{{ $val['tribun'] or "-"}}</td>
-                                            <td>{{ $val['harga'] or "-"}}</td>
-                                            <td>
-                                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
-                                                <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                        @foreach($value['value'] as $result)
+                                            <tr>
+                                                <td>{{ $result['qty'] or "-"}}</td>
+                                                <td>{{ $result['tribun'] or "-"}}</td>
+                                                <td>{{ $result['price'] or "-"}}</td>
+                                                <td>
+                                                    <a data-toggle="modal" data-target="#edit{{$result['gtcodetrib']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
+                                                    <a href="{{action('DataMaster\JadwalController@destroy',$result['gtcodetrib'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                            
                                     </tbody>
                                 </table>
                                 {!! $data->appends(Input::except('page'))->render() !!}
