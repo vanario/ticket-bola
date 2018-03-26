@@ -90,8 +90,8 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('/','Report\ReportController@index')->name('report.index');		
 		Route::group(['prefix' => 'club'], function(){ 
 			Route::get('/','Report\ReportController@club')->name('report.club');
-			Route::get('/detail','Report\ReportController@clubReport')->name('report.club');
-		})		
+			Route::get('/detail/{clubId}','Report\ReportController@clubReport')->name('report.club');
+		});		
 	});
 
 });
