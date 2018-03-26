@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2 class="page-header">
-                    <i class="fa fa-globe"></i>Club AdminLTE, Inc.
-                    <small class="pull-right">Date: 2/10/2014</small>
+                    <i class="fa fa-globe"></i>{{ $club['name'] }}
+                    <small class="pull-right"></small>
                 </h2>
             </div>
         </div>
@@ -36,6 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @if($listCurrent > 0)
                         @foreach($listCurrent as $key => $value)
                             <tr>
                                 <td>{{ $value['jadwal'] }}</td>
@@ -44,6 +45,11 @@
                                 <td>{{ $value['tot_tiket'] }}</td>
                             </tr>
                         @endforeach
+                    @else
+                        <div class="alert alert-warning alert-dismissible">
+                            <h5><i class="icon fa fa-warning"></i> Data tidak tersedia</h5>
+                        </div>                      
+                    @endif
                     </tbody>
                 </table>
             </div>            

@@ -19,7 +19,7 @@
                         <tr>
                             <td>{{ $val['name'] or "-"}}</td>
                             <td>
-                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a> 
+                                <a href="{{ url('report/club/detail/'.$val["gtcode"]) }}" class="btn btn-success">Detail</a> 
                             </td>
                         </tr>
                         @endforeach
