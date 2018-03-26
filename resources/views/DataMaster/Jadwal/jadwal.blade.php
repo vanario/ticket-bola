@@ -47,10 +47,9 @@
             <div id="addtribun{{$value['gtcode']}}" class="modal fade">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form method="POST" action="{{ route('jadwal.update')}}" >
+                        <form method="POST" action="{{ route('jadwal.storetrib')}}" >
                         {{ csrf_field() }}
 
-                        <input name="_method" type="hidden" value="PATCH">
                             <div class="modal-header">
                                 <h4>Tambah Tribun
                                 </h4>
@@ -75,8 +74,8 @@
                                                 <td>{{ $result['tribun'] or "-"}}</td>
                                                 <td>{{ $result['price'] or "-"}}</td>
                                                 <td>
-                                                    <a data-toggle="modal" data-target="#edit{{$result['gtcodetrib']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
-                                                    <a href="{{action('DataMaster\JadwalController@destroy',$result['gtcodetrib'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                                    <a data-toggle="modal" data-target="#edittrib{{$result['gtcodetrib']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
+                                                    <a href="{{action('DataMaster\JadwalController@destroytrib',[$value['gtcode'],$result['gtcodetrib']])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -84,23 +83,32 @@
                                 </table>
                                 {!! $data->appends(Input::except('page'))->render() !!}
                                 
+                                <input type="hidden" name="gtcode" id="gtcode" value="{{ $value['gtcode'] }}" class="form-control input-sm" required>
                                 <div class="form-group">                                
                                     <div class="col-md-6">
                                         <label for="">Kode Tribun</label>
                                         <input type="text" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
                                     </div>                  
                                     <div class="col-md-6">
-                                        <label for="">Deskripsi</label>
-                                        <input type="text" name="desc" id="desc" class="form-control input-sm" required>
-                                    </div>                  
-                                    <div class="col-md-6">
                                         <label for="">Tribun</label>
-                                        <input type="text" name="tribun" id="tribun" class="form-control input-sm" required>
+                                        <select name="tribun" class="form-control" id="tribun" required>
+                                            <option value="">Pilih Tribun</option>
+                                            <option value="vip">VIP</option>
+                                            <option value="vip 1">VIP 1</option>
+                                            <option value="vip 2">VIP 2</option>
+                                            <option value="tribun timur">Tribun Timur</option>
+                                            <option value="tribun utara">Tribun Utara</option>
+                                            <option value="tribun selatan">Tribun Selatan</option>
+                                        </select>
                                     </div>                    
                                     <div class="col-md-6">
                                         <label for="">Harga</label>
                                         <input type="text" name="price" id="price" class="form-control input-sm" required>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label for="">Jumlah</label>
+                                        <input type="text" name="qty" id="qty" class="form-control input-sm" required>
+                                    </div>                  
                                 </div>
                             <div class="modal-footer">
                                 <div class="col-md-12">
@@ -113,6 +121,59 @@
                     </div>
                 </div>
             </div>
+        @endforeach
+
+        @foreach ($data as $val)
+            @foreach ($val['value'] as $result)
+            <div class="modal fade" id="edittrib{{$result['gtcodetrib']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form method="POST" action="{{ route('jadwal.updatetrib')}}" >
+                        {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="PATCH">
+                            <div class="modal-header">
+                                <h4>Edit Jadwal
+                                </h4>
+                            </div>
+                            <input type="text" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" required>
+                            <div class="modal-body">       
+                                <div class="form-group">                                
+                                    <div class="col-md-6">
+                                        <label for="">Kode Tribun</label>
+                                        <input type="text"  value="{{ $result['gtcodetrib'] }}" name="gtcodetrib" id="gtcodetrib" class="form-control input-sm" required>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <label for="">Tribun</label>
+                                        <select name="tribun" class="form-control" id="tribun" required>
+                                            <option value="">Pilih Tribun</option>
+                                            <option value="vip">VIP</option>
+                                            <option value="vip 1">VIP 1</option>
+                                            <option value="vip 2">VIP 2</option>
+                                            <option value="tribun timur">Tribun Timur</option>
+                                            <option value="tribun utara">Tribun Utara</option>
+                                            <option value="tribun selatan">Tribun Selatan</option>
+                                        </select>
+                                    </div>                   
+                                    <div class="col-md-6">
+                                        <label for="">Harga</label>
+                                        <input type="text" value="{{ $result['price'] }}" price" id="price" class="form-control input-sm" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Jumlah</label>
+                                        <input type="text" value="{{ $result['qty'] or "-" }}" name="qty" id="qty" class="form-control input-sm" required>
+                                    </div>                  
+                                </div>                   
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-md-12">
+                                     <input type="submit" value="Simpan" class="btn btn-green" >
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+            </div> 
+            @endforeach
         @endforeach
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -165,6 +226,18 @@
                                     <label for="">Jam</label>
                                     <input type="text" name="jam" id="jam" class="form-control input-sm" required>
                                 </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Kota</label>
+                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Alamat</label>
+                                    <input type="text" name="subdesc" id="subdesc" class="form-control input-sm" required>
+                                </div>
                             </div>                            
                         </div>
                         <div class="modal-footer">
@@ -195,7 +268,7 @@
                                     <select  name="gttopstadion" class="form-control" required>
                                         <option value="">Club</option>
                                         @foreach($list_club as $gtcode => $name)
-                                        <option value="{{$gtcode}}">{{$name}}</option>
+                                        <option value="{{$gtcode}}" @if($val['gttop'] == $gtcode) selected @endif>{{$name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -221,13 +294,25 @@
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Date</label>
-                                    <input type="text" name="date" value="{{ $val['date'] or "-"}}" id="date" class="form-control input-sm" required>
+                                    <input type="text" name="date1" value="{{ $val['date'] or "-"}}" id="date1" class="form-control input-sm" required>
                                 </div>                                                        
                             </div>
                             <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Jam</label>
-                                    <input type="text" name="jam" value="{{ $val['jam'] or "-"}}" id="jam" class="form-control input-sm" required>
+                                    <input type="text" name="jam1" value="{{ $val['jam'] or "-"}}" id="jam1" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Kota</label>
+                                    <input type="text"  value="{{ $val['desc'] or "-"}}" name="desc" id="desc" class="form-control input-sm" required>
+                                </div>
+                            </div>
+                            <div class="form-group">                                
+                                <div class="col-md-6">
+                                    <label for="">Alamat</label>
+                                    <input type="text" value="{{ $val['subdesc'] or "-"}}" name="subdesc" id="subdesc" class="form-control input-sm" required>
                                 </div>
                             </div>                               
                         </div>
@@ -256,6 +341,8 @@
 
         init_datepicker();
         init_timepicker();
+        init_datepicker1();
+        init_timepicker1();
             
         function init_datepicker() {
             $('#date').datepicker({
@@ -266,6 +353,20 @@
 
         function init_timepicker() {
             $('#jam').timepicker({
+             format: 'H:i:s',
+             autoclose: true
+           });
+        };
+
+        function init_datepicker1() {
+            $('#date1').datepicker({
+             format: 'yyyy-m-d',
+             autoclose: true
+           });
+        };
+
+        function init_timepicker1() {
+            $('#jam1').timepicker({
              format: 'H:i:s',
              autoclose: true
            });
