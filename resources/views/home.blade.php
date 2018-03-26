@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-xs-6">
+            <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
                         <h3>{{ $data['tot_nominal'] }}<sup style="font-size: 20px"></sup></h3>
@@ -29,9 +29,9 @@
                     <div class="icon">
                         <i class="ion-calculator"></i>
                     </div>
-                    </div>
+                </div>
             </div>
-            <div class="col-lg-4 col-xs-6">
+            <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <h3>{{ $data['tot_tiket'] }}</h3>
@@ -42,82 +42,94 @@
                       <i class="ion ion-pie-graph"></i>
                     </div>
                 </div>
-            </div>            
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                         <h3>30 Ribu</h3>
 
-        <!-- Donut chart -->
-        <div class="col-md-9">
-          <!-- LINE CHART -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <i class="fa fa-bar-chart-o"></i>
-
-                    <h3 class="box-title">Penjualan Tiket Tribun Tahunan</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                         <p style="font-size: 14px">Penjualan Tiket Non Membership</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-stats-bars"></i>
                     </div>
                 </div>
-                <div class="box-body">
-                    <div id="line-chart" style="height: 300px;"></div>
-                </div>
-              <!-- /.box-body-->
-            </div>
-            <!-- /.box-body -->
-        </div>
-
-        <div class="col-md-3">  
-            <p class="text-center">
-                <strong>Static Penjualan Tiket Tribun</strong>
-            </p>
-
-            <div class="progress-group">
-                <span class="progress-text">Tribun Barat</span>
-                <span class="progress-number"><b>160</b>/200</span>
-
-                <div class="progress sm">
-                    <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
-                </div>
-            </div>
-            <!-- /.progress-group -->
-            <div class="progress-group">
-                <span class="progress-text">Tribun Timur</span>
-                <span class="progress-number"><b>310</b>/400</span>
-
-                <div class="progress sm">
-                    <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                </div>
-            </div>
-            <!-- /.progress-group -->
-            <div class="progress-group">
-                <span class="progress-text">VIP</span>
-                <span class="progress-number"><b>480</b>/800</span>
-
-                <div class="progress sm">
-                    <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                </div>
             </div>
 
-            <div class="progress-group">
-                <span class="progress-text">VVIP</span>
-                <span class="progress-number"><b>480</b>/800</span>
+            <!-- Donut chart -->
+            <div class="col-md-9">
+              <!-- LINE CHART -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bar-chart-o"></i>
 
-                <div class="progress sm">
-                    <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                </div>
-            </div>
-            <!-- /.progress-group -->
-            <div class="progress-group">
-                <span class="progress-text">Send Inquiries</span>
-                <span class="progress-number"><b>250</b>/500</span>
+                        <h3 class="box-title">Penjualan Tiket Tribun Tahunan</h3>
 
-                <div class="progress sm">
-                    <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="line-chart" style="height: 300px;"></div>
+                    </div>
+                  <!-- /.box-body-->
                 </div>
+                <!-- /.box-body -->
             </div>
-                  <!-- /.progress-group -->
-        </div>
+
+            <div class="col-md-3">  
+                <p class="text-center">
+                    <strong>Static Penjualan Tiket Tribun</strong>
+                </p>
+
+                <div class="progress-group">
+                    <span class="progress-text">Tribun Barat</span>
+                    <span class="progress-number"><b>160</b>/200</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">Tribun Timur</span>
+                    <span class="progress-number"><b>310</b>/400</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">VIP</span>
+                    <span class="progress-number"><b>480</b>/800</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                    </div>
+                </div>
+
+                <div class="progress-group">
+                    <span class="progress-text">VVIP</span>
+                    <span class="progress-number"><b>480</b>/800</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                    </div>
+                </div>
+                <!-- /.progress-group -->
+                <div class="progress-group">
+                    <span class="progress-text">Send Inquiries</span>
+                    <span class="progress-number"><b>250</b>/500</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                    </div>
+                </div>
+                      <!-- /.progress-group -->
+            </div>
                
         </div>
     </div>
