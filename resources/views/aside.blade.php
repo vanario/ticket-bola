@@ -6,7 +6,7 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
 
-            <li><a href="{{ url('auth/home') }}"><i class="fa fa-tv" style="color:white"></i>Dashboard</a></li>  
+            <li><a href="{{ url('home/') }}"><i class="fa fa-tv" style="color:white"></i>Dashboard</a></li>  
             <li><a href=""><i class="fa fa-shopping-cart" style="color:white"></i>Pemesanan Tiket </a></li>  
             <li><a href=""><i class="glyphicon glyphicon-check" style="color:white; margin-right:9px"></i>Confirm Pemesanan Tiket </a></li>  
             <li><a href=""><i class="fa fa-file-text-o" style="color:white"></i>Laporan Penjualan Tiket </a></li>  
@@ -28,7 +28,8 @@
                 </ul>
             </li>
 
-            <li><a href="{{ url('register/index') }}"><i class="fa fa-address-card-o" style="color:white"></i>Member</a></li>
+            <li><a href="{{ url('register/index') }}"><i class="glyphicon glyphicon-user" style="color:white; margin-right: 10px;"></i>Member</a></li>
+            <li><a href="{{ url('register/index') }}"><i class="fa fa-address-card-o" style="color:white"></i>Register</a></li>
             <li><a href="{{ url('news/') }}"><i class="fa fa-newspaper-o" style="color:white"></i>News</a></li>
 
             <li><a href="{{ url('merchandise') }}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
