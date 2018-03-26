@@ -43,6 +43,11 @@ class ReportController extends Controller
     {
         $token = Session::get('token'); 
 
+        $clubResponse = Curl::to('128.199.161.172:8091/getbygtcode/'.$id)
+                    ->asJson(true)
+                    ->withHeader('Authorization:'.$token)
+                    ->get(); 
+
         $sumCurrentResponse = Curl::to('http://128.199.161.172:8109/report/tiket/sumcurrent/'.$id)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
@@ -56,7 +61,8 @@ class ReportController extends Controller
 
         $sumCurrent     = $sumCurrentResponse['values'];
         $listCurrent    = $listCurrentResponse['values'];
+        $club           = $clubResponse['value'];
 
-        return view('Report/Club/detail', compact('sumCurrent', 'listCurrent'));
+        return view('Report/Club/detail', compact('sumCurrent', 'listCurrent', 'club'));
     }
 }
