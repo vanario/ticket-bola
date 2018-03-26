@@ -61,8 +61,16 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
 		Route::get('destroy/{id}','DataMaster\JadwalController@destroy');
-		Route::get('listtribun','DataMaster\JadwalController@listtribun');
+		Route::post('storetrib','DataMaster\JadwalController@storetrib')->name('jadwal.storetrib');
+		Route::patch('updatetrib','DataMaster\JadwalController@updatetrib')->name('jadwal.updatetrib');
+		Route::get('destroytrib/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroytrib')->name('jadwal.destroytrib');
 
+	});
+
+	Route::group(['prefix'=>'member'], function() {
+		Route::get('index','Member\MemberController@index')->name('member.index');
+		Route::get('approve','Member\MemberController@approve')->name('member.approve');
+		Route::get('destroy/{id}','Member\MemberController@destroy');
 	});
 
 	Route::group(['prefix'=>'register'], function() {
