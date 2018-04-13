@@ -69,8 +69,15 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'member'], function() {
 		Route::get('index','Member\MemberController@index')->name('member.index');
+		Route::get('page','Member\MemberController@page')->name('member.page');
+		Route::post('store','Member\MemberController@store')->name('member.store');
+		Route::patch('update','Member\MemberController@update')->name('member.update');
 		Route::get('approve','Member\MemberController@approve')->name('member.approve');
 		Route::get('destroy/{id}','Member\MemberController@destroy');
+	});
+
+	Route::group(['prefix'=>'previledge'], function() {
+		Route::get('index','Previledge\PreviledgeController@index')->name('member.index');
 	});
 
 	Route::group(['prefix'=>'register'], function() {
@@ -95,6 +102,26 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('destroy/{id}','News\NewsController@destroy');
 	});
 
+	Route::group(['prefix'=>'biaya'], function() {
+		Route::get('/','Biaya\BiayaController@index')->name('biaya.index');
+		Route::post('store','Biaya\BiayaController@store')->name('biaya.store');
+		Route::patch('update','Biaya\BiayaController@update')->name('biaya.update');
+		Route::get('destroy/{id}','Biaya\BiayaController@destroy');
+	});
+
+	Route::group(['prefix'=>'pertandingan'], function() {
+		Route::get('/','Pertandingan\PertandinganController@index')->name('pertandingan.index');
+		Route::post('store','Pertandingan\PertandinganController@store')->name('pertandingan.store');
+		Route::patch('update','Pertandingan\PertandinganController@update')->name('pertandingan.update');
+		Route::get('destroy/{id}','Pertandingan\PertandinganController@destroy');
+	});
+
+	Route::group(['prefix'=>'master-biaya'], function() {
+		Route::get('/','DataMaster\MasterBiayaController@index')->name('master-biaya.index');
+		Route::post('store','DataMaster\MasterBiayaController@store')->name('master-biaya.store');
+		Route::patch('update','DataMaster\MasterBiayaController@update')->name('master-biaya.update');
+		Route::get('destroy/{id}','DataMaster\MasterBiayaController@destroy');
+	});
 });
 
 
