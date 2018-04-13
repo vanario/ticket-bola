@@ -135,7 +135,7 @@
                                 <h4>Edit Jadwal
                                 </h4>
                             </div>
-                            <input type="text" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" required>
+                            <input type="hidden" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" required>
                             <div class="modal-body">       
                                 <div class="form-group">                                
                                     <div class="col-md-6">
@@ -146,12 +146,12 @@
                                         <label for="">Tribun</label>
                                         <select name="tribun" class="form-control" id="tribun" required>
                                             <option value="">Pilih Tribun</option>
-                                            <option value="vip">VIP</option>
-                                            <option value="vip 1">VIP 1</option>
-                                            <option value="vip 2">VIP 2</option>
-                                            <option value="tribun timur">Tribun Timur</option>
-                                            <option value="tribun utara">Tribun Utara</option>
-                                            <option value="tribun selatan">Tribun Selatan</option>
+                                            <option value="vip"{{old('',"vip")==$result['tribun']? 'selected': ''}}>VIP</option>
+                                            <option value="vip 1"{{old('',"vip 1")==$result['tribun']? 'selected': ''}}>VIP 1</option>
+                                            <option value="vip 2"{{old('',"vip 2")==$result['tribun']? 'selected': ''}}>VIP 2</option>
+                                            <option value="tribun timur" {{old('',"tribun timur")==$result['tribun']? 'selected': ''}}>Tribun Timur</option>
+                                            <option value="tribun utara"{{old('',"tribun utara")==$result['tribun']? 'selected': ''}}>Tribun Utara</option>
+                                            <option value="tribun selatan"{{old('',"tribun selatan")==$result['tribun']? 'selected': ''}}>Tribun Selatan</option>
                                         </select>
                                     </div>                   
                                     <div class="col-md-6">
@@ -268,7 +268,7 @@
                                     <select  name="gttopstadion" class="form-control" required>
                                         <option value="">Club</option>
                                         @foreach($list_club as $gtcode => $name)
-                                        <option value="{{$gtcode}}" @if($val['gttop'] == $gtcode) selected @endif>{{$name}}</option>
+                                        <option value="{{$gtcode}}" {{old('',$gtcode)==$val['gttop']? 'selected': ''}}>{{$name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -346,7 +346,7 @@
             
         function init_datepicker() {
             $('#date').datepicker({
-             format: 'yyyy-m-d',
+             format: 'yyyy-mm-dd',
              autoclose: true
            });
         };
@@ -360,7 +360,7 @@
 
         function init_datepicker1() {
             $('#date1').datepicker({
-             format: 'yyyy-m-d',
+             format: 'yyyy-mm-dd',
              autoclose: true
            });
         };
