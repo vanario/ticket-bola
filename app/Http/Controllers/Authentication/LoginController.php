@@ -33,8 +33,9 @@ class LoginController extends Controller
             $data = $key;    
         }          
 
-        $data  = $response['value'];
-        $token = $data['token'];
+        $data       = $response['value'];
+        $token      = $data['token'];
+        $clubcode   = $data['clubcode'];
         Session::put('token', $token);
 
         if ($response['resocde'] == 201){
