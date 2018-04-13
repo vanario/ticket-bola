@@ -298,7 +298,6 @@ class JadwalController extends Controller
     public function destroytrib($gttoptrib,$gtcodetrib)
     {  
         $token  = Session::get('token'); 
-        return $token;
         $response = Curl::to('128.199.161.172:9099/deltribun/'.$gttoptrib.'/'.$gtcodetrib)
                     ->withHeader('Authorization:'.$token)
                     ->delete();
