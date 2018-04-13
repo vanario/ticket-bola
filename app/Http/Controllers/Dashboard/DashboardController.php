@@ -13,8 +13,9 @@ class DashboardController extends Controller
     public function index()
     {   
         $token = Session::get('token'); 
+        $club  = Session::get('clubcode');
 
-        $response = Curl::to('http://128.199.161.172:8109/report/tiket/sumcurrent/12')
+        $response = Curl::to('http://128.199.161.172:8109/report/tiket/sumcurrent/'.$club)
         			->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->get(); 
