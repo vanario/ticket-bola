@@ -29,22 +29,29 @@ class LoginController extends Controller
 			    	->asJson(true)
 			    	->post();
                     
-        foreach ($response  as $key) {
-            $data = $key;    
-        }          
+        $token  = $response['values']['token'];
+        
+        $userid = $response['values']['userid'];
 
-        $data       = $response['value'];
-        $token      = $data['token'];
-        $clubcode   = $data['clubcode'];
         Session::put('token', $token);
 
-        if ($response['resocde'] == 201){
+        if ($response['responcode'] == 201){
+            $profile_response = Curl::to('128.199.161.172:8110/profile/bycode/TB/'.$userid)
+                        ->withHeader('Authorization:'.$token)
+                        ->asJson(true)
+                        ->get();
+
+            $profile = $profile_response['values'];
+
+            Session::put('profile', $profile);
+            
             return redirect()->route('dashboard.home');
         }
         else{
             return redirect()->route('login');
             Alert::message($message)->autoclose(4000);
         }
+
 
 
     }
