@@ -24,7 +24,7 @@ class JadwalController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
 
-        $data     = $response['result'];
+        $data     = $response['value'];
 
         $data_tribun = ""; 
 
@@ -70,29 +70,94 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
-        $token = Session::get('token'); 
+        $token = Session::get('token');
+
+        if ($request->hasFile('gambardepan')) {
+            if($request->file('gambardepan')->isValid()) {
+                try {
+                    $file         = $request->file('gambardepan');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+
+                    $imagedepan = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            }
+        }
+
+        if ($request->hasFile('gambartengah')) {
+            if($request->file('gambartengah')->isValid()) {
+                try {
+                    $file         = $request->file('gambartengah');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+
+                    $imagetengah = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            }
+        }
+
+        if ($request->hasFile('gambarbelakang')) {
+            if($request->file('gambarbelakang')->isValid()) {
+                try {
+                    $file         = $request->file('gambarbelakang');
+                    $filename     = $file->getClientOriginalName();
+                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize->resize(150, 150);
+
+                    $image_resize->save(public_path('image/' .$filename));
+                    $resize_image = (public_path('image/' .$filename)); 
+
+                    $imagebelakang = base64_encode(file_get_contents($resize_image));
+                } catch (FileNotFoundException $e) {
+                    echo "catch";
+                }
+            }
+        } 
 
         $response = Curl::to('128.199.161.172:9099/additem')
                     ->withData([
-                    "gttop"	    => $request->input('gttopstadion'), 
+                    "gttop"     => $request->input('gttopstadion'), 
                     "gtcode"    => $request->input('gtcode'), 
-                    "name"	    => $request->input('name'),
-                    "name1"     => $request->input('name1'),
-                    "jam"   	=> $request->input('jam'),
-                    "date"	    => $request->input('date'),
-                    "desc"      => $request->input('desc'),
-                    "subdesc"   => $request->input('subdesc'),
-                    "image"     => "-",
-                    "image1"    => "-",
+                    "namehome"  => $request->input('namehome'),
+                    "nameaway"  => $request->input('nameaway'),
+                    "jam"       => $request->input('jam'),
+                    "date"      => $request->input('date'),
+                    "stadion"   => $request->input('stadion'),
+                    "kota"      => $request->input('kota'),
+                    "imgdpn"    => $imagedepan,
+                    "imgtgh"    => $imagetengah,
+                    "imgblkg"   => $imagebelakang,
+                    "event"     => $request->input('event'),
                     "value"     =>  [[  'gttoptrib' => $request->input('gtcode'),
                                         'gtcodetrib'=> $request->input('gtcodetrib'),
                                         'tribun'    => $request->input('tribun'),
-                                        'price'     => $request->input('price')
+                                        'color'     => $request->input('color'),
+                                        'postribun' => [[   'gttop' => $request->input('gttop'),
+                                                            'gtcode'=> $request->input('gtcode'),
+                                                            'posisi'=> $request->input('posisi'),
+                                                            'price' => $request->input('price'),
+                                                            'qty'   => $request->input('qty'),
+
+                                                        ]]
+
                                     ]] 
                                 ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
+
 
         if ($response['result'] == "OK") {
             

@@ -18,7 +18,7 @@
                                 <th>Nama</th>
                                 <th>Tanggal</th>
                                 <th>Pukul</th>
-                                <th>Deskripsi</th>
+                                <th>Event</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -26,10 +26,10 @@
                         <tbody>
                             @foreach ($data as $val)
                             <tr>
-                                <td>{{ $val['name']." vs " .$val['name1'] }}</td>
+                                <td>{{ $val['namehome']." vs " .$val['nameaway'] }}</td>
                                 <td>{{ $val['date'] or "-"}}</td>
                                 <td>{{ $val['jam'] or "-"}}</td>
-                                <td>{{ $val['desc'] or "-"}}</td>
+                                <td>{{ $val['event'] or "-"}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>
                                     <a href="{{action('DataMaster\JadwalController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
@@ -100,14 +100,10 @@
                                             <option value="tribun utara">Tribun Utara</option>
                                             <option value="tribun selatan">Tribun Selatan</option>
                                         </select>
-                                    </div>                    
-                                    <div class="col-md-6">
-                                        <label for="">Harga</label>
-                                        <input type="text" name="price" id="price" class="form-control input-sm" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="">Jumlah</label>
-                                        <input type="text" name="qty" id="qty" class="form-control input-sm" required>
+                                        <label for="">Warna</label>
+                                        <input type="text" name="color" id="color" class="form-control input-sm" required>
                                     </div>                  
                                 </div>
                             <div class="modal-footer">
@@ -154,10 +150,10 @@
                                             <option value="tribun selatan"{{old('',"tribun selatan")==$result['tribun']? 'selected': ''}}>Tribun Selatan</option>
                                         </select>
                                     </div>                   
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <label for="">Harga</label>
                                         <input type="text" value="{{ $result['price'] }}" price" id="price" class="form-control input-sm" required>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <label for="">Jumlah</label>
                                         <input type="text" value="{{ $result['qty'] or "-" }}" name="qty" id="qty" class="form-control input-sm" required>
@@ -195,50 +191,63 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="">Kode</label>
                                     <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
                                 </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-md-6">
-                                    <label for="">Nama</label>
-                                    <input type="text" name="name" id="name" class="form-control input-sm" required>
+                                    <label for="">Nama Home</label>
+                                    <input type="text" name="namehome" id="namehome" class="form-control input-sm" required>
                                 </div>
-                            </div>                            
-                            <div class="form-group">
                                 <div class="col-md-6">
-                                    <label for="">Nama 1</label>
-                                    <input type="text" name="name1" id="name1" class="form-control input-sm" required>
+                                    <label for="">Nama Away</label>
+                                    <input type="text" name="nameaway" id="nameaway" class="form-control input-sm" required>
                                 </div>
-                            </div>
-                            <div class="form-group">                                
                                 <div class="col-md-6">
-
                                     <label for="">Tanggal</label>
                                     <input type="text" name="date" id="date" class="form-control input-sm" required>
                                 </div>                                                        
-                            </div>
-                            <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Jam</label>
                                     <input type="text" name="jam" id="jam" class="form-control input-sm" required>
                                 </div>
-                            </div>
-                            <div class="form-group">                                
                                 <div class="col-md-6">
                                     <label for="">Kota</label>
-                                    <input type="text" name="desc" id="desc" class="form-control input-sm" required>
+                                    <input type="text" name="kota" id="kota" class="form-control input-sm" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Stadion</label>
+                                    <input type="text" name="stadion" id="stadion" class="form-control input-sm" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Event</label>
+                                    <input type="text" name="event" id="event" class="form-control input-sm" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <label for="">Gambar Depan</label>
+                                        <input type="file" id="gambardepan" name="gambardepan" class="validate" multiple required>
+                                        <div class="input-field col s6">                          
+                                            <img src="" id="image-previewdepan" style="max-width:200px;max-height:200px;" />
+                                        </div>                                    
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Gambar Tengah</label>
+                                        <input type="file" id="gambartengah" name="gambartengah" class="validate" multiple required>
+                                        <div class="input-field col s6">                          
+                                            <img src="" id="image-previewtengah" style="max-width:200px;max-height:200px;" />
+                                        </div>                                    
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">Gambar Belakang</label>
+                                        <input type="file" id="gambarbelakang" name="gambarbelakang" class="validate" multiple required>
+                                        <div class="input-field col s6">                          
+                                            <img src="" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">                                
-                                <div class="col-md-6">
-                                    <label for="">Alamat</label>
-                                    <input type="text" name="subdesc" id="subdesc" class="form-control input-sm" required>
-                                </div>
-                            </div>                            
+
                         </div>
                         <div class="modal-footer">
                             <div class="col-md-12">
@@ -372,6 +381,51 @@
            });
         };
    
+    });
+
+    function readURLdepan(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-previewdepan').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#gambardepan").change(function(){
+        readURLdepan(this);
+    });
+
+    function readURLtengah(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-previewtengah').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#gambartengah").change(function(){
+        readURLtengah(this);
+    });
+
+    function readURLbelakang(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();           
+
+            reader.onload = function (e) {
+                $('#image-previewbelakang').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#gambarbelakang").change(function(){
+        readURLbelakang(this);
     });
 
 </script>
