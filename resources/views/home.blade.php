@@ -22,8 +22,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ $data['tot_nominal'] }}<sup style="font-size: 20px"></sup></h3>
-
+                        <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3>
                         <p>Pengahasilan</p>
                     </div>
                     <div class="icon">
@@ -34,7 +33,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ $data['tot_tiket'] }}</h3>
+                        <h3>{{ $data['tot_tiket'] or "-" }}</h3>
 
                         <p>Total Tiket</p>
                      </div>
