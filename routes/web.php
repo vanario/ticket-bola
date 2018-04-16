@@ -122,6 +122,14 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::patch('update','DataMaster\MasterBiayaController@update')->name('master-biaya.update');
 		Route::get('destroy/{id}','DataMaster\MasterBiayaController@destroy');
 	});
+	Route::group(['prefix' => 'report'], function(){
+		Route::get('/','Report\ReportController@index')->name('report.index');		
+		Route::group(['prefix' => 'club'], function(){ 
+			Route::get('/','Report\ReportController@club')->name('report.club');
+			Route::get('/detail/{clubId}','Report\ReportController@clubReport')->name('report.club');
+		});		
+	});
+
 });
 
 

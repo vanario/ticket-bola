@@ -53,6 +53,7 @@
                 </ul>
             </li>
 
+            <li><a href="{{ url('report') }}"><i class="fa fa-newspaper-o" style="color:white"></i>Report</a></li>
         </ul>
       <!-- /.sidebar-menu -->
     </section>
