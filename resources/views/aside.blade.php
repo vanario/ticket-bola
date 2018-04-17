@@ -40,7 +40,6 @@
 
             <li><a href="{{ url('merchandise') }}"><i class="fa fa-shopping-bag" style="color:white"></i>Mercendais</a></li>
 
-<<<<<<< HEAD
 
             <li><a href="{{ url('report') }}"><i class="fa fa-newspaper-o" style="color:white"></i>Report</a></li>
 
