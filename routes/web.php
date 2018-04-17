@@ -58,6 +58,8 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'jadwal'], function() {
 		Route::get('/','DataMaster\JadwalController@index')->name('jadwal.index');
+		Route::get('create','DataMaster\JadwalController@create')->name('jadwal.create');
+		Route::get('edit{id}','DataMaster\JadwalController@edit')->name('jadwal.edit');
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
 		Route::get('destroy/{id}','DataMaster\JadwalController@destroy');
