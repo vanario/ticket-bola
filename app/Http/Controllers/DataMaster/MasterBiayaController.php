@@ -16,15 +16,14 @@ class MasterBiayaController extends Controller
     {   
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8092/partial/0/10')
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/01/0/10')
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
 
-        $data           = $response['value'];
-        $total          = $response['totvalue'];
-        $val_page       = ($total/10);
-        $total_page     = ceil($val_page);
+        $data           = $response['values'];
+        $total          = $response['totalvalue'];
+        $total_page     = $response['totalpage'];
        
         return view('DataMaster/MasterBiaya.masterbiaya',compact('data','total','total_page'));
     }
@@ -42,17 +41,16 @@ class MasterBiayaController extends Controller
         $page   = $offset."/".$limit;
 
 
-        $response = Curl::to('128.199.161.172:8092/partial/'.$page)
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/01/'.$page)
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
 
         // return $currentPage;
 
-        $data           = $response['value'];
-        $total          = $response['totvalue'];
-        $val_page       = ($total/10);
-        $total_page     = ceil($val_page);
+        $data           = $response['values'];
+        $total          = $response['totalvalue'];
+        $total_page     = $response['totalpage'];
         
         return view('DataMaster/MasterBiaya.masterbiaya',compact('data','total','total_page'));
     }
@@ -61,25 +59,22 @@ class MasterBiayaController extends Controller
     {
         $token = Session::get('token'); 
 
-        $value    = ['gttop'    =>'TB', 
-                     'gtcode'   => $request->input('gtcode'), 
-                     'custcode' => $request->input('custcode'), 
-                     'name'     => $request->input('name'), 
-                     'address'  => $request->input('address'), 
-                     'email'    => $request->input('address'), 
-                     'telp'     => $request->input('telp') ];
+        $value    = [
+                     'gttop'    =>'01', 
+                     'akunname' => $request->input('akunname'), 
+                     'akuntype' => $request->input('akuntype')
+                    ];
 
-        $response = Curl::to('128.199.161.172:8092/add')
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/add')
                     ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+                    "kind"      =>"add#akunbiaya",
+                    "version"   =>"1.0", 
+                    "values"    => $value ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-
-
-        if ($response['status'] == "OK") {
+                    
+        if ($response['responsestatus'] == "Akun Created") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
@@ -101,19 +96,17 @@ class MasterBiayaController extends Controller
     {
         $token = Session::get('token'); 
 
-        $value    = ['gttop'    =>'TB', 
-                     'gtcode'   => $request->input('gtcode'), 
-                     'custcode' => $request->input('custcode'), 
-                     'name'     => $request->input('name'), 
-                     'address'  => $request->input('address'), 
-                     'email'    => $request->input('address'), 
-                     'telp'     => $request->input('telp') ];
+        $value    = [
+                     'gttop'    =>'TB', 
+                     'akunname' => $request->input('akunname'), 
+                     'akuntype' => $request->input('akuntype')
+                    ];
 
         $response = Curl::to('128.199.161.172:8092/edit')
                     ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+                    "kind"      =>"edit#akunbiaya",
+                    "version"   => "1.0",
+                    "values"    => $value ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->put();
@@ -142,9 +135,16 @@ class MasterBiayaController extends Controller
     {  
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8092/delete/'.$id)                    
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/del')                    
                     ->withHeader('Authorization:'.$token)
+                    ->withData  ([
+                                    "kind"      =>"deleled#akunbiaya",
+                                    "version"   => "1.0",
+                                    "values"    => [    "gtcode" => $id ]
+                                ])
                     ->delete();
+
+        return $response;
 
         return redirect()->route('masterbiaya.index');
     }
