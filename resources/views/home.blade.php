@@ -7,18 +7,6 @@
     <div class="content-list">
 
         <div class="row">
-            <div class="col-lg-4 col-xs-6">
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3>150</h3>
-
-                         <p>Total Membership</p>
-                    </div>
-                    <div class="icon">
-                         <i class="ion ion-person"></i>
-                    </div>
-                </div>
-            </div>
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
