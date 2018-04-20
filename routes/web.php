@@ -58,11 +58,12 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'jadwal'], function() {
 		Route::get('/','DataMaster\JadwalController@index')->name('jadwal.index');
-		Route::get('create','DataMaster\JadwalController@create')->name('jadwal.create');
+		Route::get('createjadwal','DataMaster\JadwalController@createjadwal')->name('jadwal.createjadwal');
+		Route::get('createtribun','DataMaster\JadwalController@createtribun')->name('jadwal.createtribun');
 		Route::get('edit{id}','DataMaster\JadwalController@edit')->name('jadwal.edit');
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
-		Route::get('destroy/{id}','DataMaster\JadwalController@destroy');
+		Route::get('destroy/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroy');
 		Route::post('storetrib','DataMaster\JadwalController@storetrib')->name('jadwal.storetrib');
 		Route::patch('updatetrib','DataMaster\JadwalController@updatetrib')->name('jadwal.updatetrib');
 		Route::get('destroytrib/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroytrib')->name('jadwal.destroytrib');
@@ -130,6 +131,7 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'master-biaya'], function() {
 		Route::get('/','DataMaster\MasterBiayaController@index')->name('master-biaya.index');
+		Route::get('page','DataMaster\MasterBiayaController@page')->name('master-biaya.page');
 		Route::post('store','DataMaster\MasterBiayaController@store')->name('master-biaya.store');
 		Route::patch('update','DataMaster\MasterBiayaController@update')->name('master-biaya.update');
 		Route::get('destroy/{id}','DataMaster\MasterBiayaController@destroy');
