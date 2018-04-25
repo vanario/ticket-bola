@@ -17,10 +17,10 @@ class StadionController extends Controller
 
         $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
+                    ->withHeader('Authorization', $token)
                     ->get(); 
 
         $data     = $response['result'];
-
 
         //make pagination
 
@@ -42,11 +42,11 @@ class StadionController extends Controller
 
         $response = Curl::to('128.199.161.172:8103/addstadion')
                     ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
-                    // ->withHeader('Authorization', $token)
+                    ->withHeader('Authorization', $token)
                     ->asJson(true)
                     ->post(); 
 
-        // return $response;
+        return $response;
 
         if ($response['result'] == "OK") {
             
@@ -72,6 +72,7 @@ class StadionController extends Controller
 
         $response = Curl::to('128.199.161.172:8103/editstadion/')
                     ->withData(['gttop'=>'TB', 'gtcode'=>$gtcode, 'name'=>$name])
+                    ->withHeader('Authorization', $token)
                     ->asJson(true)
                     ->put();
                      
@@ -96,6 +97,7 @@ class StadionController extends Controller
     {   
         $token = Session::get('token'); 
         $response = Curl::to('128.199.161.172:8103/deletestadion/'.$id)
+        ->withHeader('Authorization', $token)
                     ->delete();
 
         return redirect()->route('stadion.index');
