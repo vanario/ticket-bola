@@ -7,11 +7,6 @@
       <ul class="sidebar-menu" data-widget="tree">
 
             <li><a href="{{ url('home/') }}"><i class="fa fa-tv" style="color:white"></i>Dashboard</a></li>  
-            <li><a href=""><i class="fa fa-file-text-o" style="color:white"></i>Laporan Penjualan Tiket </a></li>  
-            {{-- <li><a href=""><i class="fa fa-shopping-cart" style="color:white"></i>Pemesanan Tiket </a></li>  
-            <li><a href=""><i class="glyphicon glyphicon-check" style="color:white; margin-right:9px"></i>Confirm Pemesanan Tiket </a></li>  
-            <li><a href=""><i class="glyphicon glyphicon-qrcode" style="color:white; margin-right:9px"></i>Validation Barcode Tiket </a></li> --}}
-              
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-database" style="color:white"></i> <span>Data Master</span>
@@ -30,7 +25,7 @@
 
             <li><a href="{{ url('pertandingan') }}"><i class="fa fa-file-text-o" style="color:white"></i>Entry Pertandingan</a></li>
 
-            <li><a href="{{ url('biaya') }}"><i class="fa fa-file-text-o" style="color:white"></i>Entry Biaya</a></li>
+            <li><a href="{{ url('biaya') }}"><i class="fa fa-file-text-o" style="color:white"></i>Transaksi</a></li>
 
             <li><a href="{{ url('master-biaya') }}"><i class="fa fa-file-text-o" style="color:white"></i>Master Biaya</a></li>
 
@@ -57,8 +52,6 @@
                 </ul>
             </li>
 
-
-            <li><a href="{{ url('report') }}"><i class="fa fa-newspaper-o" style="color:white"></i>Report</a></li>
         </ul>
       <!-- /.sidebar-menu -->
     </section>
