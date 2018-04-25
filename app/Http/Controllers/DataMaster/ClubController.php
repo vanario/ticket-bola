@@ -8,6 +8,7 @@ use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Authentication\LoginController;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\UploadedFile;
 use Session;
 use Alert;
 
@@ -29,8 +30,6 @@ class ClubController extends Controller
 		$currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
 		// $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage);
 		$data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
-
-        // return $data;
 
         return view('DataMaster/Club.club',['data' => $data,]);
     }
@@ -78,6 +77,7 @@ class ClubController extends Controller
                     ->withData(['gttop' =>'TB', 
                                 'gtcode'=> $request->input('gtcode'), 
                                 'name'  => $request->input('name'),
+                                'tags'  => $request->input('tags'),
                                 'imglg' => $imglg,
                                 'imgbg1'=> $imgbg1,
                                 'imgbg2'=> '-',
@@ -107,8 +107,6 @@ class ClubController extends Controller
         $gtcode = $request->input('gtcode');
         $name   = $request->input('name');
 
-        return $request->file('gambar2');
-        
         $token = Session::get('token'); 
 
         if ($request->hasFile('gambar')) {
@@ -154,6 +152,7 @@ class ClubController extends Controller
                     ->withData(['gttop' =>'TB', 
                                 'gtcode'=> $request->input('gtcode'), 
                                 'name'  => $request->input('name'),
+                                'tags'  => $request->input('tags'),
                                 'imglg' => $imglg,
                                 'imgbg1'=> $imgbg1,
                                 'imgbg2'=> '-',
