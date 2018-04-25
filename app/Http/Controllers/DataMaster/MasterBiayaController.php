@@ -24,7 +24,7 @@ class MasterBiayaController extends Controller
         $data           = $response['values'];
         $total          = $response['totalvalue'];
         $total_page     = $response['totalpage'];
-       
+
         return view('DataMaster/MasterBiaya.masterbiaya',compact('data','total','total_page'));
     }
 
@@ -57,10 +57,13 @@ class MasterBiayaController extends Controller
 
     public function store(Request $request)
     {
-        $token = Session::get('token'); 
+        $token    = Session::get('token');
+        $profile  = Session::get('profile');
+
+        $clubcode = $profile['clubcode'];
 
         $value    = [
-                     'gttop'    =>'01', 
+                     'gttop'    => $clubcode, 
                      'akunname' => $request->input('akunname'), 
                      'akuntype' => $request->input('akuntype')
                     ];
@@ -73,18 +76,16 @@ class MasterBiayaController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-                    
-        if ($response['responsestatus'] == "Akun Created") {
+
+        if ($response['responcode'] == "201") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
             return redirect()->back();
         }
-
         else {
-            
-            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            $message = "Gagal Tambah Data";
             Alert::message($message)->autoclose(4000);
             return redirect()->back();
         }
@@ -97,12 +98,12 @@ class MasterBiayaController extends Controller
         $token = Session::get('token'); 
 
         $value    = [
-                     'gttop'    =>'TB', 
+                     'gtcode'   => $request->input('gtcode'), 
                      'akunname' => $request->input('akunname'), 
                      'akuntype' => $request->input('akuntype')
                     ];
 
-        $response = Curl::to('128.199.161.172:8092/edit')
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/edit')
                     ->withData([
                     "kind"      =>"edit#akunbiaya",
                     "version"   => "1.0",
@@ -111,18 +112,15 @@ class MasterBiayaController extends Controller
                     ->asJson(true)
                     ->put();
 
-
-        if ($response['status'] == "OK") {
+       if ($response['responcode'] == "200") {
             
-            $message = "Data Berhasil Di Update";
+            $message = "Data Berhasil update";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
             return redirect()->back();
         }
-
         else {
-            
-            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            $message = "Gagal Tambah Data";
             Alert::message($message)->autoclose(4000);
             return redirect()->back();
         }
@@ -135,17 +133,10 @@ class MasterBiayaController extends Controller
     {  
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8112/akun-biaya/del')                    
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/del/'.$id)                    
                     ->withHeader('Authorization:'.$token)
-                    ->withData  ([
-                                    "kind"      =>"deleled#akunbiaya",
-                                    "version"   => "1.0",
-                                    "values"    => [    "gtcode" => $id ]
-                                ])
                     ->delete();
 
-        return $response;
-
-        return redirect()->route('masterbiaya.index');
+        return redirect()->back();
     }
 }
