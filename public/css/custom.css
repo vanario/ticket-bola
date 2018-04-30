@@ -93,35 +93,6 @@
     color: #27ae60;
 }
 
-.btn-red {
-    background-color: transparent;
-    border-color: #f56954;
-    border-width: 1px;
-    color: #f56954;
-    padding: 5px 25px;
-    margin-top: 20px;
-    margin-left: 87%;
-}
-
-.btn-red:hover {
-    background-color: #f56954;
-    border-color: #f56954;
-    color: #FFFFFF;
-}
-
-.btn-red-outline {
-    background-color: transparent;
-    border-color: #FFFFFF;
-    color: #FFFFFF;
-    padding: 10px 25px;
-}
-
-.btn-red-outline:hover {
-    background-color: #FFFFFF;
-    border-color: #FFFFFF;
-    color: #27ae60;
-}
-
 .content-header {
     padding: 50px 50px 0 50px;
 }
