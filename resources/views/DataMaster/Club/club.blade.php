@@ -51,7 +51,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Tags</label>
-                                <input type="text" name="tags" id="tags" class="form-control input-sm" required>
+                                <select name="tags" class="form-control" id="tags" required>
+                                    <option value="">Pilih Liga</option>
+                                    <option value="Liga 1">Liga 1</option>
+                                    <option value="Liga 2">Liga 2</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Logo</label>
@@ -97,14 +101,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Tags</label>
-                                <input type="text" name="tags" value="{{$val['tags'] or "-"}}" id="tags" class="form-control input-sm" required>
+                                <select name="tags" class="form-control" id="tags" required>
+                                    <option value="">Pilih Liga</option>
+                                    <option value="Liga 1"{{old('',"Liga 1")==$val['tags']? 'selected': ''}}>Liga 1</option>
+                                    <option value="Liga 2"{{old('',"Liga 2")==$val['tags']? 'selected': ''}}>Liga 2</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="">Logo </label>
                                 <input type="file" id="inputimage" name="gambar" class="validate" multiple >
                                 <input type="hidden" value="{{ $val['imglg'] }}" name="gambar_" class="validate" multiple >
                                 <div class="input-field col s6">                          
-                                    <img src="data:image/jpeg/png;base64,{{ $val['imglg'] }}" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                    <img src="{{ $val['imglg'] }}" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>                     
                             <div class="form-group">
@@ -112,7 +120,7 @@
                                 <input type="file" id="inputimage1" name="gambar1" class="validate" multiple >
                                 <input type="hidden" value="{{ $val['imgbg1'] }}" name="gambar1_" class="validate" multiple >
                                 <div class="input-field col s6">                          
-                                    <img src="data:image/jpeg/png;base64,{{ $val['imgbg1'] }}" id="image-preview1" style="max-width:300px;max-height:200px;" />
+                                    <img src="{{ $val['imgbg1'] }}" id="image-preview1" style="max-width:300px;max-height:200px;" />
                                 </div>
                             </div>
                         </div>
