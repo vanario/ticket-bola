@@ -8,39 +8,37 @@
         <div class="content-list">
             <div class="box-list">
 
-                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
+                <a data-toggle="modal" data-target="#add" class="btn btn-success" font-16" style="margin-bottom:30px;">Tambah</a>
 
                     <table class="table table-striped" style="width: 100%;">
 
                         <thead>
                             <tr>
-                                <th>Tanggal</th>
-                                <th>Jadwal Pertandingan</th>
-                                <th>Tipe Biaya</th>
-                                <th>Nominal</th>
-                                <th>Keterangan</th>
+                                <th>Tanggal Transaksi</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {{-- @foreach($data as $val)  
+                            @if($data != null) 
+                            @foreach($data as $val)  
                             <tr>
-                                <td>{{ $val['tanggal'] or "-"}}</td>
-                                <td>{{ $val['jadwal_pertandingan'] or "-"}}</td>
-                                <td>{{ $val['tipe_biaya'] or "-"}}</td>
-                                <td>{{ $val['nominal'] or "-"}}</td>
-                                <td>{{ $val['keterangan'] or "-"}}</td>
+                                <td>{{ $val['transaction_date'] or "-"}}</td>
                                 <td>
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
                                     <a href="{{action('Biaya\BiayaController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="7">No Records found !!</td>
+                                </tr>                                   
+                            @endif
                                 
                         </tbody>
                     </table>
-                    {{-- <ul class="pagination">
+                    <ul class="pagination">
                         <li><a href="{{action('Biaya\BiayaController@page', 1 )}}" rel="prev">&laquo;</a></li> 
                         @for ($i = 1; $i <= $total_page; $i++)
                             @if( $i+1 <= 15)                            
@@ -48,7 +46,7 @@
                             @endif
                         @endfor
                         <li><a href="{{action('DataMaster\MitraController@page', $total_page )}}" rel="next">&raquo;</a></li>
-                    </ul> --}} 
+                    </ul> 
             </div>
         </div>
 
@@ -62,108 +60,92 @@
                         </div>
                         <div class="modal-body">       
                             <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal</label>
+                                <label for="">Tanggal Transaksi</label>
                                 <input type="text" name="date" id="date" class="form-control input-sm" required>
                             </div>
                             <div class="form-group">
-                                <label for="">Tipe Biaya</label>
-                                <input type="text" name="tipe_biaya" id="tipe_biaya" class="form-control input-sm" required>
+                                <label for="">Pertandingan</label>
+                                <select name="gttop" class="form-control input-sm" required>
+                                    <option value="">Pertandingan</option>
+                                    @foreach($list_jadwal as $gtcode => $name)
+                                    <option value="{{$gtcode}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Jadwal Pertandingan</label>
-                                <input type="text" name="jadwal_pertandingan" id="jadwal_pertandingan" class="form-control input-sm" required>
+                                <div class="field_wrapper">
+                                    <table>
+                                        <tr>
+                                            <td  style="padding-left:0px;">               
+                                                <label for="">Nama Akun</label>
+                                                <select name="akun_name[]" class="form-control input-sm" required>
+                                                    <option value="">Akun</option>
+                                                    @foreach($list_biaya as $gtcode => $name)
+                                                    <option value="{{$gtcode}}">{{$name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="">Nominal</label>
+                                                <input type="text" name="nominal[]" id="nominal" class="form-control input-sm" required>
+                                                 <a href="javascript:void(0);" class="btn btn-green" title="Add field">Tambah field</a>
+                                            </td>
+                                        <tr>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="">Nominal</label>
-                                <input type="text" name="nominal" id="nominal" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Keterangan</label>
-                                <input type="text" name="keterangan" id="keterangan" class="form-control input-sm" required>
-                            </div>                             
                         </div>
                         <div class="modal-footer">
                             <div>
-                                 <input type="submit" value="Simpan" class="btn btn-green" >
-                            </div>
-                        </div>
-                    </form> 
-                </div>
-            </div>
-        </div>      
-
-        @foreach($data as $val)
-        <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="POST" action="{{ route('biaya.update')}}" >
-                    {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
-                        <div class="modal-header">
-                            <h4>Edit Biaya</h4>
-                        </div>
-                        <div class="modal-body">         
-                            <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tanggal</label>
-                                <input type="text" name="date" id="date" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tipe Biaya</label>
-                                <input type="text" name="tipe_biaya" id="tipe_biaya" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Jadwal Pertandingan</label>
-                                <input type="text" name="jadwal_pertandingan" id="jadwal_pertandingan" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Nominal</label>
-                                <input type="text" name="nominal" id="nominal" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Keterangan</label>
-                                <input type="text" name="keterangan" id="keterangan" class="form-control input-sm" required>
-                            </div> 
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <input type="submit"  value="Simpan" class="btn btn-green" >
+                                 <input type="submit" value="Simpan" class="btn btn-success" >
                             </div>
                         </div>
                     </form> 
                 </div>
             </div>
         </div>  
-        @endforeach
     </section>
 </div>
 @include('sweet::alert')
 @endsection
 
+@section('script')
+<script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('adminlte/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
+
 <script type="text/javascript">
 
-    function addElement(parentId, elementTag, elementId, html) {
-        // Adds an element to the document
-        var p = document.getElementById(parentId);
-        var newElement = document.createElement(elementTag);
-        newElement.setAttribute('id', elementId);
-        newElement.innerHTML = html;
-        p.appendChild(newElement);
-    }
+$(function() {
 
-    function removeElement(elementId) {
-        // Removes an element from the document
-        var element = document.getElementById(elementId);
-        element.parentNode.removeChild(element);
-    }
+    init_datepicker();    
+
+$(document).ready(function(){
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.btn-green'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div><tr><td><label for="">Nama Akun</label><select name="akun_name[]" class="form-control input-sm" required><option value="">Akun</option>@foreach($list_biaya as $gtcode => $name)<option value="{{$gtcode}}">{{$name}}</option>@endforeach</select><label for="">Nominal</label><input type="text" name="nominal[]" id="nominal" class="form-control input-sm" required></td><td><a href="javascript:void(0);" class="btn btn-red" title="Hapus field">Hapus</a></td></tr></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    $(addButton).click(function(){ //Once add button is clicked
+        if(x < maxField){ //Check maximum number of input fields
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); // Add field html
+        }
+    });
+    $(wrapper).on('click', '.btn-red', function(e){ //Once remove button is clicked
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+});
+
+function init_datepicker() {
+        $('#date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    };
+});
+
 </script>
+@endsection
 
 
 

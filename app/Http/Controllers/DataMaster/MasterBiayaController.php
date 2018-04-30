@@ -16,7 +16,10 @@ class MasterBiayaController extends Controller
     {   
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/01/0/10')
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];
+
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/'.$clubcode.'/0/10')
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
@@ -31,6 +34,8 @@ class MasterBiayaController extends Controller
     public function page(Request $request)
     {
         $token = Session::get('token');
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];
 
         $id = $request->keys();
         $obj_id = implode($id);
@@ -41,7 +46,7 @@ class MasterBiayaController extends Controller
         $page   = $offset."/".$limit;
 
 
-        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/01/'.$page)
+        $response = Curl::to('128.199.161.172:8112/akun-biaya/bypartial/'.$clubcode.'/'.$page)
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();

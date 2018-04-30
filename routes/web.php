@@ -60,13 +60,13 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('/','DataMaster\JadwalController@index')->name('jadwal.index');
 		Route::get('createjadwal','DataMaster\JadwalController@createjadwal')->name('jadwal.createjadwal');
 		Route::get('createtribun','DataMaster\JadwalController@createtribun')->name('jadwal.createtribun');
-		Route::get('edit{id}','DataMaster\JadwalController@edit')->name('jadwal.edit');
+		Route::get('edit/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@edit')->name('jadwal.edit');
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
 		Route::get('destroy/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroy');
 		Route::post('storetrib','DataMaster\JadwalController@storetrib')->name('jadwal.storetrib');
 		Route::patch('updatetrib','DataMaster\JadwalController@updatetrib')->name('jadwal.updatetrib');
-		Route::get('destroytrib/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroytrib')->name('jadwal.destroytrib');
+		Route::get('destroytrib{gtcodetrib}','DataMaster\JadwalController@destroytrib')->name('jadwal.destroytrib');
 
 	});
 
@@ -117,6 +117,7 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'biaya'], function() {
 		Route::get('/','Biaya\BiayaController@index')->name('biaya.index');
+		Route::get('page','Biaya\BiayaController@page')->name('biaya.page');
 		Route::post('store','Biaya\BiayaController@store')->name('biaya.store');
 		Route::patch('update','Biaya\BiayaController@update')->name('biaya.update');
 		Route::get('destroy/{id}','Biaya\BiayaController@destroy');

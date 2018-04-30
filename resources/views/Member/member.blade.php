@@ -89,10 +89,6 @@
                                     <input type="text" name="alamat" id="alamat" class="form-control input-sm" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="">Jenis Kelamin</label>
-                                    <input type="text" name="jenis_kelamin" id="jenis_kelamin" class="form-control input-sm" required>
-                                </div>
-                                <div class="col-md-6">
                                     <label for="">Tanggal lahir</label>
                                     <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control input-sm" required>
                                 </div>
@@ -243,14 +239,14 @@
             
         function init_datepicker() {
             $('#tgl_lahir').datepicker({
-             format: 'yyyy-m-d',
+             format: 'yyyy-mm-dd',
              autoclose: true
            });
         };
 
         function init_datepicker1() {
             $('#tgl_lahir1').datepicker({
-             format: 'yyyy-m-d',
+             format: 'yyyy-mm-dd',
              autoclose: true
            });
         };

@@ -69,12 +69,20 @@ class MemberController extends Controller
         ->asJson(true)
         ->post();
 
+        //list data club for dropdown
+        $list     = Curl::to('128.199.161.172:8091/getbygttop/TB')
+                    ->asJson(true)
+                    ->get();
+        $list_data  = $list['value'];
+
+        $list_club = collect($list_data)->pluck('name','gtcode');
+
         $data     = $response['value'];
         $total    = $response['totvalue'];
         $val_page       = ($total/10);
         $total_page     = ceil($val_page);
 
-        return view('Member.member',compact('data','total_page'));
+        return view('Member.member',compact('data','total_page','list_club'));
     }
       
     public function store(Request $request)

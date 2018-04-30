@@ -15,18 +15,38 @@ class BiayaController extends Controller
     public function index(Request $request)
     {   
         $token = Session::get('token');
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];
 
-        $response = Curl::to('128.199.161.172:8092/partial/0/10')
+        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/bypartial/'.$clubcode.'/0/10')
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
 
-        $data           = $response['value'];
-        $total          = $response['totvalue'];
-        $val_page       = ($total/10);
-        $total_page     = ceil($val_page);
-       
-        return view('Biaya/biaya',compact('data','total','total_page'));
+        $data           = $response['values'];
+        $total          = $response['totalvalue'];
+        $total_page     = $response['totalpage'];
+
+        // get data from master biaya use for dropdown
+        $databiaya   = Curl::to('128.199.161.172:8112/akun-biaya/bytop/'.$clubcode)
+                    ->withHeader('Authorization:'.$token)
+                    ->asJson(true)
+                    ->get();
+                    
+        $listdatabiaya   = $databiaya['values'];
+        $list_biaya      = collect($listdatabiaya)->pluck('akunname','gtcode');
+
+        //get data from item use for dropdown
+
+        $datajadwal = Curl::to('128.199.161.172:9099/getlist')
+                    ->asJson(true)
+                    ->withHeader('Authorization:'.$token)
+                    ->get(); 
+
+        $listdatajadwal   = $datajadwal['value'];
+        $list_jadwal      = collect($listdatajadwal)->pluck('namehome','gtcode');
+
+        return view('Biaya/biaya',compact('data','total','total_page','list_biaya','list_jadwal'));
     }
 
     public function page(Request $request)
@@ -42,44 +62,58 @@ class BiayaController extends Controller
         $page   = $offset."/".$limit;
 
 
-        $response = Curl::to('128.199.161.172:8092/partial/'.$page)
+        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/bypartial/'.$clubcode.'/'.$page)
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
 
-        // return $currentPage;
-
         $data           = $response['value'];
-        $total          = $response['totvalue'];
-        $val_page       = ($total/10);
-        $total_page     = ceil($val_page);
+        $total          = $response['totalvalue'];
+        $total_page     = $response['totalpage'];
         
         return view('Biaya/biaya',compact('data','total','total_page'));
     }
 
     public function store(Request $request)
     {
-        $token = Session::get('token'); 
+        $token       = Session::get('token');
 
-        $value    = ['gttop'    =>'TB', 
-                     'gtcode'   => $request->input('gtcode'), 
-                     'custcode' => $request->input('custcode'), 
-                     'name'     => $request->input('name'), 
-                     'address'  => $request->input('address'), 
-                     'email'    => $request->input('address'), 
-                     'telp'     => $request->input('telp') ];
+        $jadwal      =  $request->input('gttop');
+        $akunname    =  $request->input('akun_name');
+        $nominal     =  $request->input('nominal');
+        
+        foreach ($akunname as $value) {
+            $response = Curl::to('128.199.161.172:8112/akun-biaya/bycode/'.$value)
+            ->withHeader('Authorization:'.$token)
+            ->asJson(true)
+            ->get();
 
-        $response = Curl::to('128.199.161.172:8092/add')
+            $biaya[] = $response['values'];
+        }
+
+        for ($i=0; $i < count($nominal); $i++) { 
+            $data = array();
+            $data = $biaya[$i];
+            $data['nominal'] = $nominal[$i];
+
+            $resultData[] = $data;
+        }
+
+        $value    = ['gttop'              => $jadwal, 
+                     'transaction_date'   => $request->input('date'), 
+                     'biaya'              => $resultData, 
+                     ];
+
+        $response = Curl::to('http://128.199.161.172:8112/transaksi-biaya/add')
                     ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
+                    "kind"      => "add#biaya",
+                    "version"   => "1.0",
+                    "values"    => $value ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
 
-
-        if ($response['status'] == "OK") {
+        if ($response['responcode'] == "201") {
             
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
@@ -89,7 +123,7 @@ class BiayaController extends Controller
 
         else {
             
-            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
+            $message = "Gagal tambah data";
             Alert::message($message)->autoclose(4000);
             return redirect()->back();
         }
