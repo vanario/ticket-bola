@@ -80,8 +80,7 @@ class ClubController extends Controller
                                 'tags'  => $request->input('tags'),
                                 'imglg' => $imglg,
                                 'imgbg1'=> $imgbg1,
-                                'imgbg2'=> '-',
-                                'img4'  => '-',])
+                                ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
