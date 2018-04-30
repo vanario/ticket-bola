@@ -44,11 +44,7 @@
                         <div class="modal-header">
                             <h4>Tambah Club</h4>
                         </div>
-                        <div class="modal-body">       
-                            <div class="form-group">
-                                <label for="">Code</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>
+                        <div class="modal-body">  
                             <div class="form-group">
                                 <label for="">Nama</label>
                                 <input type="text" name="name" id="name" class="form-control input-sm" required>
@@ -93,8 +89,7 @@
                         </div>
                         <div class="modal-body">         
                             <div class="form-group">
-                                <label for="">Code</label>
-                                <input type="text" name="gtcode" value="{{$val['gtcode'] or "-"}}" id="gtcode" class="form-control input-sm" readonly>
+                                <input type="hidden" name="gtcode" value="{{$val['gtcode'] or "-"}}" id="gtcode" class="form-control input-sm" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="">Name</label>
