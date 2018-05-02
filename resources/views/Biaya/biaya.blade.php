@@ -7,8 +7,28 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-sm-2">
+                        <a data-toggle="modal" data-target="#add"  class="btn btn-success" font-16" style="margin-bottom:30px;">Tambah</a>
+                    </div>
+                    <form method="POST" action="{{ url('biaya/') }}" enctype="multipart/form-data">
+                       {{ csrf_field() }}
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <select  name="schedule_code" class="form-control" required>
+                                    <option value=""> Filter Berdasarkan Jadwal</option>
+                                    @foreach($list_jadwal as $gtcode => $name)
+                                    <option value="{{$gtcode}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
-                <a data-toggle="modal" data-target="#add" class="btn btn-success" font-16" style="margin-bottom:30px;">Tambah</a>
+                        <div class="col-sm-7">
+                            <input type="submit" value="Filter" class="btn btn-success" >
+                        </div>
+                    </form>
+                </div>
 
                     <table class="table table-striped" style="width: 100%;">
 
@@ -25,14 +45,14 @@
                             <tr>
                                 <td>{{ $val['transaction_date'] or "-"}}</td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>      
-                                    <a href="{{action('Biaya\BiayaController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                                    <a data-toggle="modal" data-target="#view{{$val['gtcode']}}"><span class="fa fa-eye" style="color:green"></span></a>      
+                                    <a href="{{action('Biaya\BiayaController@destroy',[$val['gttop'],$val['gtcode']])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
                             @else
                                 <tr>
-                                    <td colspan="7">No Records found !!</td>
+                                    <td colspan="7">Tidak ada data ditemukan !!</td>
                                 </tr>                                   
                             @endif
                                 
@@ -49,7 +69,7 @@
                     </ul> 
             </div>
         </div>
-
+          
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -88,7 +108,7 @@
                                                 <input type="text" name="nominal[]" id="nominal" class="form-control input-sm" required>
                                                  <a href="javascript:void(0);" class="btn btn-green" title="Add field">Tambah field</a>
                                             </td>
-                                        <tr>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -101,7 +121,54 @@
                     </form> 
                 </div>
             </div>
-        </div>  
+        </div>
+
+        @if($data != null) 
+        @foreach($data as $val)
+        <div class="modal fade" id="view{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">       
+                        <div class="form-group">
+                            <label for="">Tanggal Transaksi</label>
+                            <input type="text" name="date" id="date"  value="{{ $val['transaction_date'] or "-" }}" class="form-control input-sm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Pertandingan</label>
+                            <select name="gttop" class="form-control input-sm" required>
+                                <option value="">Pertandingan</option>
+                                @foreach($list_jadwal as $gtcode => $name)
+                                <option value="{{$gtcode}}"{{old( '',$gtcode)==$val[ 'gttop']? 'selected': ''}}>{{$name}}</option>
+                                @endforeach
+                            </select>                           
+                        </div>
+                        @foreach($val['biaya'] as $value)
+                        <div class="form-group">
+                            <div class="field_wrapper">
+                                <table>
+                                    <tr>
+                                        <td  style="padding-left:0px;">               
+                                            <label for="">Nama Akun</label>
+                                            <select name="akun_name[]" class="form-control input-sm" required>
+                                                <option value="">Akun</option>
+                                                @foreach($list_biaya as $gtcode => $name)
+                                                <option value="{{$gtcode}}"{{old( '',$gtcode)==$value[ 'gtcode']? 'selected': ''}}>{{$name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label for="">Nominal</label>
+                                            <input type="text" value="{{ $value['nominal'] }}" class="form-control input-sm" required>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        @endforeach 
+                    </div>                       
+                </div>
+            </div>
+        </div>
+        @endforeach 
+        @endif 
     </section>
 </div>
 @include('sweet::alert')

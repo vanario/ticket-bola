@@ -116,11 +116,11 @@ Route::group(['middleware' => 'admin'], function() {
 
 
 	Route::group(['prefix'=>'biaya'], function() {
-		Route::get('/','Biaya\BiayaController@index')->name('biaya.index');
+		Route::match(['get', 'post'],'/','Biaya\BiayaController@index')->name('biaya.index');
 		Route::get('page','Biaya\BiayaController@page')->name('biaya.page');
 		Route::post('store','Biaya\BiayaController@store')->name('biaya.store');
 		Route::patch('update','Biaya\BiayaController@update')->name('biaya.update');
-		Route::get('destroy/{id}','Biaya\BiayaController@destroy');
+		Route::get('destroy/{gttoptrib}/{gtcodetrib}','Biaya\BiayaController@destroy');
 	});
 
 	Route::group(['prefix'=>'pertandingan'], function() {

@@ -18,12 +18,15 @@ class BiayaController extends Controller
         $profile  = Session::get('profile');
         $clubcode = $profile['clubcode'];
 
-        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/bypartial/'.$clubcode.'/0/10')
+        $schedule_code   = $request->input('schedule_code');
+
+        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/bypartial/'.$schedule_code.'/0/10')
         ->withHeader('Authorization:'.$token)
         ->asJson(true)
         ->get();
 
         $data           = $response['values'];
+
         $total          = $response['totalvalue'];
         $total_page     = $response['totalpage'];
 
@@ -94,13 +97,13 @@ class BiayaController extends Controller
         for ($i=0; $i < count($nominal); $i++) { 
             $data = array();
             $data = $biaya[$i];
-            $data['nominal'] = $nominal[$i];
+            $data['nominal'] = (int)$nominal[$i];
 
             $resultData[] = $data;
         }
 
         $value    = ['gttop'              => $jadwal, 
-                     'transaction_date'   => $request->input('date'), 
+                     'transaction_date'   => $request->input('date'),
                      'biaya'              => $resultData, 
                      ];
 
@@ -131,55 +134,14 @@ class BiayaController extends Controller
         return redirect()->route('biaya.index');
     }
 
-    public function update(Request $request)
-    {
-        $token = Session::get('token'); 
-
-        $value    = ['gttop'    =>'TB', 
-                     'gtcode'   => $request->input('gtcode'), 
-                     'custcode' => $request->input('custcode'), 
-                     'name'     => $request->input('name'), 
-                     'address'  => $request->input('address'), 
-                     'email'    => $request->input('address'), 
-                     'telp'     => $request->input('telp') ];
-
-        $response = Curl::to('128.199.161.172:8092/edit')
-                    ->withData([
-                    "kind"=> "add#denah",
-                    "version"=> "1.0",
-                    "value"=> $value ])
-                    ->withHeader('Authorization:'.$token)
-                    ->asJson(true)
-                    ->put();
-
-
-        if ($response['status'] == "OK") {
-            
-            $message = "Data Berhasil Di Update";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
-            return redirect()->back();
-        }
-
-        else {
-            
-            $message = "Kode sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
-            Alert::message($message)->autoclose(4000);
-            return redirect()->back();
-        }
-
-
-        return redirect()->route('biaya.index');
-    }
-
-    public function destroy($id)
+    public function destroy($gttop,$gtcode)
     {  
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8092/delete/'.$id)                    
+        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/del/'.$gttop.'/'.$gtcode)                    
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 
-        return redirect()->route('biaya.index');
+        return redirect()->back();
     }
 }
