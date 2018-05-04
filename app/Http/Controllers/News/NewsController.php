@@ -16,8 +16,10 @@ class NewsController extends Controller
     public function index()
     {   
         $token = Session::get('token'); 
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];
 
-        $response = Curl::to('128.199.161.172:8108/gettopnews/TB')
+        $response = Curl::to('128.199.161.172:8108/gettopnews/'.$clubcode)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 

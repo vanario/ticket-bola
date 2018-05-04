@@ -10,7 +10,8 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3>
+                        {{-- <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3> --}}
+                        <h3>200.000.000</h3>
                         <p>Pengahasilan</p>
                     </div>
                     <div class="icon">
@@ -21,7 +22,8 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ $data['tot_tiket'] or "-" }}</h3>
+                        {{-- <h3>{{ $data['tot_tiket'] or "-" }}</h3> --}}
+                        <h3>60 Ribu</h3>
 
                         <p>Total Tiket</p>
                      </div>
@@ -72,6 +74,14 @@
                 </p>
 
                 <div class="progress-group">
+                    <span class="progress-text">Tribun Selatan</span>
+                    <span class="progress-number"><b>250</b>/500</span>
+
+                    <div class="progress sm">
+                        <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="progress-group">
                     <span class="progress-text">Tribun Barat</span>
                     <span class="progress-number"><b>160</b>/200</span>
 
@@ -107,14 +117,6 @@
                     </div>
                 </div>
                 <!-- /.progress-group -->
-                <div class="progress-group">
-                    <span class="progress-text">Send Inquiries</span>
-                    <span class="progress-number"><b>250</b>/500</span>
-
-                    <div class="progress sm">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                    </div>
-                </div>
                       <!-- /.progress-group -->
             </div>
                

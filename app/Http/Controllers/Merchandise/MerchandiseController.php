@@ -14,9 +14,12 @@ class MerchandiseController extends Controller
 {
     public function index()
     {   
-        $token = Session::get('token'); 
+        $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8107/gettopmerch/TB')
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode']; 
+
+        $response = Curl::to('128.199.161.172:8107/gettopmerch/'.$clubcode)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
                     ->get(); 
