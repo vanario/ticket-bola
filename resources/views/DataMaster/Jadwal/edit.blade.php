@@ -124,20 +124,36 @@
                                     <div class="form-group">
                                         <div class="col-md-12" style="margin-top: 15px; ">
                                             <label for="">Tribun Depan</label>
-                                        </div>
-                                        <div class="col-md-6">
+                                        </div>                            
+                                        <div class="col-md-4">
                                             <label for="">Harga</label>
                                             <input type="text" name="pricedepan" id="pricedepan" class="form-control input-sm" placeholder="Harga" required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="">Jumlah</label>
                                             <input type="text" name="qtydepan" id="qtydepan" class="form-control input-sm" placeholder="Jumlah" required>
                                         </div>
-                                        <div class="col-md-6" style="margin-top: 25px;">
+                                        <div class="col-md-4">
+                                            <label for="">layout</label>
+                                            <select name="layout_depan" class="form-control" id="layout_depan" required>
+                                                <option value="">Pilih layout</option>
+                                                <option value="true">Ada</option>              
+                                                <option value="false">Tidak Ada</option>             
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top: 25px;">
                                             <label for="">Gambar Tribun Depan</label>
                                             <input type="file" id="gambardepan" name="gambardepan" class="validate" multiple required>
                                             <div class="input-field col s6">
                                                 <img src="" id="image-previewdepan" style="max-width:200px;max-height:200px;" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">   
+                                             <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="depan" title="Add field">Tambah Kursi</a>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="field_wrapper" id="wrapper_depan">
+
                                             </div>
                                         </div>
                                     </div>
@@ -145,13 +161,21 @@
                                         <div class="col-md-12" style="margin-top: 15px; ">
                                             <label for="">Tribun Tengah</label>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="">Harga</label>
                                             <input type="text" name="pricetengah" id="pricetengah" class="form-control input-sm" placeholder="Harga" required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="">Jumlah</label>
                                             <input type="text" name="qtytengah" id="qtytengah" class="form-control input-sm" placeholder="Jumlah" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="">layout</label>
+                                            <select name="layout_tengah" class="form-control" id="layout_depan" required>
+                                                <option value="">Pilih layout</option>
+                                                <option value="true">Ada</option>              
+                                                <option value="false">Tidak Ada</option>             
+                                            </select>
                                         </div>
                                         <div class="col-md-6" style="margin-top: 25px;">
                                             <label for="">Gambar Tribun Tengah</label>
@@ -160,18 +184,33 @@
                                                 <img src="" id="image-previewtengah" style="max-width:200px;max-height:200px;" />
                                             </div>
                                         </div>
+                                        <div class="col-md-8">   
+                                             <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="tengah" title="Add field">Tambah Kursi</a>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="field_wrapper" id="wrapper_tengah">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12" style="margin-top: 15px; ">
                                             <label for="">Tribun Belakang</label>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="">Harga</label>
                                             <input type="text" name="pricebelakang" id="pricebelakang" class="form-control input-sm" placeholder="Harga" required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <label for="">Jumlah</label>
                                             <input type="text" name="qtybelakang" id="qtybelakang" class="form-control input-sm" placeholder="Jumlah" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="">layout</label>
+                                            <select name="layout_belakang" class="form-control" id="layout_depan" required>
+                                                <option value="">Pilih layout</option>
+                                                <option value="true">Ada</option>              
+                                                <option value="false">Tidak Ada</option>             
+                                            </select>
                                         </div>
                                         <div class="col-md-6" style="margin-top: 25px;">
                                             <label for="">Gambar Tribun Belakang</label>
@@ -180,6 +219,13 @@
                                                 <img src="" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
                                             </div>
                                         </div>
+                                        <div class="col-md-8">   
+                                             <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="belakang" title="Add field">Tambah Kursi</a>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="field_wrapper" id="wrapper_belakang">
+                                            </div>
+                                        </div>  
                                     </div> 
                                 </div>
                                 <div class="modal-footer">
@@ -197,7 +243,7 @@
                 @if($data['postribun'] != null) 
                     @foreach ($data['postribun'] as $val)
                         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <form method="POST" action="{{ route('jadwal.updatetrib')}}">
                                         {{ csrf_field() }}
@@ -213,19 +259,39 @@
                                                         <div class="col-md-12" style="margin-top: 15px; ">
                                                     <label for="">Tribun Depan</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Harga</label>
-                                                    <input type="text" value="{{ $val['postribun'][0]['price'] }}" name="pricedepan" id="pricedepan" class="form-control input-sm" placeholder="Harga" required>
+                                                    <input type="text" value="{{ $val['postribun'][0]['price'] or "-" }}" name="pricedepan" id="pricedepan" class="form-control input-sm" placeholder="Harga" required>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Jumlah</label>
-                                                    <input type="text" value="{{ $val['postribun'][0]['qty'] }}" name="qtydepan" id="qtydepan" class="form-control input-sm" placeholder="Jumlah" required>
+                                                    <input type="text" value="{{ $val['postribun'][0]['qty'] or "-"}}" name="qtydepan" id="qtydepan" class="form-control input-sm" placeholder="Jumlah" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="">layout</label>
+                                                    {{-- <select name="layout_depan" class="form-control" id="layout_depan" required>
+                                                        <option value="">Pilih layout</option>
+                                                        <option value="true"{{old('',"true")==$val['postribun'][0]['layout'] or "-" ? 'selected': ''}}>Ada</option>              
+                                                        <option value="false"{{old('',"false")==$val['postribun'][0]['layout'] ? 'selected': ''}}>Tidak Ada</option>             
+                                                    </select> --}}
+                                                    <select name="layout_tengah" class="form-control" id="layout_depan" required>
+                                                        <option value="">Pilih layout</option>
+                                                        <option value="true">Ada</option>              
+                                                        <option value="false">Tidak Ada</option>             
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top: 25px;">
                                                     <label for="">Gambar Tribun Depan</label>
                                                     <input type="file" id="gambardepan" name="gambardepan" class="validate">
                                                     <div class="input-field col s6">
-                                                        <img src="{{ $val['postribun'][0]['image'] }}" id="image-previewdepan" style="max-width:200px;max-height:200px;" />
+                                                        <img src="{{ $val['postribun'][0]['image'] or "-" }}" id="image-previewdepan" style="max-width:200px;max-height:200px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">   
+                                                     <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="depan" title="Add field">Tambah Kursi</a>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div class="field_wrapper" id="wrapper_depan">
                                                     </div>
                                                 </div>
                                             </div>
@@ -233,19 +299,34 @@
                                                 <div class="col-md-12" style="margin-top: 15px; ">
                                                     <label for="">Tribun Tengah</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Harga</label>
-                                                    <input type="text" value="{{ $val['postribun'][1]['price'] }}" name="pricetengah" id="pricetengah" class="form-control input-sm" placeholder="Harga" required>
+                                                    <input type="text" value="{{ $val['postribun'][1]['price'] or "-"}}" name="pricetengah" id="pricetengah" class="form-control input-sm" placeholder="Harga" required>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Jumlah</label>
-                                                    <input type="text" value="{{ $val['postribun'][1]['qty'] }}" name="qtytengah" id="qtytengah" class="form-control input-sm" placeholder="Jumlah" required>
+                                                    <input type="text" value="{{ $val['postribun'][1]['qty'] or "-"}}" name="qtytengah" id="qtytengah" class="form-control input-sm" placeholder="Jumlah" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="">layout</label>
+                                                    <select name="layout_tengah" class="form-control" id="layout_depan" required>
+                                                        <option value="">Pilih layout</option>
+                                                        <option value="true">Ada</option>              
+                                                        <option value="false">Tidak Ada</option>             
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top: 25px;">
                                                     <label for="">Gambar Tribun Tengah</label>
                                                     <input type="file" valid="gambartengah" name="gambartengah" class="validate">
                                                     <div class="input-field col s6">
-                                                        <img src="{{ $val['postribun'][1]['image'] }}" id="image-previewtengah" style="max-width:200px;max-height:200px;" />
+                                                        <img src="{{ $val['postribun'][1]['image'] or "-"}}" id="image-previewtengah" style="max-width:200px;max-height:200px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">   
+                                                     <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="tengah" title="Add field">Tambah Kursi</a>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div class="field_wrapper" id="wrapper_tengah">
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,19 +334,34 @@
                                                 <div class="col-md-12" style="margin-top: 15px; ">
                                                     <label for="">Tribun Belakang</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Harga</label>
-                                                    <input type="text" value="{{ $val['postribun'][2]['price'] }}" name="pricebelakang" id="pricebelakang" class="form-control input-sm" placeholder="Harga" required>
+                                                    <input type="text" value="{{ $val['postribun'][2]['price'] or "-" }}" name="pricebelakang" id="pricebelakang" class="form-control input-sm" placeholder="Harga" required>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="">Jumlah</label>
-                                                    <input type="text" value="{{ $val['postribun'][2]['qty'] }}" name="qtybelakang" id="qtybelakang" class="form-control input-sm" placeholder="Jumlah" required>
+                                                    <input type="text" value="{{ $val['postribun'][2]['qty'] or "-" }}" name="qtybelakang" id="qtybelakang" class="form-control input-sm" placeholder="Jumlah" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="">layout</label>
+                                                    <select name="layout_belakang" class="form-control" id="layout_depan" required>
+                                                        <option value="">Pilih layout</option>
+                                                        <option value="true">Ada</option>              
+                                                        <option value="false">Tidak Ada</option>             
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-6" style="margin-top: 25px;">
                                                     <label for="">Gambar Tribun Belakang</label>
                                                     <input type="file" id="gambarbelakang" name="gambarbelakang" class="validate">
                                                     <div class="input-field col s6">
-                                                        <img src="{{ $val['postribun'][2]['image'] }}" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
+                                                        <img src="{{ $val['postribun'][2]['image'] or "-"}}" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">   
+                                                     <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="belakang" title="Add field">Tambah Kursi</a>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top: 10px;">
+                                                    <div class="field_wrapper" id="wrapper_belakang">
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,6 +390,69 @@
 <script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('adminlte/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
 <script type="text/javascript">
+
+$(function() {
+    wraper_depan();
+    wraper_tengah();
+    wraper_belakang();
+
+    function wraper_depan(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#depan'); //Add button selector
+        var wrapper = $('#wrapper_depan'); //Input field wrapper
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_depan[]" id="prefix_depan" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_depan[]" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_depan[]" id="nomor_terakhir_depan" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var x = 1; //Initial field counter is 1
+        $(addButton).click(function(){ //Once add button is clicked
+            if(x < maxField){ //Check maximum number of input fields
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); // Add field html
+            }
+        });
+        $(wrapper).on('click', '.btn-red', function(e){ //Once remove button is clicked
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    };
+
+    function wraper_tengah(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#tengah'); //Add button selector
+        var wrapper = $('#wrapper_tengah'); //Input field wrapper
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_tengah[]" id="prefix_tengah" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_tengah[]" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_tengah[]" id="nomor_terakhir_tengah" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var x = 1; //Initial field counter is 1
+        $(addButton).click(function(){ //Once add button is clicked
+            if(x < maxField){ //Check maximum number of input fields
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); // Add field html
+            }
+        });
+        $(wrapper).on('click', '.btn-red', function(e){ //Once remove button is clicked
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    };
+
+    function wraper_belakang(){
+        var maxField = 10; //Input fields increment limitation
+        var addButton = $('#belakang'); //Add button selector
+        var wrapper = $('#wrapper_belakang'); //Input field wrapper
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_belakang[]" id="prefix_belakang" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_belakang[]" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_belakang[]" id="nomor_terakhir_belakang" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var x = 1; //Initial field counter is 1
+        $(addButton).click(function(){ //Once add button is clicked
+            if(x < maxField){ //Check maximum number of input fields
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML); // Add field html
+            }
+        });
+        $(wrapper).on('click', '.btn-red', function(e){ //Once remove button is clicked
+            e.preventDefault();
+            $(this).parent('div').remove(); //Remove field html
+            x--; //Decrement field counter
+        });
+    };
+});
 $(function() {
 
     init_datepicker();

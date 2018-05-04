@@ -100,7 +100,6 @@ class JadwalController extends Controller
                     ->get(); 
 
         $data     = $response['value'];
-
         //list data club for dropdown
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
@@ -207,9 +206,9 @@ class JadwalController extends Controller
 
     public function destroy($gttoptrib,$gtcodetrib)
     {  
-    	$token = Session::get('token'); 
+        $token = Session::get('token'); 
 
-        $response = Curl::to('128.199.161.172:9099/deleteitem/'.$gttoptrib.'/'.$gtcodetrib)       				
+        $response = Curl::to('128.199.161.172:9099/deleteitem/'.$gttoptrib.'/'.$gtcodetrib)                     
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 
@@ -232,7 +231,7 @@ class JadwalController extends Controller
             $data_tribun= $response['value']['value'];
             if ($response['value'] == "OK") {
             
-            $message = "Data Berhasil Di update";
+             $message = "Data Berhasil Di update";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
             }
@@ -346,40 +345,138 @@ class JadwalController extends Controller
             $gtcodetrib = '6';
         }
 
-        $response = Curl::to('128.199.161.172:8113/addtribun')
+        // data postribun
+        $layout_depan       = $request->input('layout_depan');
+        $layout_tengah      = $request->input('layout_tengah');
+        $layout_belakang    = $request->input('layout_belakang');
+
+        if($layout_depan != 'false' ){
+
+            $prefixdepan          = $request->input('prefix_depan') ;
+            $nomor_pertama_depan  = $request->input('nomor_pertama_depan') ;
+            $nomor_terakhir_depan = $request->input('nomor_terakhir_depan') ;
+
+            for ($i=0; $i < count($prefixdepan); $i++) { 
+                $data = array();
+                $data['firs_number']    = (int)$nomor_pertama_depan[$i];
+                $data['last_number']    = (int)$nomor_terakhir_depan[$i];
+                $data['prefix']         = $prefixdepan[$i];
+
+                $resultDataDepan[] = $data;
+            }
+       
+
+            $postribun_depan =  [   'gttop'  => $gtcodetrib,
+                                    'gtcode' => "1",
+                                    'posisi' => "depan",
+                                    'layout' => true,
+                                    'kursi'  => $resultDataDepan,
+                                    'image'  => $imagedepan,
+                                    'price'  => (int)$pricedepan,
+                                    'qty'    => (int)$qtydepan
+                                ];
+
+        }
+         else{
+           $postribun_depan =  [   'gttop'  => $gtcodetrib,
+                                    'gtcode' => "1",
+                                    'posisi' => "depan",
+                                    'layout' => false,
+                                    'image'  => $imagedepan,
+                                    'price'  => (int)$pricedepan,
+                                    'qty'    => (int)$qtydepan
+                                ];
+        }
+
+
+        if($layout_tengah != 'false' ){
+
+            $nomor_pertama_tengah  = $request->input('nomor_pertama_tengah');
+            $nomor_terakhir_tengah = $request->input('nomor_terakhir_tengah');
+
+            $prefixtengah= $request->input('prefix_tengah') ;
+            for ($i=0; $i < count($prefixtengah); $i++) { 
+                $data = array();
+                $data['firs_number']    = (int)$nomor_pertama_tengah[$i];
+                $data['last_number']    = (int)$nomor_terakhir_tengah[$i];
+                $data['prefix'] = $prefixtengah[$i];
+
+                $resultDataTengah[] = $data;
+            }
+
+            $postribun_tengah = [   'gttop'  => $gtcodetrib,
+                                    'gtcode' => "2",
+                                    'posisi' => "tengah",
+                                    'layout' => true,
+                                    'kursi'  => $resultDataTengah,
+                                    'image'  => $imagetengah,
+                                    'price'  => (int)$pricetengah,
+                                    'qty'    => (int)$qtytengah
+                                ];                       
+        }
+
+        else{
+           $postribun_tengah = [   'gttop'  => $gtcodetrib,
+                                    'gtcode' => "2",
+                                    'posisi' => "tengah",
+                                    'layout' => false,
+                                    'image'  => $imagetengah,
+                                    'price'  => (int)$pricetengah,
+                                    'qty'    => (int)$qtytengah
+                                ];                 
+        }
+
+        if($layout_belakang != 'false' ){
+
+            $nomor_pertama_belakang  = $request->input('nomor_pertama_belakang') ;
+            $nomor_terakhir_belakang = $request->input('nomor_terakhir_belakang') ;
+
+            $prefixbelakang= $request->input('prefix_belakang') ;
+
+            for ($i=0; $i < count($prefixbelakang); $i++) { 
+                $data = array();
+                $data['firs_number']    = (int)$nomor_pertama_belakang[$i];
+                $data['last_number']    = (int)$nomor_terakhir_belakang[$i];
+                $data['prefix']         = $prefixbelakang[$i];
+
+                $resultDataBelakang[] = $data;
+            }
+
+            $postribun_belakang = [ 'gttop'  => $gtcodetrib,
+                                    'gtcode' => "3",
+                                    'posisi' => "belakang",
+                                    'layout' => true,
+                                    'kursi'  => $resultDataBelakang,
+                                    'image'  => $imagebelakang,
+                                    'price'  => (int)$pricebelakang,
+                                    'qty'    => (int)$qtybelakang
+                                ];                      
+        }
+        else {
+
+            $postribun_belakang = [ 'gttop'  => $gtcodetrib,
+                                    'gtcode' => "3",
+                                    'posisi' => "belakang",
+                                    'layout' => false,
+                                    'image'  => $imagebelakang,
+                                    'price'  => (int)$pricebelakang,
+                                    'qty'    => (int)$qtybelakang
+                                ];                      
+        }
+
+        $postribun = [ $postribun_depan, $postribun_tengah, $postribun_belakang];
+
+        $response  = Curl::to('128.199.161.172:8113/tribun/add')
                     ->withData([    'gttop'     => $request->input('gtcodetrib'),
                                     'gtcode'    => $gtcodetrib,
                                     'tribun'    => $tribun,
                                     'color'     => $color,
-                                    'postribun'=> [[    'gttop'  => $gtcodetrib,
-                                                        'gtcode' => "1",
-                                                        'posisi' => "depan",
-                                                        'image'  => $imagedepan,
-                                                        'price'  => (int)$pricedepan,
-                                                        'qty'    => (int)$qtydepan
-                                                    ],
-                                                    [   'gttop'  => $gtcodetrib,
-                                                        'gtcode' => "2",
-                                                        'posisi' => "tengah",
-                                                        'image'  => $imagetengah,
-                                                        'price'  => (int)$pricetengah,
-                                                        'qty'    => (int)$qtytengah
-                                                    ],
-                                                    [   'gttop'  => $gtcodetrib,
-                                                        'gtcode' => "3",
-                                                        'posisi' => "belakang",
-                                                        'image'  => $imagebelakang,
-                                                        'price'  => (int)$pricebelakang,
-                                                        'qty'    => (int)$qtybelakang
-                                                    ]
-                                                ]
-
+                                    'postribun' => $postribun
                                 
                             ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-
         if ($response['rescode'] == "201") {
             
             //get data gtcode tribun
@@ -405,7 +502,7 @@ class JadwalController extends Controller
             Alert::message($message)->autoclose(4000);
         }
 
-        return redirect()->route('jadwal.index');
+        return redirect()->back();
     }
 
     public function updatetrib(Request $request)
@@ -562,6 +659,9 @@ class JadwalController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 
-        return redirect()->route('jadwal.index');
+        return redirect()->back();
     }    
 }
+
+
+
