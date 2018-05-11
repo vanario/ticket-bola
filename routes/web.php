@@ -20,9 +20,11 @@ Auth::routes();
 	    
 	});	
 
-	Route::get('home', 'Dashboard\DashboardController@index')->name('dashboard.home');
 
 Route::group(['middleware' => 'admin'], function() {
+	
+	Route::get('home', 'Dashboard\DashboardController@index')->name('dashboard.home');
+	
 	Route::group(['prefix'=>'stadion'], function() {
 		Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
 		Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
@@ -64,6 +66,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('store','DataMaster\JadwalController@store')->name('jadwal.store');
 		Route::patch('update','DataMaster\JadwalController@update')->name('jadwal.update');
 		Route::get('destroy/{gttoptrib}/{gtcodetrib}','DataMaster\JadwalController@destroy');
+		Route::get('edittribun/{gttop}/{gtcode}','DataMaster\JadwalController@edittribun');
 		Route::post('storetrib','DataMaster\JadwalController@storetrib')->name('jadwal.storetrib');
 		Route::patch('updatetrib','DataMaster\JadwalController@updatetrib')->name('jadwal.updatetrib');
 		Route::get('destroytrib{gtcodetrib}','DataMaster\JadwalController@destroytrib')->name('jadwal.destroytrib');
@@ -85,10 +88,8 @@ Route::group(['middleware' => 'admin'], function() {
 
 	Route::group(['prefix'=>'register'], function() {
 		Route::get('index','Register\RegisterController@index')->name('register.index');
-		Route::post('store','Register\RegisterController@store')->name('register.store');
-		Route::patch('update','Register\RegisterController@update')->name('register.update');
+		Route::get('page','Register\RegisterController@page')->name('member.page');
 		Route::get('approve','Register\RegisterController@approve')->name('register.approve');
-		Route::get('destroy/{id}','Register\RegisterController@destroy');
 	});
 
 	Route::group(['prefix'=>'merchandise'], function() {

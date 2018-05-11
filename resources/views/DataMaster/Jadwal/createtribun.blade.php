@@ -1,7 +1,9 @@
-@extends('template') @section('title', 'Create Jadwal') @section('content') @section('css-plugin')
-<link href="{{ asset('js/smartWizard/dist/css/smart_wizard.css') }}" rel="stylesheet" type="text/css" />
-<!-- Optional SmartWizard theme -->
-<link href="{{ asset('js/smartWizard/dist/css/smart_wizard_theme_arrows.css') }}" rel="stylesheet" type="text/css" /> @endsection
+@extends('template') 
+
+@section('title', 'Create Tribun') 
+
+@section('content') 
+
 <div class="row">
     <section class="content">
         <div class="content-list">

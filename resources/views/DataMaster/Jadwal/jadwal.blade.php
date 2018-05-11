@@ -1,4 +1,8 @@
-@extends('template') @section('title', 'List Jadwal') @section('content')
+@extends('template') 
+
+@section('title', 'List Jadwal') 
+
+@section('content')
 <div class="row">
     <section class="content">
         <div class="content-list">

@@ -26,24 +26,6 @@ class JadwalController extends Controller
 
         $data     = $response['value'];
 
-        $data_tribun = ""; 
-
-        $token = Session::get('token');
-                
-        $id = $request->keys();
-
-        if ($id !=null){
-            $gtcode = implode($id);
-            $response = Curl::to('128.199.161.172:9099/getcodeitem/'.$gtcode)
-                        ->withHeader('Authorization:'.$token)                        
-                        ->asJson(true)
-                        ->get();
-
-            $data_tribun= $response['value']['value'];           
-        }
-
-        // return $data;
-                
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
@@ -51,7 +33,7 @@ class JadwalController extends Controller
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
-        return view('DataMaster/Jadwal.jadwal', compact('data', 'list_club', 'value','listtribun','id'));
+        return view('DataMaster/Jadwal.jadwal', compact('data'));
     }
 
     public function createjadwal()
@@ -100,6 +82,7 @@ class JadwalController extends Controller
                     ->get(); 
 
         $data     = $response['value'];
+
         //list data club for dropdown
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
@@ -215,35 +198,18 @@ class JadwalController extends Controller
         return redirect()->route('jadwal.index');
     }
 
-    public function listtribun(Request $request)
+    public function edittribun($gttop,$gtcode)
     {
         $token = Session::get('token');
                 
-        $id = $request->keys();
+        $response = Curl::to('128.199.161.172:8113/tribun/getcode/'.$gttop.'/'.$gtcode)
+                    ->withHeader('Authorization:'.$token)                        
+                    ->asJson(true)
+                    ->get();
 
-        if ($id !=null){
-            $gtcode = implode($id);
-            $response = Curl::to('128.199.161.172:9099/getcodeitem/'.$gtcode)
-                        ->withHeader('Authorization:'.$token)                        
-                        ->asJson(true)
-                        ->get();
+        $val = $response['value'];
 
-            $data_tribun= $response['value']['value'];
-            if ($response['value'] == "OK") {
-            
-             $message = "Data Berhasil Di update";
-            alert()->success('');
-            Alert::success($message,'Sukses')->autoclose(4000);
-            }
-        }
-        else
-        {
-            $message = "Kode user tidak tersedia, data gagal diupdate ";
-            Alert::message($message)->autoclose(4000);
-        }
-
-
-        return view('DataMaster/Jadwal.jadwal', compact('$data_tribun'));
+        return view('DataMaster/Jadwal.edittribun', compact('val'));
     }
 
     public function storetrib(Request $request)
