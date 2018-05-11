@@ -38,7 +38,6 @@
                                 <td>{{ $val['alamat'] or "-"}}</td>
                                 <td>{{ $val['status'] or "-"}}</td>
                                 <td>
-                                    {{-- <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil"></span></a>  --}}     
                                     <a style="margin-top:-0px;" href="{{action('Register\RegisterController@approve',$val['gtcode'])}}" id="hapus" class="btn btn-green" >Aprrove</a>
 
                                 </td>
@@ -47,13 +46,15 @@
                                 
                         </tbody>
                 </table>
-
-                   {{--  @for ($i = 1; $i <= $total; $i++)
-                        <ul class="pagination">
-                            <li><a href="{{action('DataMaster\MitraController@page', $i )}}" id="paging">{{$i}}</a></li>
-                        </ul> 
-                    @endfor --}}
-
+                <ul class="pagination">
+                    <li><a href="{{action('Register\RegisterController@page', 1 )}}" rel="prev">&laquo;</a></li> 
+                    @for ($i = 1; $i <= $total_page; $i++)
+                        @if( $i+1 <= 15)                            
+                        <li><a href="{{action('Register\RegisterController@page', $i )}}" id="paging">{{$i}}</a></li>
+                        @endif
+                    @endfor
+                    <li><a href="{{action('Register\RegisterController@page', $total_page )}}" rel="next">&raquo;</a></li>
+                </ul> 
             </div>
         </div>
     </section>
