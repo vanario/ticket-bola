@@ -799,3 +799,32 @@ div.desc {
     display: table;
     clear: both;
 }
+
+.standings {
+  display: block;
+  margin-top: 30px;
+}
+.standings .tab-content {
+  position: relative;
+  margin-top: 80px;
+  margin-bottom: 30px;
+  padding: 0 50px;
+}
+.standings .tab-content .standings-images {
+  position: absolute;
+  left: 0;
+  top: -158px;
+}
+.standings .tab-content .standings-images h6 {
+  display: inline-block;
+  margin-left: 20px;
+}
+.standings .tab-content .standings-images img {
+  width: 80px;
+}
+.standings .table td {
+  vertical-align: middle;
+}
+.standings .table img {
+  width: 100px;
+}

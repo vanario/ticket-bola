@@ -5,50 +5,58 @@
 
 <div class="row">
     <section class="content">
-        <div class="content-list">
-            <div class="box-list">
-                <div class="col-md-1">
-                    <i class="fa fa-newspaper-o" style="color:black; margin-top:8px;font-size:24px;"></i>
+        <div class="standings">
+            <div class="content-list">
+                <div class="box-list">
+                    <div class="col-md-1">
+                        <i class="fa fa-newspaper-o" style="color:black; margin-top:8px;font-size:24px;"></i>
+                    </div>
+                    <div class="col-md-5">
+                        <h4 style="font-size:24px;">Berita</h4>                    
+                    </div>
+                    <div class="col-md-6" style="margin-top:-15px; text-align: right;">
+                        <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <h4 style="font-size:24px;">Berita</h4>                    
-                </div>
-                <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
-                </div>
-            </div>
-            <table class="table table-striped" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th>Judul</th>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th style="width:15%";>Action</th>
-                    </tr>
-                </thead>
+                <table class="table table-striped" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Gambar</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Deskripsi</th>
+                            <th style="width:15%";>Action</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    @foreach ($data as $val)
-                    <tr>
-                        <td>{{ $val['title'] or "-"}}</td>
-                        <td>{{ $val['date'] or "-"}}</td>
-                        <td>{{ $val['desc'] or "-"}}</td>
-                        <td>
-                            <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
-                            <a href="{{action('News\NewsController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                        
-                </tbody>
-            </table>                            
+                    <tbody>
+                        @foreach ($data as $val)
+                        <tr>
+                            <td>
+                                <span class="images-club">
+                                  <img src="data:image/jpeg;base64,{{ $val['img']}}" class="img-fluid" alt="">
+                                </span>
+                            </td>
+                            <td>{{ $val['title'] or "-"}}</td>
+                            <td>{{ $val['date'] or "-"}}</td>
+                            <td>{{ $val['desc'] or "-"}}</td>
+                            <td>
+                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
+                                <a href="{{action('News\NewsController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                            
+                    </tbody>
+                </table>                            
+            </div>
+            {!! $data->appends(Input::except('page'))->render() !!}
         </div>
-        {!! $data->appends(Input::except('page'))->render() !!}
     </section>
 </div>
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
                            {{ csrf_field() }}
@@ -96,7 +104,7 @@
 
         @foreach ($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('news.update')}}" >
                     {{ csrf_field() }}
@@ -130,7 +138,7 @@
                                 <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
                                 <input type="hidden" name="gambar_" value="{{$val['img']}}" class="validate" multiple required>
                                 <div class="input-field col s6">                          
-                                    <img src="" id="image-preview1" style="max-width:200px;max-height:200px;" />
+                                    <img src="data:image/jpeg;base64,{{ $val['img']}}" id="image-preview1" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>
                         </div>
