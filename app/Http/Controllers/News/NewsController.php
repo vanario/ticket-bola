@@ -27,7 +27,7 @@ class NewsController extends Controller
 
         $data     = $response['value'];
 
-        // return dd($data);
+        // return ($data);
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
@@ -42,6 +42,9 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $token = Session::get('token'); 
+
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];
 
         if ($request->hasFile('gambar')) {
             if($request->file('gambar')->isValid()) {
@@ -63,7 +66,7 @@ class NewsController extends Controller
 
         $response = Curl::to('128.199.161.172:8108/addnews')
                     ->withData([
-                    "gttop"	=> 'TB', 
+                    "gttop"	=> $clubcode, 
                     "gtcode"=> $request->input('gtcode'), 
                     "title"	=> $request->input('title'),
                     "img" 	=> $image,
@@ -93,7 +96,9 @@ class NewsController extends Controller
 
     public function update(Request $request)
     {
-        $token = Session::get('token');        
+        $token = Session::get('token');  
+        $profile  = Session::get('profile');
+        $clubcode = $profile['clubcode'];      
         // return $token;
         return $image = $request->file('gambar1');
 
@@ -121,7 +126,7 @@ class NewsController extends Controller
         
             $response = Curl::to('128.199.161.172:8108/editnews')
                         ->withData([
-	                    "gttop"	=> 'TB', 
+	                    "gttop"	=> $clubcode, 
 	                    "gtcode"=> $request->input('gtcode'), 
 	                    "title"	=> $request->input('title'),
 	                    "img" 	=> $image,

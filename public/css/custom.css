@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto|bi);
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
 .print-logo {
     text-align: center;
@@ -406,7 +406,7 @@
     color: #fff;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    font-family: 'Open Sans', Roboto|bi;
+    font-family: 'Roboto', sans-serif;
 }
 
 .preview-title {
@@ -622,6 +622,7 @@ footer{
 .header-table {
     text-align: center;
     border-bottom: 1px solid #4d4d4d;
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     color: #4d4d4d;
     width: 100%;
