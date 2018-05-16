@@ -1,16 +1,19 @@
-@extends('template') @section('title', 'Create Jadwal') @section('content') @section('css-plugin')
-<link href="{{ asset('js/smartWizard/dist/css/smart_wizard.css') }}" rel="stylesheet" type="text/css" />
-<!-- Optional SmartWizard theme -->
-<link href="{{ asset('js/smartWizard/dist/css/smart_wizard_theme_arrows.css') }}" rel="stylesheet" type="text/css" /> @endsection
+@extends('template') 
+@section('title', 'Create Jadwal') 
+@section('content') 
+
 <div class="row">
     <section class="content">
         <div class="content-list">
-            <div class="box-list">
-                <div id="step-1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
                     <form method="POST" action="{{ route('jadwal.store')}}" enctype="multipart/form-data">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-sm-12">
+                    {{ csrf_field() }}
+                        <div class="modal-header">
+                            <h4>Tambah Jadwal</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
                                 <div class="form-group">
                                     <div class="col-md-6">
                                         <label for="">Jadwal</label>
@@ -50,12 +53,12 @@
                                         <input type="text" name="event" id="event" class="form-control input-sm" required>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <div>
-                                        <input type="submit" value="Simpan" class="btn btn-green">
-                                    </div>
-                                </div>
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                          <div>
+                            <input type="submit" value="Simpan" class="btn btn-green">
+                          </div>
                         </div>
                     </form>
                 </div>

@@ -136,12 +136,14 @@ class MerchandiseController extends Controller
                     "location"   => $request->input('location'),
                     "status"     => $request->input('status'),
                     "mdesc"      => $request->input('mdesc'),
+                    "cp"         => $request->input('kontak'),
                     ];
 
         $response = Curl::to('128.199.161.172:8107/editmerch')
                     ->withData($value)
                     ->asJson(true)
                     ->put();
+                    
         return $response;
 
         if ($response['rescode'] == "200") {

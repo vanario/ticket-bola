@@ -38,6 +38,7 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::post('store','DataMaster\TribunController@store')->name('tribun.store');
 		Route::patch('update','DataMaster\TribunController@update')->name('tribun.update');
 		Route::get('destroy/{id}','DataMaster\TribunController@destroy');
+		Route::get('edittribun/{gttop}/{gtcode}','DataMaster\TribunController@edittribun');
 
 	});
 

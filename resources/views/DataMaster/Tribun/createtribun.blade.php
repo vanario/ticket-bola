@@ -136,6 +136,7 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -213,40 +214,9 @@ $(function() {
 
 $(function() {
 
-    smartwizard();
     init_datepicker();
-    init_timepicker();
-    init_showTabs();
-
-    function smartwizard() {
-        $('#smartwizard').smartWizard({
-            selected: 0,
-            keyNavigation: false,
-            theme: 'arrows',
-            transitionEffect: 'fade',
-            toolbarSettings: {
-                toolbarPosition: 'bottom',
-                showNextButton: true, // show/hide a Next button
-                showPreviousButton: true, // show/hide a Previous button
-                toolbarExtraButtons: []
-            }
-        });
-    }
-
-    $(function() {
-
-        function init_showTabs() {
-            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                localStorage.setItem('activeTab', $(e.target).attr('href'));
-            });
-            var activeTab = localStorage.getItem('activeTab');
-            console.log(activeTab);
-            if (activeTab) {
-                $('a[href="' + activeTab + '"]').tab('show');
-            }
-        };
-    })
-
+    init_timepicker();  
+    
     function init_datepicker() {
         $('#date').datepicker({
             format: 'yyyy-mm-dd',

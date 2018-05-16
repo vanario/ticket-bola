@@ -154,10 +154,10 @@
                                 <label for="">Kategori</label>
                                 <select name="category" class="form-control" id="category" required>
                                     <option value="">Pilih Kategori</option>
-                                    <option value="Baju"{{old('',"Baju")==$val['category'] or "-" ? 'selected': ''}}>Baju</option>              
-                                    <option value="Celana"{{old('',"Celana")==$val['category'] or "-" ? 'selected': ''}}>Celana</option>             
-                                    <option value="Syal"{{old('',"Syal")==$val['category'] or "-" ? 'selected': ''}}>Syal</option>             
-                                    <option value="Aksesoris"{{old('',"Aksesoris")==$val['category'] or "-" ? 'selected': ''}}>Aksesoris</option>             
+                                    <option value="Baju"{{old('',"Baju")==$val['category'] ? 'selected': ''}}>Baju</option>              
+                                    <option value="Celana"{{old('',"Celana")==$val['category']? 'selected': ''}}>Celana</option>             
+                                    <option value="Syal"{{old('',"Syal")==$val['category']? 'selected': ''}}>Syal</option>             
+                                    <option value="Aksesoris"{{old('',"Aksesoris")==$val['category']? 'selected': ''}}>Aksesoris</option>             
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -180,8 +180,8 @@
                                 <label for="">Status</label>
                                 <select name="status" class="form-control" id="status" required>
                                     <option value="">Pilih Status</option>
-                                    <option value="Tersedia"{{old('',"Available")==$val['status'] or "-" ? 'selected': ''}}>Tersedia</option>              
-                                    <option value="Habis"{{old('',"Habis")==$val['status'] or "-" ? 'selected': ''}}>Habis</option>             
+                                    <option value="Tersedia"{{old('','Tersedia')==$val['status'] ? 'selected': ''}}>Tersedia</option>              
+                                    <option value="Habis"{{old('','Habis')==$val['status'] ? 'selected': ''}}>Habis</option>             
                                 </select>
                             </div>
                             <div class="col-md-12">
@@ -189,8 +189,16 @@
                                 <textarea name="mdesc" id="mdesc" class="form-control input-sm" required>{{$val['merchdesc']}}</textarea>
                             </div>
                             <div class="col-md-12" style="">
-                              {{--   <label for="">Kontak</label>
-                                 <input type="text" name="kontak[]" id="kontak[]" class="form-control input-sm" required> --}}
+                                <div>
+                                     <label for="">Kontak</label>
+                                </div>
+                                @if($val['cp'] != null)
+                                    @foreach ($val['cp'][0] as $value)
+                                    <div>
+                                        <input type="text" value="{{ $value }}" name="kontak[]" id="kontak[]" class="form-control input-sm" required>
+                                    </div>
+                                    @endforeach
+                                @endif
                                  <a href="javascript:void(0);" class="btn btn-green" title="Add field">Tambah Kontak</a>
                             </div>
                             <div class="col-md-12" style="margin-top: 10px;">
@@ -202,7 +210,7 @@
                                 <input type="hidden" id="gambar_" value="{{$val['img']}}" name="gambar_" class="validate">
                                 <input type="file" id="inputimage" name="gambar" class="validate">
                                 <div class="input-field col s6">                          
-                                    <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                    <img src="{{$val['img']}}" id="image-preview" style="max-width:200px;max-height:200px;" />
                                 </div>                                    
                             </div>
                         </div>
