@@ -12,10 +12,10 @@ use Session;
 use Storage;
 
 class TribunController extends Controller
-{   
+{
     public function index(Request $request)
     {
-        $token = Session::get('token');     
+        $token = Session::get('token');
 
         $gttop = $request->input('gttop');
 
@@ -30,7 +30,7 @@ class TribunController extends Controller
         // get stadion
         $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
-                    ->get(); 
+                    ->get();
 
         $stadion     = $response['result'];
 
@@ -47,7 +47,7 @@ class TribunController extends Controller
 
     public function store(Request $request)
     {
-        $token          = Session::get('token'); 
+        $token          = Session::get('token');
         $tribun         = $request->input('tribun');
         $pricedepan     = $request->input('pricedepan');
         $pricetengah    = $request->input('pricetengah');
@@ -61,11 +61,11 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambardepan');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagedepan = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
@@ -79,11 +79,11 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambartengah');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagetengah = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
@@ -97,18 +97,18 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambarbelakang');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagebelakang = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
                     echo "catch";
                 }
             }
-        } 
+        }
 
         //generate color
         if ($tribun == "vip") {
@@ -155,7 +155,7 @@ class TribunController extends Controller
             $nomor_pertama_depan  = $request->input('nomor_pertama_depan') ;
             $nomor_terakhir_depan = $request->input('nomor_terakhir_depan') ;
 
-            for ($i=0; $i < count($prefixdepan); $i++) { 
+            for ($i=0; $i < count($prefixdepan); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_depan[$i];
                 $data['last_number']    = (int)$nomor_terakhir_depan[$i];
@@ -163,7 +163,7 @@ class TribunController extends Controller
 
                 $resultDataDepan[] = $data;
             }
-       
+
 
             $postribun_depan =  [   'gttop'  => $gtcodetrib,
                                     'gtcode' => "1",
@@ -194,7 +194,7 @@ class TribunController extends Controller
             $nomor_terakhir_tengah = $request->input('nomor_terakhir_tengah');
 
             $prefixtengah= $request->input('prefix_tengah') ;
-            for ($i=0; $i < count($prefixtengah); $i++) { 
+            for ($i=0; $i < count($prefixtengah); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_tengah[$i];
                 $data['last_number']    = (int)$nomor_terakhir_tengah[$i];
@@ -211,7 +211,7 @@ class TribunController extends Controller
                                     'image'  => $imagetengah,
                                     'price'  => (int)$pricetengah,
                                     'qty'    => (int)$qtytengah
-                                ];                       
+                                ];
         }
 
         else{
@@ -222,7 +222,7 @@ class TribunController extends Controller
                                     'image'  => $imagetengah,
                                     'price'  => (int)$pricetengah,
                                     'qty'    => (int)$qtytengah
-                                ];                 
+                                ];
         }
 
         if($layout_belakang != 'false' ){
@@ -232,7 +232,7 @@ class TribunController extends Controller
 
             $prefixbelakang= $request->input('prefix_belakang') ;
 
-            for ($i=0; $i < count($prefixbelakang); $i++) { 
+            for ($i=0; $i < count($prefixbelakang); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_belakang[$i];
                 $data['last_number']    = (int)$nomor_terakhir_belakang[$i];
@@ -249,7 +249,7 @@ class TribunController extends Controller
                                     'image'  => $imagebelakang,
                                     'price'  => (int)$pricebelakang,
                                     'qty'    => (int)$qtybelakang
-                                ];                      
+                                ];
         }
         else {
 
@@ -260,7 +260,7 @@ class TribunController extends Controller
                                     'image'  => $imagebelakang,
                                     'price'  => (int)$pricebelakang,
                                     'qty'    => (int)$qtybelakang
-                                ];                      
+                                ];
         }
 
         $postribun = [ $postribun_depan, $postribun_tengah, $postribun_belakang];
@@ -277,7 +277,7 @@ class TribunController extends Controller
                     ->post();
 
         if ($response['rescode'] == "201") {
-            
+
             //get data gtcode tribun
             $gtcodetrib = "";
             if ($response['value']['gtcode']) {
@@ -290,13 +290,13 @@ class TribunController extends Controller
         }
 
         elseif ($response['rescode'] == "409") {
-            
+
             $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
         else {
-            
+
             $message = "Data gagal di input";
             Alert::message($message)->autoclose(4000);
         }
@@ -305,9 +305,9 @@ class TribunController extends Controller
     }
 
     public function update(Request $request)
-    {   
+    {
         $test           = $request->input('test');
-        $token          = Session::get('token'); 
+        $token          = Session::get('token');
         $tribun         = $request->input('tribun');
         $pricedepan     = $request->input('pricedepan');
         $pricetengah    = $request->input('pricetengah');
@@ -321,11 +321,11 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambardepan');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagedepan = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
@@ -342,11 +342,11 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambartengah');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagetengah = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
@@ -363,18 +363,18 @@ class TribunController extends Controller
                 try {
                     $file         = $request->file('gambarbelakang');
                     $filename     = $file->getClientOriginalName();
-                    $image_resize = Image::make($file->getRealPath());  
+                    $image_resize = Image::make($file->getRealPath());
                     $image_resize->resize(150, 150);
 
                     $image_resize->save(public_path('image/' .$filename));
-                    $resize_image = (public_path('image/' .$filename)); 
+                    $resize_image = (public_path('image/' .$filename));
 
                     $imagebelakang = base64_encode(file_get_contents($resize_image));
                 } catch (FileNotFoundException $e) {
                     echo "catch";
                 }
             }
-        } 
+        }
         else{
             $imagebelakang = base64_encode($request->input('gambar_belakang'));
         }
@@ -424,7 +424,7 @@ class TribunController extends Controller
             $nomor_pertama_depan  = $request->input('nomor_pertama_depan') ;
             $nomor_terakhir_depan = $request->input('nomor_terakhir_depan') ;
 
-            for ($i=0; $i < count($prefixdepan); $i++) { 
+            for ($i=0; $i < count($prefixdepan); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_depan[$i];
                 $data['last_number']    = (int)$nomor_terakhir_depan[$i];
@@ -463,7 +463,7 @@ class TribunController extends Controller
             $nomor_terakhir_tengah = $request->input('nomor_terakhir_tengah');
 
             $prefixtengah= $request->input('prefix_tengah') ;
-            for ($i=0; $i < count($prefixtengah); $i++) { 
+            for ($i=0; $i < count($prefixtengah); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_tengah[$i];
                 $data['last_number']    = (int)$nomor_terakhir_tengah[$i];
@@ -480,7 +480,7 @@ class TribunController extends Controller
                                     'image'  => $imagetengah,
                                     'price'  => (int)$pricetengah,
                                     'qty'    => (int)$qtytengah
-                                ];                       
+                                ];
         }
 
         else{
@@ -491,7 +491,7 @@ class TribunController extends Controller
                                     'image'  => $imagetengah,
                                     'price'  => (int)$pricetengah,
                                     'qty'    => (int)$qtytengah
-                                ];                 
+                                ];
         }
 
         if($layout_belakang != 'false' ){
@@ -501,7 +501,7 @@ class TribunController extends Controller
 
             $prefixbelakang= $request->input('prefix_belakang') ;
 
-            for ($i=0; $i < count($prefixbelakang); $i++) { 
+            for ($i=0; $i < count($prefixbelakang); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_belakang[$i];
                 $data['last_number']    = (int)$nomor_terakhir_belakang[$i];
@@ -518,7 +518,7 @@ class TribunController extends Controller
                                     'image'  => $imagebelakang,
                                     'price'  => (int)$pricebelakang,
                                     'qty'    => (int)$qtybelakang
-                                ];                      
+                                ];
         }
         else {
 
@@ -529,7 +529,7 @@ class TribunController extends Controller
                                     'image'  => $imagebelakang,
                                     'price'  => (int)$pricebelakang,
                                     'qty'    => (int)$qtybelakang
-                                ];                      
+                                ];
         }
 
         $postribun = [ $postribun_depan, $postribun_tengah, $postribun_belakang];
@@ -554,7 +554,7 @@ class TribunController extends Controller
                     ->put();
 
         if ($response['rescode'] == "200") {
-            
+
             //get data gtcode tribun
             $gtcodetrib = "";
             if ($response['value']['gtcode']) {
@@ -567,13 +567,13 @@ class TribunController extends Controller
         }
 
         elseif ($response['rescode'] == "409") {
-            
+
             $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
 
         else {
-            
+
             $message = "Data gagal di input";
             Alert::message($message)->autoclose(4000);
         }
@@ -583,8 +583,8 @@ class TribunController extends Controller
     }
 
     public function destroy($gtcodetrib)
-    {  
-        $token  = Session::get('token'); 
+    {
+        $token  = Session::get('token');
         $response = Curl::to('128.199.161.172:8113/deletetribun/'.$gtcodetrib)
                     ->withHeader('Authorization:'.$token)
                     ->delete();
@@ -595,9 +595,9 @@ class TribunController extends Controller
     public function edittribun($gttop,$gtcode)
     {
         $token = Session::get('token');
-                
+
         $response = Curl::to('128.199.161.172:8113/tribun/getcode/'.$gttop.'/'.$gtcode)
-                    ->withHeader('Authorization:'.$token)                        
+                    ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->get();
 
@@ -608,12 +608,12 @@ class TribunController extends Controller
          // get stadion
         $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
-                    ->get(); 
+                    ->get();
 
         $stadion     = $response['result'];
 
         $list_stadion = collect($stadion)->pluck('name','gtcode');
 
         return view('DataMaster/Tribun.edittribun', compact('val','list_stadion'));
-    }    
+    }
 }

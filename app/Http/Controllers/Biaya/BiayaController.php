@@ -13,7 +13,7 @@ use Alert;
 class BiayaController extends Controller
 {
     public function index(Request $request)
-    {   
+    {
         $token = Session::get('token');
         $profile  = Session::get('profile');
         $clubcode = $profile['clubcode'];
@@ -35,7 +35,7 @@ class BiayaController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->get();
-                    
+
         $listdatabiaya   = $databiaya['values'];
         $list_biaya      = collect($listdatabiaya)->pluck('akunname','gtcode');
 
@@ -44,7 +44,7 @@ class BiayaController extends Controller
         $datajadwal = Curl::to('128.199.161.172:9099/getlist')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
-                    ->get(); 
+                    ->get();
 
         $listdatajadwal   = $datajadwal['value'];
         $list_jadwal      = collect($listdatajadwal)->pluck('namehome','gtcode');
@@ -58,7 +58,7 @@ class BiayaController extends Controller
 
         $id = $request->keys();
         $obj_id = implode($id);
-        
+
         $limit  = 10;
 
         $offset = $obj_id*10-10;
@@ -73,7 +73,7 @@ class BiayaController extends Controller
         $data           = $response['value'];
         $total          = $response['totalvalue'];
         $total_page     = $response['totalpage'];
-        
+
         return view('Biaya/biaya',compact('data','total','total_page'));
     }
 
@@ -84,7 +84,7 @@ class BiayaController extends Controller
         $jadwal      =  $request->input('gttop');
         $akunname    =  $request->input('akun_name');
         $nominal     =  $request->input('nominal');
-        
+
         foreach ($akunname as $value) {
             $response = Curl::to('128.199.161.172:8112/akun-biaya/bycode/'.$value)
             ->withHeader('Authorization:'.$token)
@@ -94,7 +94,7 @@ class BiayaController extends Controller
             $biaya[] = $response['values'];
         }
 
-        for ($i=0; $i < count($nominal); $i++) { 
+        for ($i=0; $i < count($nominal); $i++) {
             $data = array();
             $data = $biaya[$i];
             $data['nominal'] = (int)$nominal[$i];
@@ -102,9 +102,9 @@ class BiayaController extends Controller
             $resultData[] = $data;
         }
 
-        $value    = ['gttop'              => $jadwal, 
+        $value    = ['gttop'              => $jadwal,
                      'transaction_date'   => $request->input('date'),
-                     'biaya'              => $resultData, 
+                     'biaya'              => $resultData,
                      ];
 
         $response = Curl::to('http://128.199.161.172:8112/transaksi-biaya/add')
@@ -117,7 +117,7 @@ class BiayaController extends Controller
                     ->post();
 
         if ($response['responcode'] == "201") {
-            
+
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
@@ -125,7 +125,7 @@ class BiayaController extends Controller
         }
 
         else {
-            
+
             $message = "Gagal tambah data";
             Alert::message($message)->autoclose(4000);
             return redirect()->back();
@@ -135,10 +135,10 @@ class BiayaController extends Controller
     }
 
     public function destroy($gttop,$gtcode)
-    {  
+    {
         $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/del/'.$gttop.'/'.$gtcode)                    
+        $response = Curl::to('128.199.161.172:8112/transaksi-biaya/del/'.$gttop.'/'.$gtcode)
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 

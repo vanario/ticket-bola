@@ -12,7 +12,7 @@ use Alert;
 
 class LoginController extends Controller
 {
-    var $newToken; 
+    var $newToken;
 
 	public function __construct()
     {
@@ -28,9 +28,9 @@ class LoginController extends Controller
 			    	->withData(['username'=>$username, 'password'=>$password])
 			    	->asJson(true)
 			    	->post();
-                    
+
         $token  = $response['values']['token'];
-        
+
         $userid = $response['values']['userid'];
 
         Session::put('token', $token);
@@ -42,9 +42,11 @@ class LoginController extends Controller
                         ->get();
 
             $profile = $profile_response['values'];
+            $clubcode= $profile['clubcode'];
 
             Session::put('profile', $profile);
-            
+            Session::put('clubcode', $clubcode);
+
             return redirect()->route('dashboard.home');
         }
         else{
@@ -65,6 +67,6 @@ class LoginController extends Controller
 
     public function home()
     {
-    	
+
     }
 }

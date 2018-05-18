@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CURL\CurlController as CurlController;
 use Ixudra\Curl\Facades\Curl;
 use Session;
 use Alert;
@@ -11,18 +12,16 @@ use Alert;
 class DashboardController extends Controller
 {
     public function index()
-    {   
-        $token = Session::get('token'); 
-        $club  = Session::get('clubcode');
+    {
+        $clubcode = Session::get('clubcode');
 
-        $response = Curl::to('http://128.199.161.172:8109/report/tiket/sumcurrent/'.$club)
-        			->withHeader('Authorization:'.$token)
-                    ->asJson(true)
-                    ->get(); 
+        $port    = '9099';
+        $url     = '/report/tiket/sumcurrent/'.$clubcode;
+        $response = CurlController::curldata($port,$url);
 
         $col     = $response['values'][0];
         $data 	 = collect($col);
-        // return $data;
+
         return view('home',['data' => $data,]);
     }
 }
