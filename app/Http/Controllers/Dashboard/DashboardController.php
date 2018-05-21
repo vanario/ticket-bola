@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\CURL\CurlController as CurlController;
+use App\Http\Controllers\Curl\CurlController as CurlController;
 use Ixudra\Curl\Facades\Curl;
 use Session;
 use Alert;
