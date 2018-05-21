@@ -7,11 +7,10 @@
     <div class="content-list">
 
         <div class="row">
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-6 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        {{-- <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3> --}}
-                        <h3>200.000.000</h3>
+                        <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3>
                         <p>Pengahasilan</p>
                     </div>
                     <div class="icon">
@@ -19,28 +18,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-6 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        {{-- <h3>{{ $data['tot_tiket'] or "-" }}</h3> --}}
-                        <h3>60 Ribu</h3>
+                        <h3>{{ $data['tot_tiket'] or "-" }}</h3>
 
-                        <p>Total Tiket</p>
+                        <p>Tiket Yang Terjual</p>
                      </div>
                     <div class="icon">
                       <i class="ion ion-pie-graph"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-red">
-                    <div class="inner">
-                         <h3>30 Ribu</h3>
-
-                         <p style="font-size: 14px">Penjualan Tiket Non Membership</p>
-                    </div>
-                    <div class="icon">
-                      <i class="ion ion-stats-bars"></i>
                     </div>
                 </div>
             </div>
@@ -68,7 +54,7 @@
                 <!-- /.box-body -->
             </div>
 
-            <div class="col-md-3">  
+            <div class="col-md-3">
                 <p class="text-center">
                     <strong>Static Penjualan Tiket Tribun</strong>
                 </p>
@@ -119,7 +105,7 @@
                 <!-- /.progress-group -->
                       <!-- /.progress-group -->
             </div>
-               
+
         </div>
     </div>
 @endsection
@@ -275,8 +261,7 @@ function labelFormatter(label, series) {
     + label
     + '<br>'
     + Math.round(series.percent) + '%</div>'
-}   
+}
 </script>
 
 @endsection
-            
