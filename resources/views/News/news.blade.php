@@ -34,7 +34,7 @@
                         <tr>
                             <td>
                                 <span class="images-club">
-                                  <img src="data:image/jpeg;base64,{{ $val['img']}}" class="img-fluid" alt="">
+                                  <img src="{{ $val['img']}}" class="img-fluid" alt="">
                                 </span>
                             </td>
                             <td>{{ $val['title'] or "-"}}</td>
@@ -131,7 +131,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Berita</label>
-                                <textarea name="berita" id="berita"  class="form-control input-sm" required> {{$val['berita']}}</textarea> 
+                                <textarea name="berita" id="berita"  class="form-control input-sm" required> {{$val['news']}}</textarea> 
                             </div>
                             <div class="form-group">
                                 <label for="">Gambar</label>

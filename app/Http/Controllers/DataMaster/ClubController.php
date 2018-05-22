@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Authentication\LoginController;
-use App\Http\Controllers\CURL\CurlController as CurlController;
+use App\Http\Controllers\Curl\CurlController as CurlController;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\UploadedFile;
 use Session;
