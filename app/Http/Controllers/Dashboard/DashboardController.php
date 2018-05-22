@@ -15,12 +15,14 @@ class DashboardController extends Controller
     {
         $clubcode = Session::get('clubcode');
 
-        $port    = '9099';
+        $port    = '8109';
         $url     = '/report/tiket/sumcurrent/'.$clubcode;
         $response = CurlController::curldata($port,$url);
 
         $col     = $response['values'];
         $data 	 = collect($col);
+        // return $data;
+
 
         return view('home',['data' => $data,]);
     }

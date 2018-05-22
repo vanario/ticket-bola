@@ -1,6 +1,6 @@
-@extends('template') 
+@extends('template')
 
-@section('title', 'List Jadwal') 
+@section('title', 'List Jadwal')
 
 @section('content')
 <div class="row">
@@ -28,14 +28,14 @@
                                 <td>{{ $val['jam'] or "- "}}</td>
                                 <td>{{ $val['event'] or "- "}}</td>
                                 <td>
-                                    <a href="{{action( 'DataMaster\JadwalController@edit',[$val['gttop'],$val[ 'gtcode']])}} "><i class=" fa fa-pencil " style="color:green "></i></a>
+                                    {{-- <a href="{{action( 'DataMaster\JadwalController@edit',[$val['gttop'],$val[ 'gtcode']])}} "><i class=" fa fa-pencil " style="color:green "></i></a> --}}
                                     <a href="{{action( 'DataMaster\JadwalController@destroy',[$val['gttop'],$val[ 'gtcode']])}} " id="hapus " ><i class="fa fa-trash "></i></a>
                                 </td>
                             </tr>
                         @endforeach
-                        </tbody>                        
+                        </tbody>
                     </table>
-                    {!! $data->appends(Input::except('page'))->render() !!}                    
+                    {!! $data->appends(Input::except('page'))->render() !!}
             </div>
         </div>
 </div>
