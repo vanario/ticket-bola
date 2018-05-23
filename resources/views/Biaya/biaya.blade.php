@@ -7,10 +7,19 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
+                <div class="col-md-1">
+                    <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
+                </div>
+                <div class="col-md-5">
+                    <h4 style="font-size:24px;">Transaksi</h4>                    
+                </div>
+                <div class="col-sm-6" style="text-align: right;">
+                    <a data-toggle="modal" data-target="#add"  class="btn btn-success" font-16" style="margin-bottom:30px;">Tambah</a>
+                </div>
+
+            </div>
+            <div class="box-list">
                 <div class="row" style="margin-top: 20px;">
-                    <div class="col-sm-2">
-                        <a data-toggle="modal" data-target="#add"  class="btn btn-success" font-16" style="margin-bottom:30px;">Tambah</a>
-                    </div>
                     <form method="POST" action="{{ url('biaya/') }}" enctype="multipart/form-data">
                        {{ csrf_field() }}
                         <div class="col-sm-3">
@@ -23,50 +32,49 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-sm-7">
                             <input type="submit" value="Filter" class="btn btn-success" >
                         </div>
                     </form>
                 </div>
 
-                    <table class="table table-striped" style="width: 100%;">
+                <table class="table table-striped" style="width: 100%;">
 
-                        <thead>
-                            <tr>
-                                <th>Tanggal Transaksi</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                    <thead>
+                        <tr>
+                            <th>Tanggal Transaksi</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            @if($data != null) 
-                            @foreach($data as $val)  
+                    <tbody>
+                        @if($data != null) 
+                        @foreach($data as $val)  
+                        <tr>
+                            <td>{{ $val['transaction_date'] or "-"}}</td>
+                            <td>
+                                <a data-toggle="modal" data-target="#view{{$val['gtcode']}}"><span class="fa fa-eye" style="color:green"></span></a>      
+                                <a href="{{action('Biaya\BiayaController@destroy',[$val['gttop'],$val['gtcode']])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @else
                             <tr>
-                                <td>{{ $val['transaction_date'] or "-"}}</td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#view{{$val['gtcode']}}"><span class="fa fa-eye" style="color:green"></span></a>      
-                                    <a href="{{action('Biaya\BiayaController@destroy',[$val['gttop'],$val['gtcode']])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="7">Tidak ada data ditemukan !!</td>
-                                </tr>                                   
-                            @endif
-                                
-                        </tbody>
-                    </table>
-                    <ul class="pagination">
-                        <li><a href="{{action('Biaya\BiayaController@page', 1 )}}" rel="prev">&laquo;</a></li> 
-                        @for ($i = 1; $i <= $total_page; $i++)
-                            @if( $i+1 <= 15)                            
-                            <li><a href="{{action('DataMaster\MitraController@page', $i )}}" id="paging">{{$i}}</a></li>
-                            @endif
-                        @endfor
-                        <li><a href="{{action('DataMaster\MitraController@page', $total_page )}}" rel="next">&raquo;</a></li>
-                    </ul> 
+                                <td colspan="7">Tidak ada data ditemukan !!</td>
+                            </tr>                                   
+                        @endif
+                            
+                    </tbody>
+                </table>
+                <ul class="pagination">
+                    <li><a href="{{action('Biaya\BiayaController@page', 1 )}}" rel="prev">&laquo;</a></li> 
+                    @for ($i = 1; $i <= $total_page; $i++)
+                        @if( $i+1 <= 15)                            
+                        <li><a href="{{action('DataMaster\MitraController@page', $i )}}" id="paging">{{$i}}</a></li>
+                        @endif
+                    @endfor
+                    <li><a href="{{action('DataMaster\MitraController@page', $total_page )}}" rel="next">&raquo;</a></li>
+                </ul> 
             </div>
         </div>
           

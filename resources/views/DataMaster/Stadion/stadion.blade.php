@@ -7,33 +7,39 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-
-                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
-
-                    <table class="table table-striped" style="width: 100%;">
-
-                        <thead>
-                            <tr>
-                                <th>Nama</th>
-                                <th style="width :15%">Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($data as $val)  
-                            <tr>
-                                <td>{{ $val['name'] or "-"}}</td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
-                                    <a href="{{action('DataMaster\StadionController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                                
-                        </tbody>
-                    </table>
-                    {!! $data->appends(Input::except('page'))->render() !!}
+                <div class="col-md-1">
+                    <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
+                </div>
+                <div class="col-md-5">
+                    <h4 style="font-size:24px;">Stadion</h4>                    
+                </div>
+                <div class="col-md-6" style="margin-top:-15px; text-align: right;">
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                </div>
             </div>
+            <table class="table table-striped" style="width: 100%;">
+
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th style="width :15%">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($data as $val)  
+                    <tr>
+                        <td>{{ $val['name'] or "-"}}</td>
+                        <td>
+                            <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
+                            <a href="{{action('DataMaster\StadionController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                        
+                </tbody>
+            </table>
+            {!! $data->appends(Input::except('page'))->render() !!}
         </div>
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

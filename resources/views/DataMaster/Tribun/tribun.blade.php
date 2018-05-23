@@ -7,7 +7,17 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-
+                <div class="col-md-1">
+                    <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
+                </div>
+                <div class="col-md-5">
+                    <h4 style="font-size:24px;">Tribun</h4>                    
+                </div>
+                <div class="col-md-6" style="margin-top:-15px; text-align: right;">
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                </div>
+            </div>
+            <div class="box-list">
                 <div class="row">
                   <form method="POST" action="{{ url('tribun/index') }}" enctype="multipart/form-data">
                   {{ csrf_field() }}
@@ -24,10 +34,7 @@
                     <div class="col-sm-7">
                       <input type="submit" value="Filter" class="btn btn-green" >
                     </div>
-                  </form>
-                  <div class="col-sm-2" style="text-align: right;">
-                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
-                  </div>                    
+                  </form>   
                 </div>
                 <table class="table table-striped" style="width: 100%;">
                   <thead>

@@ -7,9 +7,16 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-
-                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
-
+                <div class="col-md-1">
+                    <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
+                </div>
+                <div class="col-md-5">
+                    <h4 style="font-size:24px;">Mitra</h4>                    
+                </div>
+                <div class="col-md-6" style="margin-top:-15px; text-align: right;">
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                </div>
+            </div>
                     <table class="table table-striped" style="width: 100%;">
 
                         <thead>
@@ -23,6 +30,7 @@
                         </thead>
 
                         <tbody>
+                            @if($data != null) 
                             @foreach($data as $val)  
                             <tr>
                                 <td>{{ $val['name'] or "-"}}</td>
@@ -35,6 +43,11 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="7">Data Kosong !!</td>
+                                </tr>                                   
+                            @endif
                                 
                         </tbody>
                     </table>
@@ -47,7 +60,6 @@
                         @endfor
                         <li><a href="{{action('DataMaster\MitraController@page', $total_page )}}" rel="next">&raquo;</a></li>
                     </ul> 
-            </div>
         </div>
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -93,7 +105,7 @@
                 </div>
             </div>
         </div>      
-
+        @if($data != null) 
         @foreach($data as $val)
         <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -140,6 +152,7 @@
             </div>
         </div>  
         @endforeach
+        @endif
     </section>
 </div>
 @include('sweet::alert')

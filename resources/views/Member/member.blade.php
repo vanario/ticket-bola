@@ -8,53 +8,59 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-
-                <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
-
-                <table class="table table-striped" style="width: 100%;">
-
-                        <thead>
-                            <tr>
-
-                                <th>Email</th>
-                                <th>Nama</th>
-                                <th>Telepon</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Alamat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($data as $val)
-                            <tr>
-                                <td>{{ $val['userid'] or "-"}}</td>
-                                <td>{{ $val['username'] or "-"}}</td>
-                                <td>{{ $val['telp'] or "-"}}</td>
-                                <td>{{ $val['jenis_kelamin'] or "-"}}</td>
-                                <td>{{ $val['tgl_lahir'] or "-"}}</td>
-                                <td>{{ $val['alamat'] or "-"}}</td>
-                                <td>
-                                    <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span style="color:green;" class="fa fa-pencil"></span></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                                
-                        </tbody>
-                </table>
-                    <ul class="pagination">
-                        <li><a href="{{action('Member\MemberController@page', 1 )}}" rel="prev">&laquo;</a></li> 
-                        @for ($i = 1; $i <= $total_page; $i++)
-                            @if( $i+1 <= 15)                            
-                            <li><a href="{{action('Member\MemberController@page', $i )}}" id="paging">{{$i}}</a></li>
-                            @endif
-                        @endfor
-                        <li><a href="{{action('Member\MemberController@page', $total_page )}}" rel="next">&raquo;</a></li>
-                    </ul> 
+                 <div class="col-md-1">
+                    <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
+                </div>
+                <div class="col-md-5">
+                    <h4 style="font-size:24px;">Registrasi</h4>                    
+                </div>
+                <div class="col-sm-6" style="margin-top:-15px; text-align: right;">
+                    <a data-toggle="modal" data-target="#add"  class="btn btn-green" style="margin-bottom:30px;">Tambah</a>
+                </div>
             </div>
+            <table class="table table-striped" style="width: 100%;">
 
-             <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <thead>
+                        <tr>
+
+                            <th>Email</th>
+                            <th>Nama</th>
+                            <th>Telepon</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($data as $val)
+                        <tr>
+                            <td>{{ $val['userid'] or "-"}}</td>
+                            <td>{{ $val['username'] or "-"}}</td>
+                            <td>{{ $val['telp'] or "-"}}</td>
+                            <td>{{ $val['jenis_kelamin'] or "-"}}</td>
+                            <td>{{ $val['tgl_lahir'] or "-"}}</td>
+                            <td>{{ $val['alamat'] or "-"}}</td>
+                            <td>
+                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span style="color:green;" class="fa fa-pencil"></span></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                            
+                    </tbody>
+            </table>
+            <ul class="pagination">
+                <li><a href="{{action('Member\MemberController@page', 1 )}}" rel="prev">&laquo;</a></li> 
+                @for ($i = 1; $i <= $total_page; $i++)
+                    @if( $i+1 <= 15)                            
+                    <li><a href="{{action('Member\MemberController@page', $i )}}" id="paging">{{$i}}</a></li>
+                    @endif
+                @endfor
+                <li><a href="{{action('Member\MemberController@page', $total_page )}}" rel="next">&raquo;</a></li>
+            </ul> 
+
+            <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('member.store') }}" enctype="multipart/form-data">
