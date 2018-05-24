@@ -8,7 +8,7 @@
     <section class="content">
         <div class="content-list">
             <div class="box-list">
-                 <div class="col-md-1">
+                <div class="col-md-1">
                     <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
                 <div class="col-md-5">

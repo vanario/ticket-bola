@@ -26,6 +26,16 @@ class JadwalController extends Controller
 
         $data     = $response['value'];
 
+        // list club
+        $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
+                    ->asJson(true)
+                    ->get();
+                    
+        $list_data  = $list['value'];
+
+
+        $list_club  = collect($list_data)->pluck('name','gtcode');
+
         //pagination        
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
@@ -33,44 +43,10 @@ class JadwalController extends Controller
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
-        return view('DataMaster/Jadwal.jadwal', compact('data'));
+        return view('DataMaster/Jadwal.jadwal', compact('data','list_club'));
     }
 
-    public function createjadwal()
-    {
-        $gtcodetrib = "";
-
-        //list data club for dropdown
-
-        $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
-                    ->asJson(true)
-                    ->get();
-                    
-        $list_data  = $list['value'];
-
-
-        $list_club  = collect($list_data)->pluck('name','gtcode');
-
-        return view('DataMaster/Jadwal.createjadwal', compact('list_club', 'gtcodetrib'));
-    }
-
-    public function createtribun()
-    {
-        $gtcodetrib = "";
-
-        //list data club for dropdown
-
-        $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
-                    ->asJson(true)
-                    ->get();
-                    
-        $list_data  = $list['value'];
-
-
-        $list_club  = collect($list_data)->pluck('name','gtcode');
-
-        return view('DataMaster/Jadwal.createtribun', compact('list_club', 'gtcodetrib'));
-    }
+    
 
     public function edit($gttop,$gtcode)
     {
@@ -146,7 +122,7 @@ class JadwalController extends Controller
             Alert::message($message)->autoclose(4000);
         }
 
-        return view('DataMaster/Jadwal.createtribun', compact('gtcodetrib', 'list_club'));
+         return redirect()->route('jadwal.index');
     }
 
     public function update(Request $request)
