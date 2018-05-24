@@ -10,7 +10,7 @@
             <div class="col-lg-6 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ $data['tot_nominal'] or "-"}}<sup style="font-size: 20px"></sup></h3>
+                        <h3>{{$idr or "-"}}<sup style="font-size: 20px"></sup></h3>
                         <p>Pengahasilan</p>
                     </div>
                     <div class="icon">

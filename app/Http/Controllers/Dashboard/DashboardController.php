@@ -15,15 +15,16 @@ class DashboardController extends Controller
     {
         $clubcode = Session::get('clubcode');
 
-        $port    = '8109';
-        $url     = '/report/tiket/sumcurrent/'.$clubcode;
-        $response = CurlController::curldata($port,$url);
+        $port           = '8109';
+        $url            = '/report/tiket/sumcurrent/'.$clubcode;
+        $response       = CurlController::curldata($port,$url);
 
-        $col     = $response['values'];
-        $data 	 = collect($col);
+        $col            = $response['values'];
+        $data 	        = collect($col);
+        $idr            = "Rp " . number_format($data['tot_nominal'],2,',','.');
+
         // return $data;
 
-
-        return view('home',['data' => $data,]);
+        return view('home', compact('data', 'idr'));
     }
 }
