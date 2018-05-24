@@ -115,8 +115,9 @@
         <div class="modal fade" id="edit{{ $val['gtcode'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form method="POST" action="{{ route('jadwal.store')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('jadwal.update')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    <input name="_method" type="hidden" value="PATCH">
                         <div class="modal-header">
                             <h4>Tambah Jadwal</h4>
                         </div>
@@ -132,6 +133,7 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <input type="hidden" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" required>
                                     <div class="col-md-6">
                                         <label for="">Nama Home</label>
                                         <input type="text" name="namehome" id="namehome" value="{{ $val['namehome'] }}" class="form-control input-sm" required>

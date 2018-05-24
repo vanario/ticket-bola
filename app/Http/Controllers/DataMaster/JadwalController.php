@@ -145,10 +145,9 @@ class JadwalController extends Controller
                         ->withHeader('Authorization:'.$token)
                         ->asJson(true)
                         ->post();
-                        
             if ($response['rescode'] == "200") {
                 
-                $message = "Data Berhasil Ditambahkan";
+                $message = "Data Berhasil Diubah";
                 alert()->success('');
                 Alert::success($message,'Sukses')->autoclose(4000);
             }
