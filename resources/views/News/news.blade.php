@@ -12,10 +12,10 @@
                         <i class="fa fa-newspaper-o" style="color:black; margin-top:8px;font-size:24px;"></i>
                     </div>
                     <div class="col-md-5">
-                        <h4 style="font-size:24px;">Berita</h4>                    
+                        <h4 style="font-size:24px;">Berita</h4>
                     </div>
                     <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                        <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                        <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
                     </div>
                 </div>
                 <table class="table table-striped" style="width: 100%;">
@@ -41,14 +41,14 @@
                             <td>{{ $val['date'] or "-"}}</td>
                             <td>{{ $val['desc'] or "-"}}</td>
                             <td>
-                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>      
+                                <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color: green"></span></a>
                                 <a href="{{action('News\NewsController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         @endforeach
-                            
+
                     </tbody>
-                </table>                            
+                </table>
             </div>
             {!! $data->appends(Input::except('page'))->render() !!}
         </div>
@@ -63,7 +63,7 @@
                         <div class="modal-header">
                             <h4>Tambah Berita</h4>
                         </div>
-                        <div class="modal-body">       
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="">Kode</label>
                                 <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
@@ -82,22 +82,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Berita</label>
-                                <textarea name="berita" id="berita" class="form-control input-sm" required></textarea> 
-                            </div>                            
+                                <textarea name="berita"  id="editor1" class="form-control input-sm" required></textarea>
+                            </div>
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
-                                <div class="input-field col s6">                          
+                                <div class="input-field col s6">
                                     <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
-                                </div>                                    
-                            </div>   
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <div>
                                  <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
                         <div class="modal-header">
                             <h4>Edit Berita</h4>
                         </div>
-                        <div class="modal-body">         
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="">Code</label>
                                 <input type="text" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" readonly>
@@ -131,15 +131,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Berita</label>
-                                <textarea name="berita" id="berita"  class="form-control input-sm" required> {{$val['news']}}</textarea> 
+                                <textarea name="berita"  id="editor1"  class="form-control input-sm" required> {{$val['news']}}</textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
                                 <input type="hidden" name="gambar_" value="{{$val['img']}}" class="validate" multiple required>
-                                <div class="input-field col s6">                          
+                                <div class="input-field col s6">
                                     <img src="data:image/jpeg;base64,{{ $val['img']}}" id="image-preview1" style="max-width:200px;max-height:200px;" />
-                                </div>                                    
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -147,23 +147,29 @@
                                 <input type="submit"  value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
-        </div>  
+        </div>
         @endforeach
 @include('sweet::alert')
 @endsection
 
 @section('script')
+
 <script src="{{ asset('adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
 <script type="text/javascript">
+
+    $(function () {
+      CKEDITOR.replace('editor1')
+    })
+
     $(function() {
 
         init_datepicker();
         readURL();
-            
+
         function init_datepicker() {
             $('#date').datepicker({
              format: 'yyyy-m-d',
@@ -175,7 +181,7 @@
     function readURL(input) {
 
         if (input.files && input.files[0]) {
-            var reader = new FileReader();           
+            var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#image-preview').attr('src', e.target.result);
@@ -190,7 +196,7 @@
     function readURL1(input) {
 
         if (input.files && input.files[0]) {
-            var reader = new FileReader();           
+            var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#image-preview1').attr('src', e.target.result);
