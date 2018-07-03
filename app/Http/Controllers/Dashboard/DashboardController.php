@@ -21,8 +21,8 @@ class DashboardController extends Controller
 
         $col            = $response['values'];
         $data 	        = collect($col);
-        $idr            = "Rp " . number_format($data['tot_nominal'],2,',','.');
-
+        // $idr            = "Rp " . number_format($data['tot_nominal'],2,',','.');
+        $idr            = "";
         // return $data;
 
         return view('home', compact('data', 'idr'));

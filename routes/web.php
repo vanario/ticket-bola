@@ -17,14 +17,14 @@ Auth::routes();
 	    // Route::get('home', 'Authentication\LoginController@home')->name('auth.home');
 	    Route::post('index', 'Authentication\LoginController@index');
 	    Route::post('logout', 'Authentication\LoginController@logout');
-	    
-	});	
+
+	});
 
 
 Route::group(['middleware' => 'admin'], function() {
-	
+
 	Route::get('home', 'Dashboard\DashboardController@index')->name('dashboard.home');
-	
+
 	Route::group(['prefix'=>'stadion'], function() {
 		Route::get('/','DataMaster\StadionController@index')->name('stadion.index');
 		Route::post('store','DataMaster\StadionController@store')->name('stadion.store');
@@ -107,13 +107,19 @@ Route::group(['middleware' => 'admin'], function() {
 		Route::get('destroy/{id}','News\NewsController@destroy');
 	});
 
+	Route::group(['prefix'=>'faq'], function() {
+		Route::get('/','faq\FaqController@index')->name('faq.index');
+		Route::post('store','faq\FaqController@store')->name('faq.store');
+		Route::patch('update','faq\FaqController@update')->name('faq.update');
+		Route::get('destroy/{id}','faq\FaqController@destroy');
+	});
 
 	Route::group(['prefix' => 'report'], function(){
-		Route::get('/','Report\ReportController@index')->name('report.index');		
-		Route::group(['prefix' => 'club'], function(){ 
+		Route::get('/','Report\ReportController@index')->name('report.index');
+		Route::group(['prefix' => 'club'], function(){
 			Route::get('/','Report\ReportController@club')->name('report.club');
 			Route::get('/detail/{clubId}','Report\ReportController@clubReport')->name('report.club');
-		});		
+		});
 	});
 
 
@@ -141,5 +147,3 @@ Route::group(['middleware' => 'admin'], function() {
 	});
 
 });
-
-

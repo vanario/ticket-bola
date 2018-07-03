@@ -11,10 +11,10 @@
                     <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
                 <div class="col-md-5">
-                    <h4 style="font-size:24px;">Tribun</h4>                    
+                    <h4 style="font-size:24px;">Tribun</h4>
                 </div>
                 <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" style="margin-bottom:30px;">Tambah</a>                    
                 </div>
             </div>
             <div class="box-list">
@@ -34,7 +34,7 @@
                     <div class="col-sm-7">
                       <input type="submit" value="Filter" class="btn btn-green" >
                     </div>
-                  </form>   
+                  </form>
                 </div>
                 <table class="table table-striped" style="width: 100%;">
                   <thead>
@@ -48,8 +48,8 @@
                     <tr>
                       <td>{{ $val['tribun'] or "-"}}</td>
                       <td>
-                          <a href="{{action( 'DataMaster\TribunController@edittribun',[$val['gttop'],$val[ 'gtcode']])}} "><i class=" fa fa-pencil " style="color:green "></i></a> 
-                          <a href="{{action( 'DataMaster\TribunController@destroy',$val[ 'gtcode'])}} " id="hapus "><i class="fa fa-trash "></i></a> 
+                          <a href="{{action( 'DataMaster\TribunController@edittribun',[$val['gttop'],$val[ 'gtcode']])}} "><i class=" fa fa-pencil " style="color:green "></i></a>
+                          <a href="{{action( 'DataMaster\TribunController@destroy',$val[ 'gtcode'])}} " id="hapus "><i class="fa fa-trash "></i></a>
                       </td>
                     </tr>
                     @endforeach
@@ -89,7 +89,7 @@
                             <option value="tribun utara">Tribun Utara</option>
                             <option value="tribun selatan">Tribun Selatan</option>
                         </select>
-                      </div>                      
+                      </div>
                       <div class="col-md-12" style="margin-top: 20px;">
                         <div class="panel-group" id="accordion">
                           <div class="panel panel-default">
@@ -113,8 +113,8 @@
                                     <label>Layout</label>
                                     <select name="layout_depan" class="form-control" id="layout_depan" required>
                                         <option value="">Pilih layout</option>
-                                        <option value="true">Ada</option>              
-                                        <option value="false">Tidak Ada</option>             
+                                        <option value="true">Ada</option>
+                                        <option value="false">Tidak Ada</option>
                                     </select>
                                   </div>
                                   <div class="col-md-6" style="margin-top: 25px;">
@@ -124,7 +124,7 @@
                                         <img src="" id="image-previewdepan" style="max-width:200px;max-height:200px;" />
                                     </div>
                                   </div>
-                                  <div class="col-md-8">   
+                                  <div class="col-md-8">
                                     <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="depan" title="Add field">Tambah Kursi</a>
                                   </div>
                                   <div class="col-md-12" style="margin-top: 10px;">
@@ -156,8 +156,8 @@
                                     <label>Layout</label>
                                     <select name="layout_tengah" class="form-control" id="layout_tengah" required>
                                       <option value="">Pilih layout</option>
-                                      <option value="true">Ada</option>              
-                                      <option value="false">Tidak Ada</option>             
+                                      <option value="true">Ada</option>
+                                      <option value="false">Tidak Ada</option>
                                     </select>
                                   </div>
                                   <div class="col-md-6" style="margin-top: 25px;">
@@ -167,7 +167,7 @@
                                         <img src="" id="image-previewtengah" style="max-width:200px;max-height:200px;" />
                                     </div>
                                   </div>
-                                  <div class="col-md-8">   
+                                  <div class="col-md-8">
                                      <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="tengah" title="Add field">Tambah Kursi</a>
                                   </div>
                                   <div class="col-md-12" style="margin-top: 10px;">
@@ -199,8 +199,8 @@
                                     <label>Layout</label>
                                     <select name="layout_belakang" class="form-control" id="layout_belakang" required>
                                       <option value="">Pilih layout</option>
-                                      <option value="true">Ada</option>              
-                                      <option value="false">Tidak Ada</option>             
+                                      <option value="true">Ada</option>
+                                      <option value="false">Tidak Ada</option>
                                     </select>
                                   </div>
                                   <div class="col-md-6" style="margin-top: 25px;">
@@ -210,20 +210,20 @@
                                         <img src="" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
                                     </div>
                                   </div>
-                                  <div class="col-md-8">   
+                                  <div class="col-md-8">
                                     <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="belakang" title="Add field">Tambah Kursi</a>
                                   </div>
                                   <div class="col-md-12" style="margin-top: 10px;">
                                     <div class="field_wrapper" id="wrapper_belakang">
                                     </div>
-                                  </div>  
-                                </div>                                           
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div> 
-                      </div> 
-                    </div>                                     
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -234,7 +234,7 @@
               </form>
             </div>
           </div>
-        </div>   
+        </div>
     </section>
 </div>
 @endsection
@@ -242,7 +242,7 @@
 @section('script')
 @include('sweet::alert')
 <script src="{{ asset('adminlte/bower_components/bootstrap-typeahead.js') }}"></script>
-<script src="{{ asset('adminlte/bower_components/jquery.mockjax.js') }}"></script> 
+<script src="{{ asset('adminlte/bower_components/jquery.mockjax.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -255,7 +255,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#depan'); //Add button selector
         var wrapper = $('#wrapper_depan'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_depan[]" id="prefix_depan" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_depan[]" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_depan[]" id="nomor_terakhir_depan" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_depan[]" id="prefix_depan" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_depan[]" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_depan[]" id="nomor_terakhir_depan" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -274,7 +274,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#tengah'); //Add button selector
         var wrapper = $('#wrapper_tengah'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_tengah[]" id="prefix_tengah" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_tengah[]" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_tengah[]" id="nomor_terakhir_tengah" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_tengah[]" id="prefix_tengah" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_tengah[]" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_tengah[]" id="nomor_terakhir_tengah" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -293,7 +293,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#belakang'); //Add button selector
         var wrapper = $('#wrapper_belakang'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_belakang[]" id="prefix_belakang" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_belakang[]" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_belakang[]" id="nomor_terakhir_belakang" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_belakang[]" id="prefix_belakang" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_belakang[]" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_belakang[]" id="nomor_terakhir_belakang" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -355,4 +355,3 @@ $("#gambarbelakang").change(function() {
 </script>
 
 @endsection
-

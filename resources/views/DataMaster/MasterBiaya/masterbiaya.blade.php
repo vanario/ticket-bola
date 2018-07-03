@@ -11,10 +11,10 @@
                     <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
                 <div class="col-md-5">
-                    <h4 style="font-size:24px;">Master Biaya</h4>                    
+                    <h4 style="font-size:24px;">Master Biaya</h4>
                 </div>
                 <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" style="margin-bottom:30px;">Tambah</a>                    
                 </div>
             </div>
                     <table class="table table-striped" style="width: 100%;">
@@ -28,8 +28,8 @@
                         </thead>
 
                         <tbody>
-                            @if($data != null) 
-                            @foreach($data as $val)  
+                            @if($data != null)
+                            @foreach($data as $val)
                             <tr>
                                 <td>{{ $val['akunname'] or "-"}}</td>
                                 <td>{{ $val['akuntype'] or "-"}}</td>
@@ -37,25 +37,25 @@
                                     <a data-toggle="modal" data-target="#edit{{$val['gtcode']}}"><span class="fa fa-pencil" style="color:green"></span></a>
                                     <a href="{{action('DataMaster\MasterBiayaController@destroy',$val['gtcode'])}}" id="hapus" ><i class="fa fa-trash"></i></a>
                                 </td>
-                            </tr>      
+                            </tr>
                             @endforeach
                             @else
                                 <tr>
                                     <td colspan="7">Data Kosong !!</td>
-                                </tr>                                   
+                                </tr>
                             @endif
-                                
+
                         </tbody>
                     </table>
                     <ul class="pagination">
-                        <li><a href="{{action('DataMaster\MasterBiayaController@page', 1 )}}" rel="prev">&laquo;</a></li> 
+                        <li><a href="{{action('DataMaster\MasterBiayaController@page', 1 )}}" rel="prev">&laquo;</a></li>
                         @for ($i = 1; $i <= $total_page; $i++)
-                            @if( $i+1 <= 15)                            
+                            @if( $i+1 <= 15)
                             <li><a href="{{action('DataMaster\MasterBiayaController@page', $i )}}" id="paging">{{$i}}</a></li>
                             @endif
                         @endfor
                         <li><a href="{{action('DataMaster\MasterBiayaController@page', $total_page )}}" rel="next">&raquo;</a></li>
-                    </ul> 
+                    </ul>
         </div>
 
         <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -66,7 +66,7 @@
                         <div class="modal-header">
                             <h4>Tambah Biaya</h4>
                         </div>
-                        <div class="modal-body">     
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="">Nama Akun</label>
                                 <input type="text" name="akunname" id="akunname" class="form-control input-sm" required>
@@ -81,11 +81,11 @@
                                  <input type="submit" value="Simpan" class="btn btn-green" >
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
-        </div>      
-        @if($data != null) 
+        </div>
+        @if($data != null)
         @foreach($data as $val)
             <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -96,7 +96,7 @@
                             <div class="modal-header">
                                 <h4>Edit Biaya</h4>
                             </div>
-                            <div class="modal-body">         
+                            <div class="modal-body">
                                 <input type="hidden" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" required>
                                 <div class="form-group">
                                     <label for="">Nama Biaya</label>
@@ -112,16 +112,13 @@
                                     <input type="submit"  value="Simpan" class="btn btn-green" >
                                 </div>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                 </div>
-            </div>  
+            </div>
         @endforeach
         @endif
     </section>
 </div>
 @include('sweet::alert')
 @endsection
-
-
-
