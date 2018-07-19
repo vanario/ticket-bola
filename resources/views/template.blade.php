@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   {{-- image preview --}}
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-  
+
 
   @yield('css-plugin')
 
@@ -49,7 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
   <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-  
+
 
   @yield('css')
 

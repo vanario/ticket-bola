@@ -252,8 +252,7 @@ class TribunController extends Controller
                                 ];
         }
         else {
-
-            $postribun_belakang = [ 'gttop'  => $gtcodetrib,
+          $postribun_belakang = [ 'gttop'  => $gtcodetrib,
                                     'gtcode' => "3",
                                     'posisi' => "belakang",
                                     'layout' => false,
@@ -541,7 +540,6 @@ class TribunController extends Controller
                     'postribun' => $postribun
                 ];
 
-        return $postribun;
         $response = Curl::to('128.199.161.172:8113/tribun/edit')
                     ->withData([    'gttop'     => $request->input('gttop'),
                                     'gtcode'    => $gtcodetrib,

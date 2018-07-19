@@ -1,8 +1,8 @@
-@extends('template') 
+@extends('template')
 
-@section('title', 'Create Tribun') 
+@section('title', 'Create Tribun')
 
-@section('content') 
+@section('content')
 
 <div class="row">
     <section class="content">
@@ -30,7 +30,7 @@
                           <div class="col-md-6">
                             <label for="">Tribun</label>
                             <input type="text"  name="tribun" id="tribun" value="{{ $val['tribun'] }}" class="form-control input-sm" readonly>
-                          </div>                      
+                          </div>
                           <div class="col-md-12" style="margin-top: 20px;">
                             <div class="panel-group" id="accordion">
                               <div class="panel panel-default">
@@ -46,8 +46,8 @@
                                         <label>Layout</label>
                                         <select name="layout_depan" class="form-control" id="layout_depan" required>
                                             <option value="">Pilih layout</option>
-                                            <option value="true"{{old('',true)==$val['postribun'][0]['layout']? 'selected': ''}}>Ada</option>              
-                                            <option value="false"{{old('',false)==$val['postribun'][0]['layout']? 'selected': ''}}>Tidak Ada</option>         
+                                            <option value="true"{{old('',true)==$val['postribun'][0]['layout']? 'selected': ''}}>Ada</option>
+                                            <option value="false"{{old('',false)==$val['postribun'][0]['layout']? 'selected': ''}}>Tidak Ada</option>
                                         </select>
                                       </div>
                                       @if($val['postribun'][0]['layout'] == true)
@@ -62,7 +62,7 @@
                                         </div>
                                         @endforeach
                                       @endif
-                                      <div class="col-md-12">   
+                                      <div class="col-md-12">
                                         <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="depan" title="Add field">Tambah Kursi</a>
                                       </div>
                                       <div class="col-md-12" style="margin-top: 10px;">
@@ -94,8 +94,8 @@
                                         <label>Layout</label>
                                         <select name="layout_tengah" class="form-control" id="layout_tengah" required>
                                           <option value="">Pilih layout</option>
-                                          <option value="true"{{old('',true)==$val['postribun'][1]['layout']? 'selected': ''}}>Ada</option>              
-                                          <option value="false"{{old('',false)==$val['postribun'][1]['layout']? 'selected': ''}}>Tidak Ada</option>             
+                                          <option value="true"{{old('',true)==$val['postribun'][1]['layout']? 'selected': ''}}>Ada</option>
+                                          <option value="false"{{old('',false)==$val['postribun'][1]['layout']? 'selected': ''}}>Tidak Ada</option>
                                         </select>
                                       </div>
                                       @if($val['postribun'][1]['layout'] == true)
@@ -103,14 +103,14 @@
                                         <div class="col-md-12" style="margin-top :25px;">
                                             <label>Kursi</label>
                                             <label for="">Prefix</label>
-                                            <input type="text" name="prefix_depan[]" value="{{ $value['prefix'] }}" id="prefix_depan" class="form-control input-sm" required>
+                                            <input type="text" name="prefix_tengah[]" value="{{ $value['prefix'] }}" id="prefix_tengah" class="form-control input-sm" required>
                                             <label for="">Nomor Pertama</label>
-                                            <input type="text" name="nomor_pertama_depan[]" value="{{ $value['first_number'] }}" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label>
-                                            <input type="text" name="nomor_terakhir_depan[]" value="{{ $value['last_number'] }}" id="nomor_terakhir_depan" class="form-control input-sm" required>
+                                            <input type="text" name="nomor_pertama_tengah[]" value="{{ $value['first_number'] }}" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label>
+                                            <input type="text" name="nomor_terakhir_tengah[]" value="{{ $value['last_number'] }}" id="nomor_terakhir_tengah" class="form-control input-sm" required>
                                         </div>
                                         @endforeach
                                       @endif
-                                      <div class="col-md-12">   
+                                      <div class="col-md-12">
                                          <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="tengah" title="Add field">Tambah Kursi</a>
                                       </div>
                                       <div class="col-md-12" style="margin-top: 10px;">
@@ -142,7 +142,7 @@
                                         <label>Layout</label>
                                         <select name="layout_belakang" class="form-control" id="layout_belakang" required>
                                           <option value="">Pilih layout</option>
-                                           <option value="true"{{old('',true)==$val['postribun'][2]['layout']? 'selected': ''}}>Ada</option>              
+                                           <option value="true"{{old('',true)==$val['postribun'][2]['layout']? 'selected': ''}}>Ada</option>
                                           <option value="false"{{old('',false)==$val['postribun'][2]['layout']? 'selected': ''}}>Tidak Ada</option>
                                         </select>
                                       </div>
@@ -151,14 +151,14 @@
                                         <div class="col-md-12" style="margin-top :25px;">
                                             <label>Kursi</label>
                                             <label for="">Prefix</label>
-                                            <input type="text" name="prefix_depan[]" value="{{ $value['prefix'] }}" id="prefix_depan" class="form-control input-sm" required>
+                                            <input type="text" name="prefix_belakang[]" value="{{ $value['prefix'] }}" id="prefix_belakang" class="form-control input-sm" required>
                                             <label for="">Nomor Pertama</label>
-                                            <input type="text" name="nomor_pertama_depan[]" value="{{ $value['first_number'] }}" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label>
-                                            <input type="text" name="nomor_terakhir_depan[]" value="{{ $value['last_number'] }}" id="nomor_terakhir_depan" class="form-control input-sm" required>
+                                            <input type="text" name="nomor_pertama_belakang[]" value="{{ $value['first_number'] }}" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label>
+                                            <input type="text" name="nomor_terakhir_belakang[]" value="{{ $value['last_number'] }}" id="nomor_terakhir_belakang" class="form-control input-sm" required>
                                         </div>
                                         @endforeach
                                       @endif
-                                      <div class="col-md-12">   
+                                      <div class="col-md-12">
                                         <a style="margin-top: 25px;" href="javascript:void(0);" class="btn btn-green" id="belakang" title="Add field">Tambah Kursi</a>
                                       </div>
                                       <div class="col-md-12" style="margin-top: 10px;">
@@ -172,14 +172,14 @@
                                         <div class="input-field col s6">
                                           <img src="{{ $val['postribun'][2]['image'] or "-" }}" id="image-previewbelakang" style="max-width:200px;max-height:200px;" />
                                         </div>
-                                      </div>  
-                                    </div>                                           
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div> 
-                          </div> 
-                        </div>                                     
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="modal-footer">
@@ -200,7 +200,7 @@
 @section('script')
 @include('sweet::alert')
 <script src="{{ asset('adminlte/bower_components/bootstrap-typeahead.js') }}"></script>
-<script src="{{ asset('adminlte/bower_components/jquery.mockjax.js') }}"></script> 
+<script src="{{ asset('adminlte/bower_components/jquery.mockjax.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -213,7 +213,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#depan'); //Add button selector
         var wrapper = $('#wrapper_depan'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_depan[]" id="prefix_depan" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_depan[]" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_depan[]" id="nomor_terakhir_depan" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_depan[]" id="prefix_depan" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_depan[]" id="nomor_pertama_depan" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_depan[]" id="nomor_terakhir_depan" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -232,7 +232,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#tengah'); //Add button selector
         var wrapper = $('#wrapper_tengah'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_tengah[]" id="prefix_tengah" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_tengah[]" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_tengah[]" id="nomor_terakhir_tengah" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_tengah[]" id="prefix_tengah" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_tengah[]" id="nomor_pertama_tengah" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_tengah[]" id="nomor_terakhir_tengah" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -251,7 +251,7 @@ $(function() {
         var maxField = 10; //Input fields increment limitation
         var addButton = $('#belakang'); //Add button selector
         var wrapper = $('#wrapper_belakang'); //Input field wrapper
-        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_belakang[]" id="prefix_belakang" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_belakang[]" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_belakang[]" id="nomor_terakhir_belakang" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html 
+        var fieldHTML = '<div><label for="">Prefix</label><input type="text" name="prefix_belakang[]" id="prefix_belakang" class="form-control input-sm" required><label for="">Nomor Pertama</label><input type="text" name="nomor_pertama_belakang[]" id="nomor_pertama_belakang" class="form-control input-sm" required><label for="">Nomor Terakhir</label><input type="text" name="nomor_terakhir_belakang[]" id="nomor_terakhir_belakang" class="form-control input-sm" required><a href="javascript:void(0);" class="btn btn-red" style ="margin-bottom:15px;"title="Hapus kursi">Hapus</a></div>'; //New input field html
         var x = 1; //Initial field counter is 1
         $(addButton).click(function(){ //Once add button is clicked
             if(x < maxField){ //Check maximum number of input fields
@@ -313,4 +313,3 @@ $("#gambarbelakang").change(function() {
 </script>
 
 @endsection
-

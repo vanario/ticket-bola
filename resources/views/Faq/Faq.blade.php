@@ -43,16 +43,15 @@
                             </td>
                         </tr>
                         @endforeach
-
                     </tbody>
+
                 </table>
             </div>
             {!! $data->appends(Input::except('page'))->render() !!}
         </div>
     </section>
 </div>
-
-        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{ route('news.store') }}" enctype="multipart/form-data">
@@ -80,43 +79,43 @@
             </div>
         </div>
 
-        @foreach ($data as $val)
-        <div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <form method="POST" action="{{ route('news.update')}}" >
-                    {{ csrf_field() }}
-                    <input name="_method" type="hidden" value="PATCH">
-                        <div class="modal-header">
-                            <h4>Edit FAQ</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="">Judul</label>
-                                <input type="text" name="title=" id="title=" value="{{$val['title']}}" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Konten</label>
-                                <textarea name="konten"  id="editor1"  class="form-control input-sm" required> {{$val['konten']}}</textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <input type="submit"  value="Simpan" class="btn btn-green" >
-                            </div>
-                        </div>
-                    </form>
+@foreach ($data as $val)
+<div class="modal fade" id="edit{{$val['gtcode']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{ route('news.update')}}" >
+            {{ csrf_field() }}
+            <input name="_method" type="hidden" value="PATCH">
+                <div class="modal-header">
+                    <h4>Edit FAQ</h4>
                 </div>
-            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Judul</label>
+                        <input type="text" name="title=" id="title=" value="{{$val['title']}}" class="form-control input-sm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Konten</label>
+                        <textarea name="konten"  id="editor1"  class="form-control input-sm" required> {{$val['konten']}}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <input type="submit"  value="Simpan" class="btn btn-green" >
+                    </div>
+                </div>
+            </form>
         </div>
-        @endforeach
+    </div>
+</div>
+@endforeach
+
 @include('sweet::alert')
 @endsection
 
 @section('script')
 
 <script src="{{ asset('adminlte/bower_components/bootstrap-judulpicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-
 <script type="text/javascript">
 
     $(function () {
@@ -124,7 +123,6 @@
     })
 
     $(function() {
-
         init_datepicker();
         readURL();
 
@@ -135,6 +133,5 @@
            });
         };
     });
-
-  </script>
+</script>
 @endsection

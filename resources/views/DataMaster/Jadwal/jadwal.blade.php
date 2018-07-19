@@ -11,10 +11,10 @@
                     <i class="fa fa-link" style="color:black; margin-top:8px;font-size:24px;"></i>
                 </div>
                 <div class="col-md-5">
-                    <h4 style="font-size:24px;">Jadwal</h4>                    
+                    <h4 style="font-size:24px;">Jadwal</h4>
                 </div>
                 <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                    <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>                    
+                    <a data-toggle="modal" data-target="#add" class="btn btn-green" style="margin-bottom:30px;">Tambah</a>
                 </div>
 
             </div>
@@ -57,17 +57,23 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-6">
+                                  @foreach($data as $val)
+                                    @if ($val['gttop'] == null)
+                                      <div class="col-md-6">
                                         <label for="">Jadwal</label>
                                         <select name="gttopstadion" class="form-control input-sm" required>
-                                            <option value="">Club</option>
+                                          <option value="">Club</option>
                                             @foreach($list_club as $gtcode => $name)
                                             <option value="{{$gtcode}}">{{$name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                      </div>
+                                    @else
+                                        <input type="hidden" name="gttopstadion" value={{$val["gttop"]}} class="form-control input-sm" required>
+                                    @endif
+                                  @endforeach
                                     <div class="col-md-6">
-                                        <label for="">Nama Home</label>
+                                      <label for="">Nama Home</label>
                                         <input type="text" name="namehome" id="namehome" class="form-control input-sm" required>
                                     </div>
                                     <div class="col-md-6">
@@ -124,15 +130,21 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label for="">Jadwal</label>
-                                        <select name="gttopstadion" class="form-control input-sm" required>
+                                    @foreach($data as $val)
+                                      @if ($val['gttop'] == null)
+                                        <div class="col-md-6">
+                                          <label for="">Jadwal</label>
+                                          <select name="gttopstadion" class="form-control input-sm" required>
                                             <option value="">Club</option>
                                             @foreach($list_club as $gtcode => $name)
                                             <option value="{{$gtcode}}"{{old('',$gtcode)==$val['gttop']? 'selected': ''}}>{{$name}}</option>
                                             @endforeach
-                                        </select>
-                                    </div>
+                                          </select>
+                                        </div>
+                                      @else
+                                          <input type="hidden" name="gttopstadion" value={{$val["gttop"]}} class="form-control input-sm" required>
+                                      @endif
+                                    @endforeach
                                     <input type="hidden" name="gtcode" id="gtcode" value="{{ $val['gtcode'] }}" class="form-control input-sm" required>
                                     <div class="col-md-6">
                                         <label for="">Nama Home</label>
@@ -189,7 +201,7 @@
 <script type="text/javascript">
 
     $(function() {
-        
+
         init_datepicker();
         init_timepicker();
 

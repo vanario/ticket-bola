@@ -15,13 +15,14 @@
                         <h4 style="font-size:24px;">Berita</h4>
                     </div>
                     <div class="col-md-6" style="margin-top:-15px; text-align: right;">
-                        <a data-toggle="modal" data-target="#add" class="btn btn-green" font-16" style="margin-bottom:30px;">Tambah</a>
+                        <a data-toggle="modal" data-target="#add" class="btn btn-green" style="margin-bottom:30px;">Tambah</a>
                     </div>
                 </div>
                 <table class="table table-striped" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Gambar</th>
+                            <th>Gambar Tumbnail</th>
+                            <th>Media</th>
                             <th>Judul</th>
                             <th>Tanggal</th>
                             <th>Deskripsi</th>
@@ -32,11 +33,14 @@
                     <tbody>
                         @foreach ($data as $val)
                         <tr>
-                            <td>
+                            @foreach ($val['media'] as $value)
+                              <td>
                                 <span class="images-club">
-                                  <img src="{{ $val['img']}}" class="img-fluid" alt="">
-                                </span>
-                            </td>
+                                  {{ $value['path']}}
+                                  {{-- <img src="{{ $value['path']}}" class="img-fluid" alt=""> --}}
+                               </span>
+                             </td>
+                            @endforeach
                             <td>{{ $val['title'] or "-"}}</td>
                             <td>{{ $val['date'] or "-"}}</td>
                             <td>{{ $val['desc'] or "-"}}</td>
@@ -65,14 +69,10 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="">Kode</label>
-                                <input type="text" name="gtcode" id="gtcode" class="form-control input-sm" required>
-                            </div>
-                            <div class="form-group">
                                 <label for="">Judul</label>
                                 <input type="text" name="title" id="title" class="form-control input-sm" required>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label for="">Deskripsi</label>
                                 <input type="text" name="desc" id="desc" class="form-control input-sm" required>
                             </div>
@@ -85,10 +85,21 @@
                                 <textarea name="berita"  id="editor1" class="form-control input-sm" required></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="">Gambar</label>
-                                <input type="file" id="inputimage" name="gambar" class="validate" multiple required>
+                                <label for="">reference</label>
+                                <input type="text" name="reference" id="reference" class="form-control input-sm" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Gambar Tumbnail</label>
+                                <input type="file" id="inputimage" name="gambar" class="validate">
                                 <div class="input-field col s6">
                                     <img src="" id="image-preview" style="max-width:200px;max-height:200px;" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Gambar atau Video</label>
+                                <input type="file" id="inputmedia" name="media" class="validate">
+                                <div class="input-field col s6">
+                                    <img src="" id="media-preview" style="max-width:200px;max-height:200px;" />
                                 </div>
                             </div>
                         </div>
@@ -113,10 +124,6 @@
                             <h4>Edit Berita</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label for="">Code</label>
-                                <input type="text" name="gtcode" value="{{$val['gtcode']}}" id="gtcode" class="form-control input-sm" readonly>
-                            </div>
                              <div class="form-group">
                                 <label for="">Judul</label>
                                 <input type="text" name="title" value="{{$val['title']}}" id="title" class="form-control input-sm" required>
@@ -136,9 +143,17 @@
                             <div class="form-group">
                                 <label for="">Gambar</label>
                                 <input type="file" id="inputimage1" name="gambar1" class="validate" multiple required>
-                                <input type="hidden" name="gambar_" value="{{$val['img']}}" class="validate" multiple required>
+                                {{-- <input type="hidden" name="gambar_" value="{{$val['img']}}" class="validate" multiple required> --}}
                                 <div class="input-field col s6">
-                                    <img src="data:image/jpeg;base64,{{ $val['img']}}" id="image-preview1" style="max-width:200px;max-height:200px;" />
+                                    {{-- <img src="{{ $val['img']}}" id="image-preview1" style="max-width:200px;max-height:200px;" /> --}}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Gambar atau Video</label>
+                                <input type="file" id="inputmeida1" name="media1" class="validate" multiple required>
+                                {{-- <input type="hidden" name="gambar_" value="{{$val['img']}}" class="validate" multiple required> --}}
+                                <div class="input-field col s6">
+                                    {{-- <img src="{{ $val['img']}}" id="media-preview1" style="max-width:200px;max-height:200px;" /> --}}
                                 </div>
                             </div>
                         </div>
@@ -169,6 +184,9 @@
 
         init_datepicker();
         readURL();
+        readURL1();
+        readURL2();
+        readURL3();
 
         function init_datepicker() {
             $('#date').datepicker({
@@ -178,11 +196,9 @@
         };
     });
 
-    function readURL(input) {
-
+    function readURL(input){
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
+          var reader = new FileReader();
             reader.onload = function (e) {
                 $('#image-preview').attr('src', e.target.result);
             }
@@ -193,12 +209,10 @@
         readURL(this);
     });
 
-    function readURL1(input) {
-
+    function readURL1(input){
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
-            reader.onload = function (e) {
+            reader.onload = function (e){
                 $('#image-preview1').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
@@ -206,6 +220,32 @@
     }
     $("#inputimage1").change(function(){
         readURL1(this);
+    });
+
+    function readUR2L(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#media-preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputmedia").change(function(){
+        readURL2(this);
+    });
+
+    function readURL3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#media-preview1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#inputmedia1").change(function(){
+        readURL3(this);
     });
 
 

@@ -34,7 +34,6 @@ class BiayaController extends Controller
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->get();
-        // return $databiaya;
         $listdatabiaya   = $databiaya['values'];
         $list_biaya      = collect($listdatabiaya)->pluck('akunname','gtcode');
 
@@ -80,7 +79,7 @@ class BiayaController extends Controller
     {
         $token       = Session::get('token');
 
-        $jadwal      =  $request->input('jadwal');
+        $jadwal      =  $request->input('gttop');
         $akunname    =  $request->input('akunname');
         $akuntype    =  $request->input('akuntype');
         $nominal     =  $request->input('nominal');
@@ -96,8 +95,7 @@ class BiayaController extends Controller
         $value    = ['gttop'              => $jadwal,
                      'transaction_date'   => $request->input('date'),
                      'biaya'              => $resultData,
-                     ];
-        $value;
+                    ];
         $response = Curl::to('http://128.199.161.172:8112/transaksi-biaya/add')
                     ->withData([
                     "kind"      => "add#biaya",
@@ -124,17 +122,6 @@ class BiayaController extends Controller
 
         return redirect()->route('biaya.index');
     }
-
-    // public function view(Request $request) {
-    //
-    //     $response = Curl::to('128.199.161.172:8112/akun-biaya/bycode/'.$value)
-    //        ->withHeader('Authorization:'.$token)
-    //        ->asJson(true)
-    //        ->get();
-    //        $biaya[] = $response['values'];
-    //
-    //     return view('Biaya/biaya',compact('data','total','total_page'));
-    // }
 
     public function destroy($gttop,$gtcode)
     {

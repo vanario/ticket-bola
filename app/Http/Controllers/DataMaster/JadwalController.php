@@ -14,29 +14,28 @@ use Storage;
 
 
 class JadwalController extends Controller
-{   
+{
     public function index(Request $request)
-    {   
-        $token = Session::get('token'); 
+    {
+        $token = Session::get('token');
 
         $response = Curl::to('128.199.161.172:9099/getlist')
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
-                    ->get(); 
+                    ->get();
 
         $data     = $response['value'];
-
         // list club
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get();
-                    
+
         $list_data  = $list['value'];
 
 
         $list_club  = collect($list_data)->pluck('name','gtcode');
 
-        //pagination        
+        //pagination
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
         $perPage = 5;
@@ -46,7 +45,7 @@ class JadwalController extends Controller
         return view('DataMaster/Jadwal.jadwal', compact('data','list_club'));
     }
 
-    
+
 
     public function edit($gttop,$gtcode)
     {
@@ -55,14 +54,14 @@ class JadwalController extends Controller
         $response = Curl::to('128.199.161.172:9099/getitemtribun/'.$gttop.'/'.$gtcode)
                     ->asJson(true)
                     ->withHeader('Authorization:'.$token)
-                    ->get(); 
+                    ->get();
 
         $data     = $response['value'];
 
         //list data club for dropdown
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
-                    ->get();       
+                    ->get();
 
         $list_data  = $list['value'];
 
@@ -78,21 +77,18 @@ class JadwalController extends Controller
 
         $response = Curl::to('128.199.161.172:9099/additem')
                     ->withData([
-                    "gttop"     => $request->input('gttopstadion'), 
+                    "gttop"     => $request->input('gttopstadion'),
                     "namehome"  => $request->input('namehome'),
                     "nameaway"  => $request->input('nameaway'),
                     "jam"       => $request->input('jam'),
                     "date"      => $request->input('date'),
                     "stadion"   => $request->input('stadion'),
-                    "kota"      => $request->input('kota'),                    
+                    "kota"      => $request->input('kota'),
                     "event"     => $request->input('event'),
                     ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)
                     ->post();
-
-        // return $response;
-        
 
         $gtcodetrib = "";
         if ($response['value']['gtcode']) {
@@ -103,21 +99,21 @@ class JadwalController extends Controller
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get();
-                    
+
         $list_data  = $list['value'];
 
 
         $list_club  = collect($list_data)->pluck('name','gtcode');
 
         if ($response['rescode'] == "201") {
-            
+
             $message = "Data Berhasil Ditambahkan";
             alert()->success('');
             Alert::success($message,'Sukses')->autoclose(4000);
         }
 
         else {
-            
+
             $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
             Alert::message($message)->autoclose(4000);
         }
@@ -127,46 +123,46 @@ class JadwalController extends Controller
 
     public function update(Request $request)
     {
-        $token = Session::get('token');        
+        $token = Session::get('token');
         // return $token;
-        
+
             $response = Curl::to('128.199.161.172:9099/edititem/')
                         ->withData([
-                        "gttop"     => $request->input('gttopstadion'), 
-                        "gtcode"    => $request->input('gtcode'), 
+                        "gttop"     => $request->input('gttopstadion'),
+                        "gtcode"    => $request->input('gtcode'),
                         "namehome"  => $request->input('namehome'),
                         "nameaway"  => $request->input('nameaway'),
                         "jam"       => $request->input('jam'),
                         "date"      => $request->input('date'),
                         "stadion"   => $request->input('stadion'),
-                        "kota"      => $request->input('kota'),                    
+                        "kota"      => $request->input('kota'),
                         "event"     => $request->input('event'),
                         ])
                         ->withHeader('Authorization:'.$token)
                         ->asJson(true)
                         ->post();
             if ($response['rescode'] == "200") {
-                
+
                 $message = "Data Berhasil Diubah";
                 alert()->success('');
                 Alert::success($message,'Sukses')->autoclose(4000);
             }
 
             else {
-                
+
                 $message = "Kode Item sudah tersedia, Anda tidak bisa menambahkan data dengan kode yang sama";
                 Alert::message($message)->autoclose(4000);
             }
 
             return redirect()->route('jadwal.index');
             }
-        
+
 
     public function destroy($gttoptrib,$gtcodetrib)
-    {  
-        $token = Session::get('token'); 
+    {
+        $token = Session::get('token');
 
-        $response = Curl::to('128.199.161.172:9099/deleteitem/'.$gttoptrib.'/'.$gtcodetrib)                     
+        $response = Curl::to('128.199.161.172:9099/deleteitem/'.$gttoptrib.'/'.$gtcodetrib)
                     ->withHeader('Authorization:'.$token)
                     ->delete();
 
