@@ -102,7 +102,7 @@
                                       <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Transaksi</a>
                                     </h4>
                                   </div>
-                                    <div id="collapse1" class="panel-collapse collapse">
+                                  <div id="collapse1" class="panel-collapse collapse">
                                   <?php $no = 0;?>
                                   @if($listdatabiaya != null)
                                   @foreach($listdatabiaya as $val)
@@ -141,7 +141,7 @@
                                     </script>
                                   @endforeach
                                   @endif
-                                </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>

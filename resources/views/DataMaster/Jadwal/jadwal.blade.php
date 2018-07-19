@@ -106,6 +106,62 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                              <div class="panel-group" id="accordion">
+                                <div class="panel-group" id="accordion">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Transaksi</a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse">
+                                      <?php $no = 0;?>
+                                      @if($listDataTribun != null)
+                                      @foreach($listDataTribun as $val)
+                                      <?php $no++ ;?>
+                                        <table  id="wrapper{{$no}}" class="table table-striped">
+                                          <tr>
+                                            <th>
+                                              <input type="hidden" name="gttop[]" id="gttop[]" value="{{$val['gttop']}}" class="form-control input-sm" required>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <input type="hidden" name="gtcode[]" id="gtcode[]" value="{{$val['gtcode']}}" class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <label for="">Harga</label>
+                                              <input type="text" name="harga[]" id="harga[]"  class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <label for="">Jumlah</label>
+                                              <input type="text" name="jumlah[]" id="jumlah[]"  class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <a href="javascript:void(0);" class="btn btn-red" style="margin-top: 23px;" title="Hapus field">Hapus</a>
+                                            </th>
+                                          </tr>
+                                        </table>
+                                        <script type="text/javascript">
+                                          $(document).ready(function(){
+                                              $("#wrapper{{$no}}").on('click', '.btn-red', function(e){ //Once remove button is clicked
+                                                  e.preventDefault();
+                                                  $("#wrapper{{$no}}").remove(); //Remove field html
+                                              });
+                                          });
+                                        </script>
+                                      @endforeach
+                                      @endif
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                           <div>
@@ -125,7 +181,7 @@
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="PATCH">
                         <div class="modal-header">
-                            <h4>Tambah Jadwal</h4>
+                            <h4>Edit Jadwal</h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -179,6 +235,62 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                              <div class="panel-group" id="accordion2">
+                                <div class="panel-group" id="accordion2">
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2">Transaksi</a>
+                                      </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                      <?php $no = 0;?>
+                                      @if($val['tribun'] != null)
+                                      @foreach($val['tribun'] as $value)
+                                      <?php $no++ ;?>
+                                        <table  id="wrapper{{$no}}" class="table table-striped">
+                                          <tr>
+                                            <th>
+                                              <input type="hidden" name="gttop[]" id="gttop[]" value="{{$val['gttop']}}" class="form-control input-sm" required>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <input type="hidden" name="gtcode[]" id="gtcode[]" value="{{$val['gtcode']}}" class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <label for="">Harga</label>
+                                              <input type="text" value="{{ $value['price'] }}" name="harga[]" id="harga[]"  class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <div class="form-group">
+                                              <label for="">Jumlah</label>
+                                              <input type="text" value="{{ $value['quota'] }} "name="jumlah[]" id="jumlah[]"  class="form-control input-sm" required>
+                                              </div>
+                                            </th>
+                                            <th>
+                                              <a href="javascript:void(0);" class="btn btn-red" style="margin-top: 23px;" title="Hapus field">Hapus</a>
+                                            </th>
+                                          </tr>
+                                        </table>
+                                        <script type="text/javascript">
+                                          $(document).ready(function(){
+                                              $("#wrapper{{$no}}").on('click', '.btn-red', function(e){ //Once remove button is clicked
+                                                  e.preventDefault();
+                                                  $("#wrapper{{$no}}").remove(); //Remove field html
+                                              });
+                                          });
+                                        </script>
+                                      @endforeach
+                                      @endif
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="modal-footer">

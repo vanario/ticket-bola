@@ -25,16 +25,21 @@ class JadwalController extends Controller
                     ->get();
 
         $data     = $response['value'];
+
         // list club
         $list       = Curl::to('128.199.161.172:8091/getbygttop/TB')
                     ->asJson(true)
                     ->get();
-
         $list_data  = $list['value'];
-
-
         $list_club  = collect($list_data)->pluck('name','gtcode');
 
+        //list data tribun
+        $dataTribun     = Curl::to('http://128.199.161.172:8113/getalltribun')
+                        ->withHeader('Authorization:'.$token)
+                        ->asJson(true)
+                        ->get();
+
+        $listDataTribun = $dataTribun['value'];
         //pagination
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $col = collect($data);
@@ -42,7 +47,7 @@ class JadwalController extends Controller
         $currentPageSearchResults = $col->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $data = new LengthAwarePaginator($currentPageSearchResults, count($col), $perPage, $currentPage,['path' => LengthAwarePaginator::resolveCurrentPath()] );
 
-        return view('DataMaster/Jadwal.jadwal', compact('data','list_club'));
+        return view('DataMaster/Jadwal.jadwal', compact('data','list_club', 'listDataTribun'));
     }
 
 
@@ -75,6 +80,24 @@ class JadwalController extends Controller
     {
         $token = Session::get('token');
 
+        $gttop       =  $request->input('gttop');
+        $gtcode      =  $request->input('gtcode');
+        $jumlah      =  $request->input('jumlah');
+        $harga       =  $request->input('harga');
+
+        for ($i=0; $i < count($jumlah); $i++) {
+            $data = array();
+            $data['roottrib']    = $gttop[$i];
+            $data['nodetrib']    = $gtcode[$i];
+            $data['quota']       = (int)$harga[$i];
+            $data['price']       = (int)$jumlah[$i];
+
+            $resultData[] = $data;
+        }
+
+
+       
+
         $response = Curl::to('128.199.161.172:9099/additem')
                     ->withData([
                     "gttop"     => $request->input('gttopstadion'),
@@ -85,6 +108,7 @@ class JadwalController extends Controller
                     "stadion"   => $request->input('stadion'),
                     "kota"      => $request->input('kota'),
                     "event"     => $request->input('event'),
+                    "tribun"    => $resultData,
                     ])
                     ->withHeader('Authorization:'.$token)
                     ->asJson(true)

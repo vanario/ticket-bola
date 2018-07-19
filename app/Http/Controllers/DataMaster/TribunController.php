@@ -26,7 +26,7 @@ class TribunController extends Controller
                     ->get();
 
         $data     = $response['value'];
-        // return $data;
+
         // get stadion
         $response = Curl::to('128.199.161.172:8103/getliststadion/TB')
                     ->asJson(true)
@@ -155,6 +155,7 @@ class TribunController extends Controller
             $nomor_pertama_depan  = $request->input('nomor_pertama_depan') ;
             $nomor_terakhir_depan = $request->input('nomor_terakhir_depan') ;
 
+            return $prefixdepan;
             for ($i=0; $i < count($prefixdepan); $i++) {
                 $data = array();
                 $data['firs_number']    = (int)$nomor_pertama_depan[$i];
